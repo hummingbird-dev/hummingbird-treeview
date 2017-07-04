@@ -232,7 +232,12 @@
 		} else {
 		    var OnlyFinalInstance = false;
 		}
-		$.fn.hummingbird.search($(this),treeview_container,search_input,search_output,search_button,dialog,enter_key_1,enter_key_2,options.collapsedSymbol,options.expandedSymbol,scrollOffset,OnlyFinalInstance);
+		if (typeof args[1].EnterKey !== 'undefined') {
+		    var EnterKey = args[1].EnterKey;
+		} else {
+		    var EnterKey = true;
+		}
+		$.fn.hummingbird.search($(this),treeview_container,search_input,search_output,search_button,dialog,enter_key_1,enter_key_2,options.collapsedSymbol,options.expandedSymbol,scrollOffset,OnlyFinalInstance,EnterKey);
 	    });
 	}
     };
@@ -245,7 +250,7 @@
 	collapseAll: true,
 	checkboxes: "enabled",
 	checkDoubles: false,
-	checkDisabled: false
+	checkDisabled: false,
     };
 
     //global vars
@@ -502,16 +507,19 @@
 
 
     //----------------------------search--------------------------------------//
-    $.fn.hummingbird.search = function(tree,treeview_container,search_input,search_output,search_button,dialog,enter_key_1,enter_key_2,collapsedSymbol,expandedSymbol,scrollOffset,OnlyFinalInstance) {
+    $.fn.hummingbird.search = function(tree,treeview_container,search_input,search_output,search_button,dialog,enter_key_1,enter_key_2,collapsedSymbol,expandedSymbol,scrollOffset,OnlyFinalInstance,EnterKey) {
+
 	//trigger search on enter key 
-	$(document).keyup(function(e) {
-	    if (e.which == 13) {
-		//console.log("current_page= " + enter_key_2)
-		if (enter_key_1 == enter_key_2) {
-		    $(dialog + " #" + search_button).trigger("click");
+	if (EnterKey == true) {
+	    $(document).keyup(function(e) {
+		if (e.which == 13) {
+		    //console.log("current_page= " + enter_key_2)
+		    if (enter_key_1 == enter_key_2) {
+			$(dialog + " #" + search_button).trigger("click");
+		    }
 		}
-	    }
-	});
+	    });
+	}
 	var first_search = true;
 	var this_var_checkbox = {};
 	//hide dropdown search list
