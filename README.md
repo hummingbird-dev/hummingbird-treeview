@@ -93,6 +93,57 @@ Create treeview structure/data:
 	    </li>
 	</ul>
     </div>
+<br>
+It must be adhered to this HTML format.
+Only change the following:
+<h3>Treeview structure and node properties</h3>
+<ul>
+<li><b>div id</b><br>
+The <i>&#60;div id="treeview_container"</i>
+... can be chosen arbitrarily, but of course
+must be referred to consistently.</li>
+<li><b>ul id</b><br>
+The <i>&#60;ul id="treeview"</i> ... can be chosen.</li>
+<li><b>input id' and data-id's</b><br>
+The input id's and data-id's
+e.g. <i>&#60;input id="xnode-0"
+data-id="custom-0"</i> ... can be set. The
+data-id can be any text. It is important
+for the support of multi-double
+nodes. That means you can have
+multi-double nodes with similar data-id's
+but different id's. Thus every node can be
+addressed via the unique id. And all
+copies of a node including itself can be
+addressed via the common data-id.</li>
+<li><b>input class="hummingbirdNoParent"</b><br>
+Add this to every node, which is not a
+parent, i.e. which has no children or
+nodes below.</li>
+</ul>
+Do not change the "fa fa-plus", do this via the options (see below).
+<br>
+Change <b>font-size</b>, <b>line-height</b>, checkbox <b>width</b> and <b>height</b> directly
+in the hummingbird-treeview.css.<br>
+<br>
+Set options, e.g.:
+
+    $.fn.hummingbird.defaults.collapsedSymbol= "fa-arrow-circle-o-right";
+    $.fn.hummingbird.defaults.expandedSymbol= "fa-arrow-circle-o-down";
+    $.fn.hummingbird.defaults.checkDoubles= true; 
+    $.fn.hummingbird.defaults.checkDisabled= true;
+    ...
+
+<br>
+Initialize hummingbird-treeview:
+
+    $("#treeview").hummingbird();
+
+<br>
+Congratulations, you are done, your HTML list has now treeview functionality.
+<br>
+<br>
+<br>
 
 
 
