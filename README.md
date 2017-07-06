@@ -27,8 +27,9 @@ A tiny and fast jQuery treeview plugin
 ![alt text](./hummingbird-treeview.png "hummingbird-treeview example")
 
 
-<h2>Getting started</h2>
-<h3>Usage</h3>
+## Getting started
+### Usage
+
 Add the following resources for the hummingbird-treeview to function correctly:
 
 ```html
@@ -43,7 +44,6 @@ Add the following resources for the hummingbird-treeview to function correctly:
 
 ```
 
-<br>
 Bind the hummingbird-treeview to a scrollable DOM element:
 
 ```html
@@ -54,7 +54,6 @@ Bind the hummingbird-treeview to a scrollable DOM element:
 
 ```
 
-<br>
 Create treeview structure/data:	
 
 ```html
@@ -110,7 +109,6 @@ Create treeview structure/data:
 
 ```
 
-<br>
 It must be adhered to this HTML format.
 Only change the following:
 <h3>Treeview structure and node properties</h3>
