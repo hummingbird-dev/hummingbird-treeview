@@ -109,14 +109,12 @@ Create treeview structure/data:
 
 ```
 
-It must be adhered to this HTML format.
 Only change the following:
-<h3>Treeview structure and node properties</h3>
-<ul>
-<li><b>div id</b><br>
-The <i>&#60;div id="treeview_container"</i>
-... can be chosen arbitrarily, but of course
-must be referred to consistently.</li>
+### Treeview structure and node properties
+
+- **div id**
+  The `<div id="treeview_container" ...` can be chosen arbitrarily, but of course must be referred to consistently.
+  
 <li><b>ul id</b><br>
 The <i>&#60;ul id="treeview"</i> ... can be chosen.</li>
 <li><b>input id' and data-id's</b><br>
