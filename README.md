@@ -379,7 +379,7 @@ var L = List.length;
 
 ```
 
-- **search(treeview_container,search_input,search_output,search_button,{scrollOffset,OnlyFinalInstance,dialog,EnterKey,enter_key_1,enter_key_2})**<br>
+- **search(treeview_container,search_input,search_output,search_button,{scrollOffset, OnlyFinalInstance, dialog, EnterKey, enter_key_1, enter_key_2})**<br>
   If the treeview is embedded in a
   scrollable (css option: overflow-y:
   scroll;) container, this container must be
@@ -419,13 +419,15 @@ var L = List.length;
 
 ```javascript
 
-$("#treeview").hummingbird("search",{treeview_container:"treeview_container",search_input:"search_input",search_output:"search_output",search_button:"search_button",scrollOffset:-515,OnlyFinalInstance:false});
+$("#treeview").hummingbird("search",{treeview_container:"treeview_container", search_input:"search_input", search_output:"search_output", search_button:"search_button", scrollOffset:-515, OnlyFinalInstance:false});
 
 ```
 
   As an example, the search functionality is here
   implemented using <a href="http://getbootstrap.com/">Bootstrap</a>. Other implementation are possible.
 
+  HTML:
+  
 ```html
 
 <div class="dropdown">
@@ -442,6 +444,8 @@ $("#treeview").hummingbird("search",{treeview_container:"treeview_container",sea
 </div>
 
 ```
+
+  CSS:
 
 ```css
 
