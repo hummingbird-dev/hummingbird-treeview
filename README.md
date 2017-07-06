@@ -471,6 +471,47 @@ $("#treeview").hummingbird("search",{treeview_container:"treeview_container", se
 ```
 
 
+## Events
+Events are fired on changes of the treeview state so that your application can respond:
+
+- **nodeChecked**<br>
+  This event is fired if a node has been checked and can be catched like this:
+
+```javascript
+
+$("#treeview").on("nodeChecked", function(){
+   do something ...
+});
+
+```
+
+- **nodeUnchecked**<br>
+  This event is fired if a node has been unchecked and can be catched like this:
+
+```javascript
+
+$("#treeview").on("nodeUnchecked", function(){
+   do something ...
+});
+
+```
+
+- **CheckUncheckDone**<br>
+  This event is fired if a node has been
+  checked or unchecked and all treeview
+  functionality is completed. This comprises
+  checking / unchecking parents, children,
+  checking for doubles and disabled etc.
+
+```javascript
+
+$("#treeview").on("CheckUncheckDone", function(){
+   do something ...
+});
+
+```
+
+
 
 
 
