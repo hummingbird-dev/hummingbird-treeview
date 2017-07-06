@@ -147,10 +147,8 @@ $.fn.hummingbird.defaults.checkDoubles= true;
 $.fn.hummingbird.defaults.checkDisabled= true;
 ...
 
-
 ```    
 
-<br>
 Initialize hummingbird-treeview:
 
 ```javascript
@@ -159,39 +157,46 @@ $("#treeview").hummingbird();
 
 ```
 
-<br>
 Congratulations, you are done, your HTML list has now treeview functionality.
-<br>
-<br>
-<br>
 
-<h2>Options</h2>
+
+
+## Options
 As you have seen above, options can be adjusted by calling
-<pre><code>
+
+```javascript
+
 $.fn.hummingbird.defaults.option= value;
-</code></pre>
+
+```
+
 Following options are available:
-<ul>
-<li><b>collapsedSymbol</b><br>
-Default="fa-plus". This can be any icon
-from the <a href="http://fontawesome.io/icons/">Font Awesome</a> icons.</li>
-<li><b>expandedSymbol</b><br>
-Default="fa-minus". This can be any icon
-from the <a href="http://fontawesome.io/icons/">Font Awesome</a> icons.</li>
-<li><b>collapseAll</b><br>
-Default="true". On initialization, all
-nodes are collapsed. Change this to false to expand the nodes on initialisation.</li>
-<li><b>checkboxes</b><br>
-Default="enabled". Checkboxes are used per
-default. Set this to "disabled" to get a
-treeview without checkboxes.</li>
-<li><b>checkDoubles</b><br>
-Default="false". Set this to "true" to enable the functionality to account for multi-doubles.</li>
-<li><b>checkDisabled</b><br>
-Default="false". Set this to "true" to enable the functionality to account for disabled nodes.</li>		
-</ul>
-<br>
-<h2>Methods</h2>
+
+- **collapsedSymbol**<br>
+  Default="fa-plus". This can be any icon
+  from the <a href="http://fontawesome.io/icons/">Font Awesome</a> icons.
+
+- **expandedSymbol**<br>
+  Default="fa-minus". This can be any icon
+  from the <a href="http://fontawesome.io/icons/">Font Awesome</a> icons.
+
+- **collapseAll**<br>
+  Default="true". On initialization, all
+  nodes are collapsed. Change this to false to expand the nodes on initialisation.
+
+- **checkboxes**<br>
+  Default="enabled". Checkboxes are used per
+  default. Set this to "disabled" to get a
+  treeview without checkboxes.
+  
+- **checkDoubles**<br>
+  Default="false". Set this to "true" to enable the functionality to account for multi-doubles.
+
+- **checkDisabled**<br>
+  Default="false". Set this to "true" to enable the functionality to account for disabled nodes.</li>		
+
+
+## Methods
 Methods are used to interact with the treeview programmatically. Following methods are available:
 
 - **checkAll()**<br>
