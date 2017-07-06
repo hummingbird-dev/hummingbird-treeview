@@ -128,11 +128,13 @@ in the hummingbird-treeview.css.<br>
 <br>
 Set options, e.g.:
 ```javascript
-    $.fn.hummingbird.defaults.collapsedSymbol= "fa-arrow-circle-o-right";
-    $.fn.hummingbird.defaults.expandedSymbol= "fa-arrow-circle-o-down";
-    $.fn.hummingbird.defaults.checkDoubles= true; 
-    $.fn.hummingbird.defaults.checkDisabled= true;
-    ...
+
+$.fn.hummingbird.defaults.collapsedSymbol= "fa-arrow-circle-o-right";
+$.fn.hummingbird.defaults.expandedSymbol= "fa-arrow-circle-o-down";
+$.fn.hummingbird.defaults.checkDoubles= true; 
+$.fn.hummingbird.defaults.checkDisabled= true;
+...
+
 ```    
 
 <br>
