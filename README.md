@@ -173,27 +173,27 @@ $.fn.hummingbird.defaults.option= value;
 Following options are available:
 
 - **collapsedSymbol**<br>
-  Default="fa-plus". This can be any icon
+  String, default="fa-plus". This can be any icon
   from the <a href="http://fontawesome.io/icons/">Font Awesome</a> icons.
 
 - **expandedSymbol**<br>
-  Default="fa-minus". This can be any icon
+  String, default="fa-minus". This can be any icon
   from the <a href="http://fontawesome.io/icons/">Font Awesome</a> icons.
 
 - **collapseAll**<br>
-  Default="true". On initialization, all
+  Boolean, default=true. On initialization, all
   nodes are collapsed. Change this to false to expand the nodes on initialisation.
 
 - **checkboxes**<br>
-  Default="enabled". Checkboxes are used per
+  String, default="enabled". Checkboxes are used per
   default. Set this to "disabled" to get a
   treeview without checkboxes.
   
 - **checkDoubles**<br>
-  Default="false". Set this to "true" to enable the functionality to account for multi-doubles.
+  Boolean, default=false. Set this to true to enable the functionality to account for multi-doubles.
 
 - **checkDisabled**<br>
-  Default="false". Set this to "true" to enable the functionality to account for disabled nodes.</li>		
+  Boolean, default=false. Set this to true to enable the functionality to account for disabled nodes.
 
 
 ## Methods
@@ -216,6 +216,169 @@ $("#treeview").hummingbird("checkAll");
 $("#treeview").hummingbird("uncheckAll");
 
 ```
+
+- **collapseAll()**<br>
+  Collapses all nodes.
+
+```javascript
+
+$("#treeview").hummingbird("collapseAll");
+
+```
+
+- **expandAll()**<br>
+  Expands all nodes.
+
+```javascript
+
+$("#treeview").hummingbird("expandAll");
+
+```
+
+- **checkNode(attr,name,{expandParents})**<br>
+  Checks a node, which is identified by its
+  id or data-id, which has to be defined in
+  the attr parameter. The name parameter
+  holds the name of the id or data-id. Set
+  optionally expandParents to true, if the
+  parents of this node should be expanded on
+  checking. Default of expandParents is
+  false.
+
+```javascript
+
+$("#treeview").hummingbird("checkNode",{attr:"id",name: "node-0-1-1-2",expandParents:false});
+
+```
+
+- **uncheckNode(attr,name,{collapseChildren})**<br>
+  Unchecks a node, which is identified by its
+  id or data-id, which has to be defined in
+  the attr parameter. The name parameter
+  holds the name of the id or data-id. Set
+  optionally collapseChildren to true, if the
+  children of this node should be collapsed on
+  unchecking. Default of collapseChildren is
+  false.
+
+```javascript
+
+$("#treeview").hummingbird("checkNode",{attr:"id",name: "node-0-1-1-2",collapseChildren:false});
+
+```
+
+- **expandNode(attr,name,{expandParents})**<br>
+  Expands a node, which is identified by its
+  id or data-id, which has to be defined in
+  the attr parameter. The name parameter
+  holds the name of the id or data-id. Set
+  optionally expandParents to true, if the
+  parents of this node should be
+  expanded. Default of expandParents is
+  false.
+
+```javascript
+
+$("#treeview").hummingbird("expandNode",{attr:"id",name: "node-0-1-1-2",expandParents:true});
+
+```
+
+- **collapseNode(attr,name,{collapseChildren})**<br>
+  Collapses a node, which is identified by its
+  id or data-id, which has to be defined in
+  the attr parameter. The name parameter
+  holds the name of the id or data-id. Set
+  optionally collapseChildren to true, if the
+  children of this node should be
+  collapsed. Default of collapseChildren is
+  false.
+
+```javascript
+
+$("#treeview").hummingbird("collapseNode",{attr:"id",name: "node-0-1-1-2",collapseChildren:true});
+
+```
+
+- **disableNode(attr,name,state)**<br>
+  Disables a node, which is identified by
+  its id or data-id, which has to be defined
+  in the attr parameter. The name parameter
+  holds the name of the id or data-id.  Set
+  state to true if the node should be
+  disabled and checked, set it to false if
+  the node should be disabled and unchecked.
+
+```javascript
+
+$("#treeview").hummingbird("disableNode",{attr:"id",name: "node-0-1-1-2",state:true});
+
+```
+
+- **enableNode(attr,name,state)**<br>
+  Enables a former disabled node, which is identified by
+  its id or data-id, which has to be defined
+  in the attr parameter. The name parameter
+  holds the name of the id or data-id.  Set
+  state to true if the node should be
+  enabled and checked, set it to false if
+  the node should be enabled and unchecked.
+
+```javascript
+
+$("#treeview").hummingbird("enableNode",{attr:"id",name: "node-0-1-1-2",state:false});
+
+```
+
+- **getChecked(attr,List,{OnlyFinalInstance})**<br>
+  Get checked nodes. Retrieve the id or
+  data-id, which is defined via the attr
+  parameter. Set OnlyFinalInstance to true
+  if you want to retrieve only that nodes
+  identified by class="hummingbirdNoParent",
+  i.e. those nodes without children, so to
+  speak the last instance. Default is false,
+  which means that all checked nodes are retrieved.
+  Define an array, e.g. List, for the output
+  of this method. Finally this List array
+  can be bound to a DOM element and it is
+  also straight forward to do other stuff
+  with that array, e.g. retrieving the
+  length of it.
+
+```javascript
+
+var List = [];
+$("#treeview").hummingbird("getChecked",{attr:"id",list:List,OnlyFinalInstance:true});
+$("#displayItems").html(List.join("&#60;br&#62;"));
+var L = List.length;
+
+```
+
+- **getUnchecked(attr,List,{OnlyFinalInstance})**<br>
+  Get unchecked nodes. Retrieve the id or
+  data-id, which is defined via the attr
+  parameter. Set OnlyFinalInstance to true
+  if you want to retrieve only that nodes
+  identified by class="hummingbirdNoParent",
+  i.e. those nodes without children, so to
+  speak the last instance. Default is false,
+  which means that all unchecked nodes are retrieved.
+  Define an array, e.g. List, for the output
+  of this method. Finally this List array
+  can be bound to a DOM element and it is
+  also straight forward to do other stuff
+  with that array, e.g. retrieving the
+  length of it.
+
+```javascript
+
+var List = [];
+$("#treeview").hummingbird("getUnchecked",{attr:"id",list:List,OnlyFinalInstance:true});
+$("#displayItems").html(List.join("&#60;br&#62;"));
+var L = List.length;
+
+```
+
 
 
 
