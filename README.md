@@ -44,11 +44,18 @@ Add the following resources for the hummingbird-treeview to function correctly:
 <br>
 Bind the hummingbird-treeview to a scrollable DOM element:
 
+```html
+
      <div id="treeview_container" class="hummingbird-treeview" style="height: 230px; overflow-y: scroll;">
      <!-- treeview structure/data here -->
      <div>
+
+```html
+
 <br>
 Create treeview structure/data:	
+
+```html
 
     <div id="treeview_container" class="hummingbird-treeview" style="height: 230px; overflow-y: scroll;">
 	<ul id="treeview">
@@ -98,6 +105,9 @@ Create treeview structure/data:
 	    </li>
 	</ul>
     </div>
+
+```
+
 <br>
 It must be adhered to this HTML format.
 Only change the following:
