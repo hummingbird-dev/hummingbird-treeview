@@ -4,7 +4,6 @@ A tiny and fast jQuery treeview plugin
 Documentation will be available soon.
 
 <h2>Features</h2>
-<hr>
 <ul>
 <li>Display hierarchical tree structures.</li>
 <li>Based on simple HTML lists.</li>
@@ -18,3 +17,11 @@ Documentation will be available soon.
 <li>Search function.</li>
 </ul>
 
+<h2>Dependencies</h2>
+<ul>
+<li>jQuery v3.1.1 or newer</li>
+<li>font-awesome v4.7.0 or newer</li>
+</ul>
+
+<h2>Example</h2>
+<img src="hummingbird-treeview.png"/>
