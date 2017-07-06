@@ -50,7 +50,7 @@ Bind the hummingbird-treeview to a scrollable DOM element:
      <!-- treeview structure/data here -->
      <div>
 
-```html
+```
 
 <br>
 Create treeview structure/data:	
@@ -151,12 +151,17 @@ $.fn.hummingbird.defaults.checkDoubles= true;
 $.fn.hummingbird.defaults.checkDisabled= true;
 ...
 
+
 ```    
 
 <br>
 Initialize hummingbird-treeview:
 
-    $("#treeview").hummingbird();
+```javascript
+
+$("#treeview").hummingbird();
+
+```
 
 <br>
 Congratulations, you are done, your HTML list has now treeview functionality.
