@@ -24,7 +24,8 @@ A tiny and fast jQuery treeview plugin
 
 ## Example
 
-./hummingbird-treeview.png
+[hummingbird-treeview example](./hummingbird-treeview.png)
+
 
 <h2>Getting started</h2>
 <h3>Usage</h3>
