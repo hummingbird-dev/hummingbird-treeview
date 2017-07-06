@@ -1,7 +1,6 @@
 # hummingbird-treeview
 A tiny and fast jQuery treeview plugin
 
-Documentation will be available soon.
 
 <h2>Features</h2>
 <ul>
@@ -25,3 +24,24 @@ Documentation will be available soon.
 
 <h2>Example</h2>
 <img src="hummingbird-treeview.png"/>
+
+<h2>Getting started</h2>
+<h3>Usage</h3>
+Add the following resources for the hummingbird-treeview to function correctly:
+<code>
+&#60;!-- Required Stylesheets --&#62;
+&#60;link href="/path/to/font-awesome.css" rel="stylesheet"&#62;
+&#60;link href="/path/to/hummingbird-treeview.css" rel="stylesheet"&#62;
+
+&#60;!-- Required Javascript --&#62;
+&#60;script src="/path/to/jquery.js"&#62;&#60;/script&#62;
+&#60;script src="/path/to/hummingbird-treeview.js"&#62;&#60;/script&#62;
+</code>
+<br>
+Bind the hummingbird-treeview to a scrollable DOM element:
+<code>
+&#60;div id="treeview_container" class="hummingbird-treeview" style="height: 230px; overflow-y: scroll;"&#62;
+&#60;!-- treeview structure/data here --&#62;
+&#60;div&#62;
+</code>
+<br>
