@@ -29,6 +29,8 @@ A tiny and fast jQuery treeview plugin
 <h3>Usage</h3>
 Add the following resources for the hummingbird-treeview to function correctly:
 
+```html
+	
     <!-- Required Stylesheets -->
     <link href="/path/to/font-awesome.css" rel="stylesheet">
     <link href="/path/to/hummingbird-treeview.css" rel="stylesheet">
@@ -36,6 +38,9 @@ Add the following resources for the hummingbird-treeview to function correctly:
     <!-- Required Javascript -->
     <script src="/path/to/jquery.js"></script>
     <script src="/path/to/hummingbird-treeview.js"></script>
+
+```
+
 <br>
 Bind the hummingbird-treeview to a scrollable DOM element:
 
