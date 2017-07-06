@@ -379,6 +379,93 @@ var L = List.length;
 
 ```
 
+- **search(treeview_container,search_input,search_output,search_button,{scrollOffset,OnlyFinalInstance,dialog,EnterKey,enter_key_1,enter_key_2})**<br>
+  If the treeview is embedded in a
+  scrollable (css option: overflow-y:
+  scroll;) container, this container must be
+  identified here as the treeview_container
+  (using the id). Otherwise
+  treeview_container should be set to
+  "body". The search_input parameter depicts
+  the id of the input element for the search
+  function. The search_output defines an
+  element to bind the search results on
+  (like the ul in the example below). The search_button is
+  simply the button for the search. A
+  scrollOffset in pixels (negative or
+  positive) can be defined to adjust the
+  automatic scoll position. The best value
+  must be observed by
+  testing. OnlyFinalInstance is per default
+  false, thus set this to true if the search
+  should include also parent nodes. The
+  optional parameter dialog is per default
+  empty (""). This parameter can be used for
+  special cases, to bind the treeview to a
+  dynamical created object like a bootstrap
+  modal (pop-up). In such a case this
+  parameter would be
+  dialog:".modal-dialog". Three other
+  optional parameters, EnterKey, enter_key_1
+  and enter_key_2 are available. EnterKey is
+  per default true and can be set to
+  false. If true the search_button can be
+  triggered with the Enter key. To avoid
+  interference of the Enter key
+  functionality it can be restricted and
+  only be executable if enter_key_1 ==
+  enter_key_2. These two parameters can be
+  chosen arbitrarily.
+
+```javascript
+
+$("#treeview").hummingbird("search",{treeview_container:"treeview_container",search_input:"search_input",search_output:"search_output",search_button:"search_button",scrollOffset:-515,OnlyFinalInstance:false});
+
+```
+
+  As an example, the search functionality is here
+  implemented using <a href="http://getbootstrap.com/">Bootstrap</a>. Other implementation are possible.
+
+```html
+
+<div class="dropdown">
+    <div class="input-group stylish-input-group">
+	<input id="search_input" type="text" class="form-control" placeholder="Search" onclick="this.select()">
+	<span class="input-group-addon" style="border-left:0">
+	    <button type="submit" id="search_button">
+		<span class="glyphicon glyphicon-search"></span>
+	    </button>
+	</span>
+	<ul class="dropdown-menu h-scroll" id="search_output">
+	</ul>
+    </div>
+</div>
+
+```
+
+```css
+
+.stylish-input-group .input-group-addon{
+    background: white !important;
+}
+.stylish-input-group .form-control{
+    //border-right:0;
+    box-shadow:0 0 0;
+    border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+.h-scroll {
+    background-color: #fcfdfd;
+    height: 260px; 
+    overflow-y: scroll;
+}
+
+```
+
 
 
 
