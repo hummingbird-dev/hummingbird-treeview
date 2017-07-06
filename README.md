@@ -349,7 +349,7 @@ $("#treeview").hummingbird("enableNode",{attr:"id",name: "node-0-1-1-2",state:fa
 
 var List = [];
 $("#treeview").hummingbird("getChecked",{attr:"id",list:List,OnlyFinalInstance:true});
-$("#displayItems").html(List.join("&#60;br&#62;"));
+$("#displayItems").html(List.join("<br>"));
 var L = List.length;
 
 ```
@@ -374,7 +374,7 @@ var L = List.length;
 
 var List = [];
 $("#treeview").hummingbird("getUnchecked",{attr:"id",list:List,OnlyFinalInstance:true});
-$("#displayItems").html(List.join("&#60;br&#62;"));
+$("#displayItems").html(List.join("<br>"));
 var L = List.length;
 
 ```
