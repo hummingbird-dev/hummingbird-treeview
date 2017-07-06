@@ -200,26 +200,24 @@ Methods are used to interact with the treeview programmatically. Following metho
 		    <ul>
 			<li><b>checkAll()</b><br>
 			    Checks all nodes including full support for disabled nodes.
-			</li>
-			
+
 ```javascript
 
 $("#treeview").hummingbird("checkAll");
 
 ```
 
-
+			</li>
 			<li><b>uncheckAll()</b><br>
 			    Unchecks all nodes including full support for disabled nodes.
-			</li>
-			
+
 ```javascript
 
 $("#treeview").hummingbird("uncheckAll");
 
 ```
 
-
+			</li>
 			<li><b>collapseAll()</b><br>
 			    Collapses all nodes.
 
@@ -250,7 +248,7 @@ $("#treeview").hummingbird("expandAll");
 			    checking. Default of expandParents is
 			    false.<pre><code>
 $("#treeview").hummingbird("checkNode",{attr:"id",name: "node-0-1-1-2",expandParents:false});
-			    </code></pre>
+
 			</li>
 			<li><b>uncheckNode(attr,name,{collapseChildren})</b><br>
 			    Unchecks a node, which is identified by its
