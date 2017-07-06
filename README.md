@@ -112,33 +112,31 @@ Create treeview structure/data:
 Only change the following:
 ### Treeview structure and node properties
 
-- **div id**
-  The `<div id="treeview_container" ...` can be chosen arbitrarily, but of course must be referred to consistently.
+- **div id**<br>
+  The `<div id="treeview_container"` ... can be chosen arbitrarily, but of course must be referred to consistently.
   
-<li><b>ul id</b><br>
-The <i>&#60;ul id="treeview"</i> ... can be chosen.</li>
-<li><b>input id' and data-id's</b><br>
-The input id's and data-id's
-e.g. <i>&#60;input id="xnode-0"
-data-id="custom-0"</i> ... can be set. The
-data-id can be any text. It is important
-for the support of multi-double
-nodes. That means you can have
-multi-double nodes with similar data-id's
-but different id's. Thus every node can be
-addressed via the unique id. And all
-copies of a node including itself can be
-addressed via the common data-id.</li>
-<li><b>input class="hummingbirdNoParent"</b><br>
-Add this to every node, which is not a
-parent, i.e. which has no children or
-nodes below.</li>
-</ul>
+- **ul id**<br>
+The `<ul id="treeview"` ... can be chosen.
+
+- **input id's and data-id's**<br>
+  The input id's and data-id's
+  e.g. `<input id="xnode-0" data-id="custom-0"` ... can be set. The
+  data-id can be any text. It is important for the support of
+  multi-double nodes. That means you can have multi-double nodes with
+  similar data-id's but different id's. Thus every node can be
+  addressed via the unique id. And all copies of a node including
+  itself can be addressed via the common data-id.
+
+- **input class="hummingbirdNoParent"**<br>
+  Add this to every node, which is
+  not a parent, i.e. which has no children or nodes below.
+  
 Do not change the "fa fa-plus", do this via the options (see below).
-<br>
-Change <b>font-size</b>, <b>line-height</b>, checkbox <b>width</b> and <b>height</b> directly
-in the hummingbird-treeview.css.<br>
-<br>
+
+Change **font-size**, **line-height**, checkbox
+**width** and **height** directly in the
+hummingbird-treeview.css.
+
 Set options, e.g.:
 
 ```javascript
