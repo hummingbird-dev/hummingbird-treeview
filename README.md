@@ -198,7 +198,7 @@ Default="false". Set this to "true" to enable the functionality to account for d
 <h2>Methods</h2>
 Methods are used to interact with the treeview programmatically. Following methods are available:
 
-- **checkAll()**
+- **checkAll()**<br>
   Checks all nodes including full support for disabled nodes.
 
 ```javascript
@@ -207,7 +207,7 @@ $("#treeview").hummingbird("checkAll");
 
 ```
 
-- **uncheckAll()**
+- **uncheckAll()**<br>
   Unchecks all nodes including full support for disabled nodes.
 
 ```javascript
