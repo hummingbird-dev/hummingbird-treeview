@@ -22,7 +22,7 @@ A tiny and fast jQuery treeview plugin
 - font-awesome v4.7.0 or newer
 
 
-## Example
+## Example at [GitHub Pages](https://hummingbird-dev.000webhostapp.com/hummingbird-treeview).
 
 ![alt text](./hummingbird-treeview.png "hummingbird-treeview example")
 
