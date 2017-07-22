@@ -61,7 +61,7 @@ Create treeview structure/data:
 ```html
 
     <div id="treeview_container" class="hummingbird-treeview" style="height: 230px; overflow-y: scroll;">
-	<ul id="treeview">
+    	<ul id="treeview" class="hummingbird-base">
 	    <li>
 		<i class="fa fa-plus"></i>
 		<label>
@@ -119,6 +119,9 @@ Only change the following:
   
 - **ul id**<br>
 The `<ul id="treeview"` ... can be chosen.
+
+- **ul class="hummingbird-base"**<br>
+The base `ul` must be assigned to the "hummingbird-base" class: `<ul id="treeview" class="hummingbird-base">`
 
 - **input id's and data-id's**<br>
   The input id's and data-id's
