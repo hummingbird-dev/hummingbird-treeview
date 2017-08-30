@@ -1,0 +1,29 @@
+.hummingbird-treeview,
+.hummingbird-treeview *
+{
+    list-style: none;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.hummingbird-treeview label {
+    font-weight: normal;
+}
+
+
+.hummingbird-treeview input[type=checkbox] {
+    width : 16px;
+    height :16px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.hummingbird-treeview ul:not(.hummingbird-base) {
+    display: none;
+}
+
+.hummingbird-treeview .fa {
+    font-style: normal;
+    cursor: pointer;
+}
+
