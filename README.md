@@ -76,12 +76,12 @@ Create treeview structure/data:
 			<ul>
 			    <li>
 				<label>
-				    <input class="hummingbirdNoParent" id="xnode-0-1-1" data-id="custom-0-1-1" type="checkbox" /> node-0-1-1
+				    <input class="hummingbird-end-node" id="xnode-0-1-1" data-id="custom-0-1-1" type="checkbox" /> node-0-1-1
 				</label>
 			    </li>
 			    <li>
 				<label>
-				    <input class="hummingbirdNoParent" id="xnode-0-1-2" data-id="custom-0-1-2" type="checkbox" /> node-0-1-2
+				    <input class="hummingbird-end-node" id="xnode-0-1-2" data-id="custom-0-1-2" type="checkbox" /> node-0-1-2
 				</label>
 			    </li>
 			</ul>
@@ -94,12 +94,12 @@ Create treeview structure/data:
 			<ul>
 			    <li>
 				<label>
-				    <input class="hummingbirdNoParent" id="xnode-0-2-1" data-id="custom-0-2-1" type="checkbox" /> node-0-2-1
+				    <input class="hummingbird-end-node" id="xnode-0-2-1" data-id="custom-0-2-1" type="checkbox" /> node-0-2-1
 				</label>
 			    </li>
 			    <li>
 				<label>
-				    <input class="hummingbirdNoParent" id="xnode-0-2-2" data-id="custom-0-2-2" type="checkbox" /> node-0-2-2
+				    <input class="hummingbird-end-node" id="xnode-0-2-2" data-id="custom-0-2-2" type="checkbox" /> node-0-2-2
 				</label>
 			    </li>
 			</ul>
@@ -132,7 +132,7 @@ The base `ul` must be assigned to the "hummingbird-base" class: `<ul id="treevie
   addressed via the unique id. And all copies of a node including
   itself can be addressed via the common data-id.
 
-- **input class="hummingbirdNoParent"**<br>
+- **input class="hummingbird-end-node"**<br>
   Add this to every node, which is
   not a parent, i.e. which has no children or nodes below.
   
@@ -334,57 +334,50 @@ $("#treeview").hummingbird("enableNode",{attr:"id",name: "node-0-1-1-2",state:fa
 
 ```
 
-- **getChecked(attr,List,{OnlyFinalInstance})**<br>
-  Get checked nodes. Retrieve the id or
-  data-id, which is defined via the attr
-  parameter. Set OnlyFinalInstance to true
-  if you want to retrieve only that nodes
-  identified by class="hummingbirdNoParent",
-  i.e. those nodes without children, so to
-  speak the last instance. Default is false,
-  which means that all checked nodes are retrieved.
-  Define an array, e.g. List, for the output
-  of this method. Finally this List array
-  can be bound to a DOM element and it is
-  also straight forward to do other stuff
-  with that array, e.g. retrieving the
-  length of it.
+- **getChecked(attr,List,{onlyEndNodes})**<br>
+  Get checked
+  nodes. Retrieve the id, data-id or text, which is defined via the
+  attr parameter. Thus, if you want to extract the text of a node set
+  attr:"text". Set onlyEndNodes to true if you want to retrieve only
+  that nodes identified by class="hummingbird-end-node", i.e. those
+  nodes without children, so to speak the last instance. Default is
+  false, which means that all checked nodes are retrieved.  Define an
+  array, e.g. List, for the output of this method. Finally this List
+  array can be bound to a DOM element and it is also straight forward
+  to do other stuff with that array, e.g. retrieving the length of it.
 
 ```javascript
 
 var List = [];
-$("#treeview").hummingbird("getChecked",{attr:"id",list:List,OnlyFinalInstance:true});
+$("#treeview").hummingbird("getChecked",{attr:"id",list:List,onlyEndNodes:true});
 $("#displayItems").html(List.join("<br>"));
 var L = List.length;
 
 ```
 
-- **getUnchecked(attr,List,{OnlyFinalInstance})**<br>
-  Get unchecked nodes. Retrieve the id or
-  data-id, which is defined via the attr
-  parameter. Set OnlyFinalInstance to true
-  if you want to retrieve only that nodes
-  identified by class="hummingbirdNoParent",
-  i.e. those nodes without children, so to
-  speak the last instance. Default is false,
-  which means that all unchecked nodes are retrieved.
-  Define an array, e.g. List, for the output
-  of this method. Finally this List array
-  can be bound to a DOM element and it is
-  also straight forward to do other stuff
-  with that array, e.g. retrieving the
+- **getUnchecked(attr,List,{onlyEndNodes})**<br>
+  Get unchecked
+  nodes. Retrieve the id, data-id or text, which is defined via the
+  attr parameter. Thus, if you want to extract the text of a node set
+  attr:"text". Set onlyEndNodes to true if you want to retrieve only
+  that nodes identified by class="hummingbird-end-node", i.e. those
+  nodes without children, so to speak the last instance. Default is
+  false, which means that all unchecked nodes are retrieved.  Define
+  an array, e.g. List, for the output of this method. Finally this
+  List array can be bound to a DOM element and it is also straight
+  forward to do other stuff with that array, e.g. retrieving the
   length of it.
 
 ```javascript
 
 var List = [];
-$("#treeview").hummingbird("getUnchecked",{attr:"id",list:List,OnlyFinalInstance:true});
+$("#treeview").hummingbird("getUnchecked",{attr:"id",list:List,onlyEndNodes:true});
 $("#displayItems").html(List.join("<br>"));
 var L = List.length;
 
 ```
 
-- **search(treeview_container,search_input,search_output,search_button,{scrollOffset, OnlyFinalInstance, dialog, EnterKey, enter_key_1, enter_key_2})**<br>
+- **search(treeview_container,search_input,search_output,search_button,{scrollOffset, onlyEndNodes, dialog, EnterKey, enter_key_1, enter_key_2})**<br>
   If the treeview is embedded in a
   scrollable (css option: overflow-y:
   scroll;) container, this container must be
@@ -401,7 +394,7 @@ var L = List.length;
   positive) can be defined to adjust the
   automatic scoll position. The best value
   must be observed by
-  testing. OnlyFinalInstance is per default
+  testing. onlyEndNodes is per default
   false, thus set this to true if the search
   should include also parent nodes. The
   optional parameter dialog is per default
@@ -424,7 +417,7 @@ var L = List.length;
 
 ```javascript
 
-$("#treeview").hummingbird("search",{treeview_container:"treeview_container", search_input:"search_input", search_output:"search_output", search_button:"search_button", scrollOffset:-515, OnlyFinalInstance:false});
+$("#treeview").hummingbird("search",{treeview_container:"treeview_container", search_input:"search_input", search_output:"search_output", search_button:"search_button", scrollOffset:-515, onlyEndNodes:false});
 
 ```
 
