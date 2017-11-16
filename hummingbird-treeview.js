@@ -63,7 +63,9 @@
 		}
 		
 		//three state logic
-		$.fn.hummingbird.ThreeStateLogic($(this),doubleMode,allVariables,options.checkDoubles,options.checkDisabled);
+		//$.fn.hummingbird.ThreeStateLogic($(this),doubleMode,allVariables,options.checkDoubles,options.checkDisabled);
+		var checkDisabled = true;
+		$.fn.hummingbird.ThreeStateLogic($(this),doubleMode,allVariables,options.checkDoubles,checkDisabled);
 		
 		//expandSingle
 		$(this).on("click", 'li i.' + options.collapsedSymbol, function() {
@@ -264,7 +266,7 @@
 	checkboxes: "enabled",
 	checkboxesGroups: "enabled",
 	checkDoubles: false,
-	checkDisabled: false,
+	//checkDisabled: false,   //this is now not changeable and true always
     };
 
     //global vars
@@ -470,71 +472,43 @@
 	    //check / uncheck all checkboxes below that node
 	    nodes_below.prop("indeterminate",false).prop("checked",state);
 	    //set all parents indeterminate and unchecked
-	    $(this).parent("label").parent().parents("li").children("label").children("input:checkbox").prop("indeterminate",true);
-	    $(this).parent("label").parent().parents("li").children("label").children("input:checkbox").prop("checked",false);
+	    //if checkDisabled===false treat all disabled as if they were not there
+	    //do it for all if checkDisabled===true
+	    //if checkDisabled===false do it if it was not a disabled node, i.e. nodeDisabled===false
+	    //if (checkDisabled || nodeDisabled === false) {
+		$(this).parent("label").parent().parents("li").children("label").children("input:checkbox").prop("indeterminate",true);
+		$(this).parent("label").parent().parents("li").children("label").children("input:checkbox").prop("checked",false);	
+	    //}
 	    //travel up the DOM
 	    //test if siblings are all checked / unchecked / indeterminate       
 	    //check / uncheck parents if all siblings are checked /unchecked
 	    //thus, set parents checked / unchecked, if children are all checked or all unchecked with no indeterminates
-	    $(this).parent("label").parents("li").map(function() {
-		//console.log($(this))
-		var indeterminate_sum = 0;
-		//number of checked if an uncheck happened or number of unchecked if a check happened
-		var checked_unchecked_sum = $(this).siblings().addBack().children("label").children(checkSiblings).length;
-		//console.log("checkDisabled= " + checkDisabled)
-		//checkDisabled means that disabled boxes are considered by the tri-state logic
-		//these are the not disabled siblings together with node itself
-		var not_disabled_sum = $(this).siblings().addBack().children("label").children("input:checkbox:not(:disabled)").length;
-		//console.log("not_disabled_sum= " + not_disabled_sum);
-	    	$(this).siblings().addBack().children("label").children("input:checkbox").map(function() {
-	    	    indeterminate_sum = indeterminate_sum + $(this).prop("indeterminate");
-	    	});
-		//this is 0 if there are no checked, thus an uncheck has happened
-	    	if ((indeterminate_sum + checked_unchecked_sum) == 0) {
-	    	    $(this).parent().parent().children("label").children("input:checkbox").prop("indeterminate",false);
-	    	    $(this).parent().parent().children("label").children("input:checkbox").prop("checked",state);
-	    	}
+	    //do this for all
+	    //if (checkDisabled) {
+		$(this).parent("label").parents("li").map(function() {
+		    //console.log($(this))
+		    var indeterminate_sum = 0;
+		    //number of checked if an uncheck happened or number of unchecked if a check happened
+		    var checked_unchecked_sum = 0;
+		    $(this).siblings().addBack().children("label").children(checkSiblings).map(function() {
+			checked_unchecked_sum++;
+		    });
+		    //console.log("checkDisabled= " + checkDisabled)
+		    //checkDisabled means that disabled boxes are considered by the tri-state logic
+		    //these are the not disabled siblings together with node itself
+		    //var not_disabled_sum = $(this).siblings().addBack().children("label").children("input:checkbox:not(:disabled)").length;
+		    //console.log("not_disabled_sum= " + not_disabled_sum);
+	    	    $(this).siblings().addBack().children("label").children("input:checkbox").map(function() {
+	    		    indeterminate_sum = indeterminate_sum + $(this).prop("indeterminate");
+	    	    });
+		    //this is 0 if there are no checked, thus an uncheck has happened
+	    	    if ((indeterminate_sum + checked_unchecked_sum) == 0) {
+	    		$(this).parent().parent().children("label").children("input:checkbox").prop("indeterminate",false);
+	    		$(this).parent().parent().children("label").children("input:checkbox").prop("checked",state);
+	    	    }
+		});
+	    //}
 
-
-		//this section is about dynamically enabling and disabling
-		//finally I think that dynamically enabling and disabling has
-		//no effect on the parents
-		//parents can be enabled, even if all children are disabled
-		//parents can also be disabled if all children are enabled
-		//
-
-		//this is needed if a node has been disabled dynamically
-		//if nodeDisabled == true than a node has now been disabled see disableNode function
-		//which triggers a click on this node, that's the reason why we are here now
-		// if (nodeDisabled == true) {
-		//     //decrement the sum by one, because this node was not counted before
-		//     not_disabled_sum--;
-		//     //set this now to false for the next coming actions
-		//     nodeDisabled = false;
-		//     //if now all siblings in this group are disabled set also parent disabled
-		//     if (not_disabled_sum == 0) {
-		// 	//console.log("here")
-		// 	$(this).parent().parent().children("label").children("input[type='checkbox']").prop("disabled",true).parent("label").css({'color':'#c8c8c8',"cursor":"not-allowed"});
-		//     }
-		// }
-		//now for the other case if a node has been enabled
-		//there is no action needed for the parents
-		//even if all children have been enabled, the parent can still be disabled
-		// if (nodeEnabled == true) {
-		//     //increment the sum by one, because this node was not counted before
-		//     not_disabled_sum++;
-		//     //set this now to false for the next coming actions
-		//     nodeEnabled = false;
-		//     //if now all siblings in this group have been disabled one box has been enabled thus parent need to ne enabled
-		//     //this is the case if the sum is 1 (because incremented above)
-		//     if (not_disabled_sum == 1) {
-		// 	//console.log("here")
-		// 	$(this).parent().parent().children("label").children("input[type='checkbox']").prop("disabled",false).parent("label").css({'color':'#636b6f',"cursor":"default"});
-		//     }
-		// }		
-	    });
-
-	    
 	    //------------------check if this variable has doubles-----------------------//
 	    //------------------and click doubles if needed------------------------------//
 	    //------------------only if this is not a double check-----------------------//
@@ -588,6 +562,13 @@
 	    }
 	    //--------------------------disabled-----------------------------------------//
 
+	    
+	    //set nodeDisabled and nodeEnabled back to false
+	    //so that the next clicked node can be a normal node or again a disbaled node
+	    nodeDisabled = false;
+	    nodeEnabled = false;
+
+	    
 	    //fire event
 	    tree.trigger("CheckUncheckDone");	    
 	});

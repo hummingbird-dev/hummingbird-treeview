@@ -8,9 +8,9 @@ A tiny and fast jQuery treeview plugin
 
 - Display hierarchical tree structures.
 - Based on simple HTML lists.
-- Three state logic.
+- Tri-state logic.
 - Manual and programmatical check, uncheck, collapse, expand, etc.
-- Supports "multi-doubles".
+- Supports n-tuple nodes, i.e. doubles, triplets, etc.
 - Supports disabled nodes, checked or unchecked.
 - Get checked/unchecked items programmatically.
 - Supports HTML5 data-* attribute to embed custom data.
@@ -127,8 +127,8 @@ The base `ul` must be assigned to the "hummingbird-base" class: `<ul id="treevie
   The input id's and data-id's
   e.g. `<input id="xnode-0" data-id="custom-0"` ... can be set. The
   data-id can be any text. It is important for the support of
-  multi-double nodes. That means you can have multi-double nodes with
-  similar data-id's but different id's. Thus every node can be
+  the n-tuple (doubles, triplets, ...) nodes. That means you can have more than one node with
+  the same data-id's but different id's. Thus every node can be
   addressed via the unique id. And all copies of a node including
   itself can be addressed via the common data-id.
 
@@ -194,15 +194,22 @@ Following options are available:
   default. Set this to "disabled" to get a
   treeview without checkboxes.
 
-- **checkboxesGroups**<br>
-  String, default="enabled". Set this to "disabled" to disable all checkboxes from nodes that are parents, i.e. which have child nodes.
-  Set this to "disabled_grayed" to also apply a "grayed" font color to the node text.
+- **checkboxesGroups**<br> String, default="enabled". Set this to
+  "disabled" to disable all checkboxes from nodes that are parents,
+  i.e. which have child nodes.  Set this to "disabled_grayed" to also
+  apply a "grayed" font color to the node text. Note that disabling
+  parent nodes means that they are not clickable, but still provide
+  tri-state functionality. Thus, if a child of a disabled parent has
+  been checked, the parent node is set to the indeterminate state to
+  indicate that a child has been checked.
 
-- **checkDoubles**<br>
-  Boolean, default=false. Set this to true to enable the functionality to account for multi-doubles.
+- **checkDoubles**<br> Boolean, default=false. Set this to true to
+  enable the functionality to account for n-tuples (doubles,
+  triplets, ...). That means, if we have e.g. two equal nodes (i.e. same data-id)
+  and one of these is checked then the other will be checked
+  automatically. The same applies for triplets, quadruplets, etc. By
+  enabling this option, also the full tri-state functionality accounts for the n-tuples.
 
-- **checkDisabled**<br>
-  Boolean, default=false. Set this to true to enable the functionality to account for disabled nodes.
 
 
 ## Methods
@@ -308,14 +315,14 @@ $("#treeview").hummingbird("collapseNode",{attr:"id",name: "node-0-1-1-2",collap
 
 ```
 
-- **disableNode(attr,name,state)**<br>
-  Disables a node, which is identified by
-  its id or data-id, which has to be defined
-  in the attr parameter. The name parameter
-  holds the name of the id or data-id.  Set
-  state to true if the node should be
-  disabled and checked, set it to false if
-  the node should be disabled and unchecked.
+- **disableNode(attr,name,state,{disableChildren})**<br> Disables a
+  node, which is identified by its id or data-id, which has to be
+  defined in the attr parameter. The name parameter holds the name of
+  the id or data-id.  Set state to true if the node should be disabled
+  and checked, set it to false if the node should be disabled and
+  unchecked. Optionally set disableChildren to false or true, default
+  is true. Note that full tri-state functionality is provided also for
+  disabled nodes, although that they are not clickable.
 
 ```javascript
 
@@ -323,14 +330,13 @@ $("#treeview").hummingbird("disableNode",{attr:"id",name: "node-0-1-1-2",state:t
 
 ```
 
-- **enableNode(attr,name,state)**<br>
-  Enables a former disabled node, which is identified by
-  its id or data-id, which has to be defined
-  in the attr parameter. The name parameter
-  holds the name of the id or data-id.  Set
-  state to true if the node should be
-  enabled and checked, set it to false if
-  the node should be enabled and unchecked.
+- **enableNode(attr,name,state,{enableChildren})**<br> Enables a
+  former disabled node, which is identified by its id or data-id,
+  which has to be defined in the attr parameter. The name parameter
+  holds the name of the id or data-id.  Set state to true if the node
+  should be enabled and checked, set it to false if the node should be
+  enabled and unchecked. Optionally set enableChildren to false or
+  true, default is true. 
 
 ```javascript
 
@@ -503,7 +509,7 @@ $("#treeview").on("nodeUnchecked", function(){
   checked or unchecked and all treeview
   functionality is completed. This comprises
   checking / unchecking parents, children,
-  checking for doubles and disabled etc.
+  checking for n-tuples and disabled etc.
 
 ```javascript
 
