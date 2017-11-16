@@ -149,7 +149,6 @@ Set options, e.g.:
 $.fn.hummingbird.defaults.collapsedSymbol= "fa-arrow-circle-o-right";
 $.fn.hummingbird.defaults.expandedSymbol= "fa-arrow-circle-o-down";
 $.fn.hummingbird.defaults.checkDoubles= true; 
-$.fn.hummingbird.defaults.checkDisabled= true;
 ...
 
 ```    
@@ -326,7 +325,7 @@ $("#treeview").hummingbird("collapseNode",{attr:"id",name: "node-0-1-1-2",collap
 
 ```javascript
 
-$("#treeview").hummingbird("disableNode",{attr:"id",name: "node-0-1-1-2",state:true});
+$("#treeview").hummingbird("disableNode",{attr:"id",name: "node-0-1-1-2",state:true,disableChildren:true});
 
 ```
 
@@ -340,7 +339,7 @@ $("#treeview").hummingbird("disableNode",{attr:"id",name: "node-0-1-1-2",state:t
 
 ```javascript
 
-$("#treeview").hummingbird("enableNode",{attr:"id",name: "node-0-1-1-2",state:false});
+$("#treeview").hummingbird("enableNode",{attr:"id",name: "node-0-1-1-2",state:false,enableChildren:true});
 
 ```
 
