@@ -193,7 +193,11 @@ Following options are available:
   String, default="enabled". Checkboxes are used per
   default. Set this to "disabled" to get a
   treeview without checkboxes.
-  
+
+- **checkboxesGroups**<br>
+  String, default="enabled". Set this to "disabled" to disable all checkboxes from nodes that are parents, i.e. which have child nodes.
+  Set this to "disabled_grayed" to also apply a "grayed" font color to the node text.
+
 - **checkDoubles**<br>
   Boolean, default=false. Set this to true to enable the functionality to account for multi-doubles.
 
