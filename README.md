@@ -323,7 +323,10 @@ $("#treeview").hummingbird("collapseNode",{attr:"id",name: "node-0-1-1-2",collap
   is true. Note that full tri-state functionality is provided also for
   disabled nodes, although that they are not clickable. Additionally
   if all children of a parent node are disabled, that parent is
-  automatically disabled.
+  automatically disabled. Although it looks like introducing a logic
+  conflict, a parent node can be disabled, while the children are
+  enabled. In such a case full tri-state functionality is applied to
+  that parent, but it is still not clickable, i.e. disabled.
 
 ```javascript
 
@@ -337,8 +340,12 @@ $("#treeview").hummingbird("disableNode",{attr:"id",name: "node-0-1-1-2",state:t
   holds the name of the id or data-id.  Set state to true if the node
   should be enabled and checked, set it to false if the node should be
   enabled and unchecked. Optionally set enableChildren to false or
-  true, default is true. Additionally, enabling a parent nodes with all
-  children disabled (enableChildren=false) is not allowed.
+  true, default is true. Additionally, enabling a parent nodes with
+  all children disabled (enableChildren=false) is not allowed. Similar
+  to the disableNode above it is possible to have a parent node
+  disabled, while the children are enabled. In such a case full
+  tri-state functionality is applied to that parent, but it is still
+  not clickable, i.e. disabled.
 
 ```javascript
 
