@@ -7,6 +7,10 @@
 
     //this is now default and not changable anymore
     var checkDisabled = true;
+
+    //
+    var checkboxesGroups_grayed = false;
+    var checkboxesGroups = false;
     
     $.fn.hummingbird = function(options){
 
@@ -29,6 +33,7 @@
 		}
 		
 		if (options.checkboxesGroups == "disabled") {
+		    checkboxesGroups = true;
 		    //find all checkboxes which have children and disable them
 		    //tri-state logic will still be applied
 		    //this_checkbox.prop("disabled",true).parent("label").css({'color':'#c8c8c8'});
@@ -36,6 +41,7 @@
 		    groups.prop("disabled",true).parent("label").css({"cursor":"not-allowed"});
 		}
 		if (options.checkboxesGroups == "disabled_grayed") {
+		    checkboxesGroups_grayed = true;
 		    //find all checkboxes which have children and disable them
 		    //tri-state logic will still be applied
 		    //this_checkbox.prop("disabled",true).parent("label").css({'color':'#c8c8c8'});
@@ -575,8 +581,12 @@
 		    	}
 		    	//if all children are disabled, disable also parent
 		    	if (not_disabled_sum == 0) {
+			    //console.log("here")
 		    	    //console.log($(this).parent().parent().children("label").children("input[type='checkbox']"))
-		    	    $(this).parent().parent().children("label").children("input[type='checkbox']").prop("disabled",true).parent("label").parent("li").css({'color':'#c8c8c8'});
+			    //only disable parents if they are not already disabled by the checkboxesGroups options
+			    if (checkboxesGroups_grayed == false && checkboxesGroups == false) {
+				$(this).parent().parent().children("label").children("input[type='checkbox']").prop("disabled",true).parent("label").parent("li").css({'color':'#c8c8c8'});
+			    }
 		    	}
 		    }		    
 		});
