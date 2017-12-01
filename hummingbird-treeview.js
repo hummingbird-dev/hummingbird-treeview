@@ -15,13 +15,20 @@
 
     //converter
     $(document).ready(function() {
-	if ($(document).find(".hummingbird-treeview-converter")) {
-	    //console.log("converter start!!!!!!!!!!!!!");
+	var converter = $(document).find(".hummingbird-treeview-converter");
+	if (converter) {
 	    //hide simple treeview structure
-	    $(".hummingbird-treeview-converter").hide();
+	    converter.hide();
 
+	    var converter_height = converter.attr("data-height");
+	    var converter_scroll = converter.attr("data-scroll");
+	    if (converter_scroll == "true") {
+		converter_scroll = "scroll";
+	    }
+
+	    
 	    //create new treeview container
-	    var tree_html = '<div id="treeview_container" class="hummingbird-treeview" style="height: 230px; overflow-y: scroll;">' +
+	    var tree_html = '<div id="treeview_container" class="hummingbird-treeview" style="height: ' + converter_height  +'; overflow-y: ' + converter_scroll + ';">' +
 		'<ul id="treeview" class="hummingbird-base">';
 
 	    
