@@ -31,16 +31,15 @@
 	    var tree_html = '<div id="treeview_container" class="hummingbird-treeview" style="height: ' + converter_height  +'; overflow-y: ' + converter_scroll + ';">' +
 		'<ul id="treeview" class="hummingbird-base">';
 
-	    
-	    
-
 
 	    //get treeview elements
 	    var tree = $(".hummingbird-treeview-converter").children("li");
 
 	    
 	    //loop through the elements and create tree
-	    var id = 0;
+	    var id_num = 0;
+	    var id_str = "";
+	    var data_id = "";
 	    var item = "";
 	    var allowed = true;
 	    var msg = "";
@@ -52,13 +51,24 @@
 		var numHyphen_next = $(this).next().text().lastIndexOf("-");
 		//remove leading hyphens
 		treeText = treeText.replace(/^-+/, "");
+		//extract optional id and data-id		
+		if ($(this).attr("id")) {
+		    id_str = $(this).attr("id");
+		} else {
+		    id_num++;
+		    id_str = "hum_" + id_num;
+		}
+		if ($(this).attr("data-id")) {
+		    data_id = $(this).attr("data-id");
+		} else {
+		    data_id = treeText;
+		}
 
 		
 		//what is this, parent, children or sibling
 		//this is a parent
 		//open an ul
 		if (numHyphen < numHyphen_next) {
-
 		    //check format
 		    //down the tree it is not allowed to jump over a generation / instance
 		    //
@@ -68,26 +78,23 @@
 		    	//alert(msg);
 		    	allowed = false;
 		    }
-
-
+		    //
 		    item = item + '<li>' +"\n";
 		    item = item + '<i class="fa fa-plus"></i>' + "\n";
 		    item = item + '<label>' + "\n";
-		    item = item + '<input id="hum-' + id + '" data-id="' + treeText + '" type="checkbox" /> ' + treeText + "\n";
+		    item = item + '<input id="' + id_str  + '" data-id="' + data_id + '" type="checkbox" /> ' + treeText;
 		    item = item + '</label>' + "\n";
 		    item = item + '<ul>' + "\n";
 		    //console.log(item);
-		    id++;
 		}
 		//hummingbird-end-node
 		if (numHyphen == numHyphen_next) {
 		    item = item + '<li>' +"\n";
 		    item = item + '<label>' + "\n";
-		    item = item + '<input class="hummingbird-end-node" id="hum-' + id + '" data-id="' + treeText + '" type="checkbox" /> ' + treeText + "\n";
+		    item = item + '<input class="hummingbird-end-node" id="' + id_str + '" data-id="' + data_id + '" type="checkbox" /> ' + treeText;
 		    item = item + '</label>' + "\n";
 		    item = item + '</li>' + "\n";
 		    //console.log(item);
-		    id++;
 		}		
 		//this is still a hummingbird-end-node
 		//after this it goes up
@@ -95,7 +102,7 @@
 		if (numHyphen > numHyphen_next) {
 		    item = item + '<li>' +"\n";
 		    item = item + '<label>' + "\n";
-		    item = item + '<input class="hummingbird-end-node" id="hum-' + id + '" data-id="' + treeText + '" type="checkbox" /> ' + treeText + "\n";
+		    item = item + '<input class="hummingbird-end-node" id="' + id_str + '" data-id="' + data_id + '" type="checkbox" /> ' + treeText;
 		    item = item + '</label>' + "\n";
 		    item = item + '</li>' + "\n";
 		    item = item + '</ul>' + "\n";
@@ -109,7 +116,6 @@
 		    	item = item + '</li>' + "\n";
 		    }
 		    //
-		    id++;
 		}
 
 		
