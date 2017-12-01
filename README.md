@@ -73,101 +73,101 @@ Create the treeview structure:
 	
 ```
 
-Bind the hummingbird-treeview to a scrollable DOM element:
+<!-- Bind the hummingbird-treeview to a scrollable DOM element: -->
 
-```html
+<!-- ```html -->
 
-     <div id="treeview_container" class="hummingbird-treeview" style="height: 230px; overflow-y: scroll;">
-     <!-- treeview structure/data here -->
-     </div>
+<!--      <div id="treeview_container" class="hummingbird-treeview" style="height: 230px; overflow-y: scroll;"> -->
+<!--      <\!-- treeview structure/data here -\-> -->
+<!--      </div> -->
 
-```
+<!-- ``` -->
 
-Create treeview structure/data:	
+<!-- Create treeview structure/data:	 -->
 
-```html
+<!-- ```html -->
 
-    <div id="treeview_container" class="hummingbird-treeview" style="height: 230px; overflow-y: scroll;">
-    	<ul id="treeview" class="hummingbird-base">
-	    <li>
-		<i class="fa fa-plus"></i>
-		<label>
-		    <input id="xnode-0" data-id="custom-0" type="checkbox" /> node-0
-		</label>
-		<ul>
-		    <li>
-			<i class="fa fa-plus"></i>
-			<label>
-			    <input  id="xnode-0-1" data-id="custom-0-1" type="checkbox" /> node-0-1
-			</label>
-			<ul>
-			    <li>
-				<label>
-				    <input class="hummingbird-end-node" id="xnode-0-1-1" data-id="custom-0-1-1" type="checkbox" /> node-0-1-1
-				</label>
-			    </li>
-			    <li>
-				<label>
-				    <input class="hummingbird-end-node" id="xnode-0-1-2" data-id="custom-0-1-2" type="checkbox" /> node-0-1-2
-				</label>
-			    </li>
-			</ul>
-		    </li>
-		    <li>
-			<i class="fa fa-plus"></i>
-			<label>
-			    <input  id="xnode-0-2" data-id="custom-0-2" type="checkbox" /> node-0-2
-			</label>
-			<ul>
-			    <li>
-				<label>
-				    <input class="hummingbird-end-node" id="xnode-0-2-1" data-id="custom-0-2-1" type="checkbox" /> node-0-2-1
-				</label>
-			    </li>
-			    <li>
-				<label>
-				    <input class="hummingbird-end-node" id="xnode-0-2-2" data-id="custom-0-2-2" type="checkbox" /> node-0-2-2
-				</label>
-			    </li>
-			</ul>
-		    </li>
-		</ul>
-	    </li>
-	</ul>
-    </div>
+<!--     <div id="treeview_container" class="hummingbird-treeview" style="height: 230px; overflow-y: scroll;"> -->
+<!--     	<ul id="treeview" class="hummingbird-base"> -->
+<!-- 	    <li> -->
+<!-- 		<i class="fa fa-plus"></i> -->
+<!-- 		<label> -->
+<!-- 		    <input id="xnode-0" data-id="custom-0" type="checkbox" /> node-0 -->
+<!-- 		</label> -->
+<!-- 		<ul> -->
+<!-- 		    <li> -->
+<!-- 			<i class="fa fa-plus"></i> -->
+<!-- 			<label> -->
+<!-- 			    <input  id="xnode-0-1" data-id="custom-0-1" type="checkbox" /> node-0-1 -->
+<!-- 			</label> -->
+<!-- 			<ul> -->
+<!-- 			    <li> -->
+<!-- 				<label> -->
+<!-- 				    <input class="hummingbird-end-node" id="xnode-0-1-1" data-id="custom-0-1-1" type="checkbox" /> node-0-1-1 -->
+<!-- 				</label> -->
+<!-- 			    </li> -->
+<!-- 			    <li> -->
+<!-- 				<label> -->
+<!-- 				    <input class="hummingbird-end-node" id="xnode-0-1-2" data-id="custom-0-1-2" type="checkbox" /> node-0-1-2 -->
+<!-- 				</label> -->
+<!-- 			    </li> -->
+<!-- 			</ul> -->
+<!-- 		    </li> -->
+<!-- 		    <li> -->
+<!-- 			<i class="fa fa-plus"></i> -->
+<!-- 			<label> -->
+<!-- 			    <input  id="xnode-0-2" data-id="custom-0-2" type="checkbox" /> node-0-2 -->
+<!-- 			</label> -->
+<!-- 			<ul> -->
+<!-- 			    <li> -->
+<!-- 				<label> -->
+<!-- 				    <input class="hummingbird-end-node" id="xnode-0-2-1" data-id="custom-0-2-1" type="checkbox" /> node-0-2-1 -->
+<!-- 				</label> -->
+<!-- 			    </li> -->
+<!-- 			    <li> -->
+<!-- 				<label> -->
+<!-- 				    <input class="hummingbird-end-node" id="xnode-0-2-2" data-id="custom-0-2-2" type="checkbox" /> node-0-2-2 -->
+<!-- 				</label> -->
+<!-- 			    </li> -->
+<!-- 			</ul> -->
+<!-- 		    </li> -->
+<!-- 		</ul> -->
+<!-- 	    </li> -->
+<!-- 	</ul> -->
+<!--     </div> -->
 
-```
+<!-- ``` -->
 
-Only change the following:
-### Treeview structure and node properties
+<!-- Only change the following: -->
+<!-- ### Treeview structure and node properties -->
 
-- **div id**<br>
-  The `<div id="treeview_container"` ... can be chosen arbitrarily, but of course must be referred to consistently.
+<!-- - **div id**<br> -->
+<!--   The `<div id="treeview_container"` ... can be chosen arbitrarily, but of course must be referred to consistently. -->
   
-- **ul id**<br>
-The `<ul id="treeview"` ... can be chosen.
+<!-- - **ul id**<br> -->
+<!-- The `<ul id="treeview"` ... can be chosen. -->
 
-- **ul class="hummingbird-base"**<br>
-The base `ul` must be assigned to the "hummingbird-base" class: `<ul id="treeview" class="hummingbird-base">`
+<!-- - **ul class="hummingbird-base"**<br> -->
+<!-- The base `ul` must be assigned to the "hummingbird-base" class: `<ul id="treeview" class="hummingbird-base">` -->
 
-- **input id's and data-id's**<br>
-  The input id's and data-id's
-  e.g. `<input id="xnode-0" data-id="custom-0"` ... can be set. The
-  data-id can be any text. It is important for the support of
-  the n-tuple (doubles, triplets, ...) nodes. That means you can have more than one node with
-  the same data-id's but different id's. Thus every node can be
-  addressed via the unique id. And all copies of a node including
-  itself can be addressed via the common data-id.
+<!-- - **input id's and data-id's**<br> -->
+<!--   The input id's and data-id's -->
+<!--   e.g. `<input id="xnode-0" data-id="custom-0"` ... can be set. The -->
+<!--   data-id can be any text. It is important for the support of -->
+<!--   the n-tuple (doubles, triplets, ...) nodes. That means you can have more than one node with -->
+<!--   the same data-id's but different id's. Thus every node can be -->
+<!--   addressed via the unique id. And all copies of a node including -->
+<!--   itself can be addressed via the common data-id. -->
 
-- **input class="hummingbird-end-node"**<br>
-  Add this to every node, which is
-  not a parent, i.e. which has no children or nodes below.
+<!-- - **input class="hummingbird-end-node"**<br> -->
+<!--   Add this to every node, which is -->
+<!--   not a parent, i.e. which has no children or nodes below. -->
   
-Do not change the "fa fa-plus", do this via the options (see below).
+<!-- Do not change the "fa fa-plus", do this via the options (see below). -->
 
-Change **font-size**, **line-height**, checkbox
-**width** and **height** directly in the
-hummingbird-treeview.css.
+<!-- Change **font-size**, **line-height**, checkbox -->
+<!-- **width** and **height** directly in the -->
+<!-- hummingbird-treeview.css. -->
 
 Set options, e.g.:
 
