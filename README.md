@@ -78,7 +78,12 @@ have three different ways to embed the treeview data into the page.
 	
 ```
 
-
+Internally this pseudo HTML list is converted to a real HTML
+structure. The treeview is embedded into a "<div>" container with
+id="treeview_container". The treeview itself is given the
+id="treeview". The unique ids of the items/nodes (Warner Bros.,
+Goodfellas, ...)  follow this schema: id="hum_1", id="hum_2", ... The
+data-ids are given the name of the nodes, i.e. data-id="Warner Bros.", data-id="Goodfellas", ...
 
 <!-- Bind the hummingbird-treeview to a scrollable DOM element: -->
 
