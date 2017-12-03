@@ -80,6 +80,13 @@ embed the treeview data into the page.
 	
 ```
 
+The hyphens indicate the level of indenting. It is important to note
+that down the tree the next node can only be indented by one level,
+i.e. it can only have one hyphen more than the node before. In
+contrast up the treeview, arbitrarily large jumps of indention are
+possible, i.e. the next node can have much less hyphens than the node
+before.
+
 Internally this pseudo HTML list is converted to a real HTML
 structure. The treeview is embedded into a ```<div>``` container with
 id="treeview_container". The treeview itself is given the
