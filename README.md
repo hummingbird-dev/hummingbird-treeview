@@ -115,7 +115,7 @@ $("#treeview").hummingbird();
 
 ```
 
-Congratulations, you are done, your HTML list has now treeview functionality.
+Congratulations, you are done, your pseudo HTML list has now treeview functionality.
 
 ### 2. Simple pseudo HTML plus height, scroll, id, data-id
 
@@ -165,7 +165,7 @@ $("#treeview").hummingbird();
 
 ```
 
-Congratulations, you are done, your HTML list has now treeview functionality.
+Congratulations, you are done, your pseudo HTML list has now treeview functionality.
 
 ### 3. Full HTML structure
 
