@@ -7,7 +7,7 @@ A tiny and fast jQuery treeview plugin
 ## Features
 
 - Display hierarchical tree structures.
-- Based on simple HTML lists.
+- Based on simple pseudo HTML lists.
 - Tri-state logic.
 - Manual and programmatical check, uncheck, collapse, expand, etc.
 - Supports n-tuple nodes, i.e. doubles, triplets, etc.
@@ -20,8 +20,8 @@ A tiny and fast jQuery treeview plugin
 
 ## Dependencies
 
-- jQuery v3.1.1 or newer
-- font-awesome v4.7.0 or newer
+- jQuery v3.1.1 
+- font-awesome v4.7.0 
 
 
 ## Example 
@@ -50,7 +50,12 @@ Add the following resources for the hummingbird-treeview to function correctly:
 
 ```
 
-Create the treeview structure:
+The treeview input data can have two different formats, a very simple pseudo
+HTML list or a real HTML list structure. The simple pseudo HTML list
+can be extended with id and data-id attributes, thus essentially we
+have three different ways to embed the treeview data into the page.
+
+### 1. Simple pseudo HTML
 
 ``` html
 
@@ -72,6 +77,8 @@ Create the treeview structure:
      </div>
 	
 ```
+
+
 
 <!-- Bind the hummingbird-treeview to a scrollable DOM element: -->
 
@@ -169,7 +176,7 @@ Create the treeview structure:
 <!-- **width** and **height** directly in the -->
 <!-- hummingbird-treeview.css. -->
 
-Set options, e.g.:
+Set options, e.g.: (detailed description of all options below)
 
 ```javascript
 
