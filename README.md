@@ -7,7 +7,7 @@ A tiny and fast jQuery treeview plugin
 ## Features
 
 - Display hierarchical tree structures.
-- Based on simple pseudo HTML lists.
+- Based on simple pseudo HTML lists or full HTML structures.
 - Tri-state logic.
 - Manual and programmatical check, uncheck, collapse, expand, etc.
 - Supports n-tuple nodes, i.e. doubles, triplets, etc.
@@ -23,6 +23,7 @@ A tiny and fast jQuery treeview plugin
 - jQuery v3.1.1 
 - font-awesome v4.7.0 
 
+The hummingbird-treeview is tested with these versions, newer versions work most probably as well.
 
 ## Example 
 
