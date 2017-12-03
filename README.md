@@ -50,10 +50,11 @@ Add the following resources for the hummingbird-treeview to function correctly:
 
 ```
 
-The treeview input data can have two different formats, a very simple pseudo
-HTML list or a real HTML list structure. The simple pseudo HTML list
-can be extended with id and data-id attributes, thus essentially we
-have three different ways to embed the treeview data into the page.
+The treeview input data can have two different formats, a very simple
+pseudo HTML list or a real HTML list structure. The simple pseudo HTML
+list can be extended with height and scroll options as well as id and
+data-id attributes, thus essentially we have three different ways to
+embed the treeview data into the page.
 
 ### 1. Simple pseudo HTML
 
@@ -83,7 +84,9 @@ structure. The treeview is embedded into a ```<div>``` container with
 id="treeview_container". The treeview itself is given the
 id="treeview". The unique ids of the items/nodes (Warner Bros.,
 Goodfellas, ...) follow this schema: id="hum_1", id="hum_2", etc. The
-data-ids are given the name of the nodes, i.e. data-id="Warner Bros.", data-id="Goodfellas", etc.
+data-ids are given the name of the nodes, i.e. data-id="Warner Bros.",
+data-id="Goodfellas", etc. To account for double (triplet, ...) nodes
+make sure that the option "checkDoubles" is set to true.
 
 <!-- Bind the hummingbird-treeview to a scrollable DOM element: -->
 
@@ -201,6 +204,59 @@ $("#treeview").hummingbird();
 ```
 
 Congratulations, you are done, your HTML list has now treeview functionality.
+
+### 2. Simple pseudo HTML plus height, scroll, id, data-id
+
+``` html
+
+     <div class="hummingbird-treeview-converter" data-height="230px" data-scroll="true">
+        <li id="item_1" data-id="Studio_1">Warner Bros.</li>
+        <li id="item_2" data-id="Movie_1">-Goodfellas</li>
+        <li id="item_3" data-id="Actor_1">--Robert De Niro</li>
+        <li id="item_4" data-id="Actor_2">--Joe Pesci</li>
+        <li id="item_5" data-id="Movie_2">-The Shawshank Redemption</li>
+        <li id="item_6" data-id="Actor_3">--Tim Robbins</li>
+        <li id="item_7" data-id="Actor_4">--Morgan Freeman</li>
+        <li id="item_8" data-id="Studio_2">Paramount</li>
+        <li id="item_9" data-id="Movie_3">-The Untouchables</li>
+        <li id="item_10" data-id="Actor_1">--Robert De Niro</li>
+        <li id="item_11" data-id="Actor_5">--Kevin Costner</li>
+        <li id="item_12" data-id="Movie_4">-Forrest Gump</li>
+        <li id="item_13" data-id="Actor_6">--Tom Hanks</li>
+        <li id="item_14" data-id="Actor_7">--Robin Wright</li>
+     </div>
+	
+```
+
+Set the height of the treeview element and make it
+scrollable. Additionally it is possible to set custom ids and
+data-ids. To account for double (triplet, ...) nodes make sure that
+they have the same data-id and the option "checkDoubles" is set to
+true.
+
+Set options, e.g.: (detailed description of all options below)
+
+```javascript
+
+$.fn.hummingbird.defaults.collapsedSymbol= "fa-arrow-circle-o-right";
+$.fn.hummingbird.defaults.expandedSymbol= "fa-arrow-circle-o-down";
+$.fn.hummingbird.defaults.checkDoubles= true; 
+...
+
+```    
+
+Initialize hummingbird-treeview:
+
+```javascript
+
+$("#treeview").hummingbird();
+
+```
+
+Congratulations, you are done, your HTML list has now treeview functionality.
+
+
+
 
 
 
