@@ -79,7 +79,7 @@ have three different ways to embed the treeview data into the page.
 ```
 
 Internally this pseudo HTML list is converted to a real HTML
-structure. The treeview is embedded into a ```html<div> container with```
+structure. The treeview is embedded into a ``` html <div>``` container with
 id="treeview_container". The treeview itself is given the
 id="treeview". The unique ids of the items/nodes (Warner Bros.,
 Goodfellas, ...)  follow this schema: id="hum_1", id="hum_2", ... The
