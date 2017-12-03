@@ -81,7 +81,7 @@ embed the treeview data into the page.
 ```
 
 The hyphens indicate the level of indenting. It is important to note
-that down the tree the next node can only be indented by one level,
+that down the tree the next node can maximal be indented by one level,
 i.e. it can only have one hyphen more than the node before (e.g. from
 Goodfellas to Robert De Niro). In contrast up the treeview,
 arbitrarily large jumps of indention are possible, i.e. the next node
