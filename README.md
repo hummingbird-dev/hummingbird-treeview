@@ -161,16 +161,6 @@ Congratulations, you are done, your HTML list has now treeview functionality.
 
 ### 3. Full HTML structure
 
-Bind the hummingbird-treeview to a scrollable DOM element:
-
-```html
-
-     <div id="treeview_container" class="hummingbird-treeview" style="height: 230px; overflow-y: scroll;">
-     <!-- treeview structure/data here -->
-     </div>
-
-```
-
 Create treeview structure/data:
 
 ```html
