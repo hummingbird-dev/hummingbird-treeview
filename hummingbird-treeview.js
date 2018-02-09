@@ -59,7 +59,7 @@
 		var numHyphen_next = (numHyphen_nextMatch != null ? numHyphen_nextMatch[0].length : 0);
 
 		//remove leading hyphens
-		treeText = treeText.replace(/^-+/, "");
+		treeText = treeText.replace(regExp, "");
 		//extract optional id and data-id		
 		if ($(this).attr("id")) {
 		    id_str = $(this).attr("id");
