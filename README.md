@@ -80,7 +80,7 @@ embed the treeview data into the page.
 	
 ```
 
-#### [Example ](https://hummingbird-dev.000webhostapp.com/hummingbird-treeview)
+#### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird-treeview)
 
 The hyphens indicate the level of indenting. It is important to note
 that down the tree the next node can maximal be indented by one level,
