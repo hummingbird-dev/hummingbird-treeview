@@ -45,12 +45,21 @@
 	    var msg = "";
 	    $.each(tree, function(i,e) {
 		var treeText = $(this).text();
-		//cut out leading -
-		var numHyphen = treeText.lastIndexOf("-");
-		//console.log(numHyphen + " " + treeText)
-		var numHyphen_next = $(this).next().text().lastIndexOf("-");
+
+		//Regular Expression for all leading hyphens
+		var regExp = /^-+/;
+
+		//Get leading hyphens
+		var numHyphenMatch = treeText.match(regExp);
+		var numHyphen_nextMatch = $(this).next().text().match(regExp);
+
+		//Get count of leading hyphens
+		//Now supports using hyphens anywhere except for the first character of the label
+		var numHyphen = (numHyphenMatch != null ? numHyphenMatch[0].length : 0);
+		var numHyphen_next = (numHyphen_nextMatch != null ? numHyphen_nextMatch[0].length : 0);
+
 		//remove leading hyphens
-		treeText = treeText.replace(/^-+/, "");
+		treeText = treeText.replace(regExp, "");
 		//extract optional id and data-id		
 		if ($(this).attr("id")) {
 		    id_str = $(this).attr("id");
