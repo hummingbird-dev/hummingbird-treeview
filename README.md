@@ -123,12 +123,12 @@ Congratulations, you are done, your pseudo HTML list has now treeview functional
 
 Using the simple pseudo HTML list with the
 *class="hummingbird-treeview-converter"* the id of the treeview will
-be automatically set to *"treeview"*. Additional pseudo HTML lists
-will receive the ids *treeview2*, *treeview3*, etc. Similar to above
-the unique ids of the items/nodes now follow the schema: id="hum2_1",
-id="hum2_2", ... for the second treeview, id="hum3_1", id="hum3_2",
-... for the third treeview, etc. Thus initialization of every treeview
-is needed:
+be automatically set to *"treeview"*. Additional pseudo HTML lists on
+the same page will receive the ids *treeview2*, *treeview3*,
+etc. Similar to above the unique ids of the items/nodes now follow the
+schema: id="hum2_1", id="hum2_2", ... for the second treeview,
+id="hum3_1", id="hum3_2", ... for the third treeview, etc. Thus
+initialization of every treeview is needed:
 
 ```javascript
 
