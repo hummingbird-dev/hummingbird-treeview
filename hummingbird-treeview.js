@@ -15,8 +15,20 @@
 
     //converter
     $(document).ready(function() {
-	var converter = $(document).find(".hummingbird-treeview-converter");
-	if (converter) {
+	var all_converter = $(".hummingbird-treeview-converter");
+	//console.log(all_converter);
+	var converter_num = 1;
+	var converter_str = "";
+	$.each(all_converter,function(e){
+	    if (converter_num > 1) {
+		converter_str = converter_num.toString();
+	    } 
+	    converter_num++;
+
+
+	    var converter = $(this);
+	    console.log(converter)
+	    
 	    //hide simple treeview structure
 	    converter.hide();
 
@@ -28,12 +40,12 @@
 
 	    
 	    //create new treeview container
-	    var tree_html = '<div id="treeview_container" class="hummingbird-treeview" style="height: ' + converter_height  +'; overflow-y: ' + converter_scroll + ';">' +
-		'<ul id="treeview" class="hummingbird-base">';
+	    var tree_html = '<div id="treeview_container' + converter_str + '" class="hummingbird-treeview" style="height: ' + converter_height  +'; overflow-y: ' + converter_scroll + ';">' +
+		'<ul id="treeview' + converter_str + '" class="hummingbird-base">';
 
 
 	    //get treeview elements
-	    var tree = $(".hummingbird-treeview-converter").children("li");
+	    var tree = converter.children("li");
 
 	    
 	    //loop through the elements and create tree
@@ -65,7 +77,7 @@
 		    id_str = $(this).attr("id");
 		} else {
 		    id_num++;
-		    id_str = "hum_" + id_num;
+		    id_str = "hum" + converter_str + "_" + id_num;
 		}
 		if ($(this).attr("data-id")) {
 		    data_id = $(this).attr("data-id");
@@ -133,12 +145,14 @@
 	    //console.log(item)
 	    tree_html = tree_html + item;
 	    if (allowed == true) {
-		$(".hummingbird-treeview-converter").after(tree_html);
+		//$(".hummingbird-treeview-converter").after(tree_html);
+		converter.after(tree_html);
 	    } else {
-		$(".hummingbird-treeview-converter").after(msg);
+		//$(".hummingbird-treeview-converter").after(msg);
+		converter.after(msg);
 	    }
 
-	}
+	});
 	//end converter
     });
 
