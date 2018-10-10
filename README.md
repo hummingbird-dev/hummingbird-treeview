@@ -512,12 +512,12 @@ var L = List.length;
 
 - **filter(str)**<br> 
   Removes all nodes of 
-  class="hummingbird-end-nodes", which NOT match a search pattern.
+  class="hummingbird-end-node", which NOT match a search pattern.
   Use "|" as a seperator of search strings.
   The *filter* method uses the *OR* logic. For instance if *str=".txt|.jpg|test"*
-  then only nodes of class="hummingbird-end-nodes", which contain 
+  then only nodes of class="hummingbird-end-node", which contain 
   *.txt* or *.jpg* or *test* are shown in the treeview. Nodes, which are not 
-  of class="hummingbird-end-nodes" are still shown, thus not affected by *filter*.
+  of class="hummingbird-end-node" are still shown, thus not affected by *filter*.
 
 ```javascript
 
