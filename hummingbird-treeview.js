@@ -368,6 +368,14 @@
 	    });
 	}
 
+	//filter
+	if (methodName == "filter") {
+	    return this.each(function(){
+		var str = args[1].str;
+		$.fn.hummingbird.filter($(this),str);
+	    });
+	}
+	
 	//search
 	if (methodName == "search") {
 	    return this.each(function(){
@@ -508,6 +516,21 @@
 	tree.find('input:checkbox:checked[' + attr + '=' + name + ']').prop("indeterminate",false).trigger("click");
     };
 
+    //-------------------filter--------------------//
+    $.fn.hummingbird.filter = function(tree,str){
+	var entries = tree.find('input:checkbox.hummingbird-end-node');
+	var re = new RegExp(str, 'g');
+	$.each(entries, function(){
+	    var entry = $(this).parent("label").parent("li").text();
+	    if (entry.match(re) == null) {
+	    	//console.log(entry + " contains " + str)
+		$(this).parent("label").parent("li").remove();
+	    } 
+	});
+    };
+    
+
+    
     //-------------------disableNode---------------//
     $.fn.hummingbird.disableNode = function(tree,attr,name,state,disableChildren){
 	var this_checkbox = tree.find('input:checkbox:not(:disabled)[' + attr + '=' + name + ']');
