@@ -351,20 +351,18 @@
 	//getChecked
 	if (methodName == "getChecked") {
 	    return this.each(function(){
-		var attr = args[1].attr;
 		var list = args[1].list;
 		var onlyEndNodes = args[1].onlyEndNodes;
-		$.fn.hummingbird.getChecked($(this),attr,list,onlyEndNodes);
+		$.fn.hummingbird.getChecked($(this),list,onlyEndNodes);
 	    });
 	}
 
 	//getUnchecked
 	if (methodName == "getUnchecked") {
 	    return this.each(function(){
-		var attr = args[1].attr;
 		var list = args[1].list;
 		var onlyEndNodes = args[1].onlyEndNodes;
-		$.fn.hummingbird.getUnchecked($(this),attr,list,onlyEndNodes);
+		$.fn.hummingbird.getUnchecked($(this),list,onlyEndNodes);
 	    });
 	}
 
@@ -577,36 +575,36 @@
     };
 
     //--------------get all checked items------------------//
-    $.fn.hummingbird.getChecked = function(tree,attr,list,onlyEndNodes){
+    $.fn.hummingbird.getChecked = function(tree,list,onlyEndNodes){
 	if (onlyEndNodes == true) {
 	    tree.find('input:checkbox.hummingbird-end-node:checked').each(function() {
-		if (attr == "text") {
-		    list.push($(this).parent("label").parent("li").text());
-		} else {
-		    list.push($(this).attr(attr));
-		}
+		list.text.push($(this).parent("label").parent("li").text());
+		list.id.push($(this).attr("id"));
+		list.dataid.push($(this).attr("data-id"));
 	    });
 	} else {
 	    tree.find('input:checkbox:checked').each(function() {
-		if (attr == "text") {
-		    list.push($(this).parent("label").parent("li").text());
-		} else {
-		    list.push($(this).attr(attr));
-		}		
+		list.text.push($(this).parent("label").parent("li").text());
+		list.id.push($(this).attr("id"));
+		list.dataid.push($(this).attr("data-id"));
 	    });
 	}
     };
     //--------------get all checked items------------------//
 
     //--------------get all unchecked items------------------//
-    $.fn.hummingbird.getUnchecked = function(tree,attr,list,onlyEndNodes){
+    $.fn.hummingbird.getUnchecked = function(tree,list,onlyEndNodes){
 	if (onlyEndNodes == true) {
 	    tree.find('input:checkbox.hummingbird-end-node:not(:checked)').each(function() {
-		list.push($(this).attr(attr));
+		list.text.push($(this).parent("label").parent("li").text());
+		list.id.push($(this).attr("id"));
+		list.dataid.push($(this).attr("data-id"));
 	    });
 	} else {
 	    tree.find('input:checkbox:not(:checked)').each(function() {
-		list.push($(this).attr(attr));
+		list.text.push($(this).parent("label").parent("li").text());
+		list.id.push($(this).attr("id"));
+		list.dataid.push($(this).attr("data-id"));
 	    });
 	}
     };

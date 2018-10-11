@@ -392,7 +392,7 @@ $("#treeview").hummingbird("checkNode",{attr:"id",name: "node-0-1-1-2",expandPar
 
 ```javascript
 
-$("#treeview").hummingbird("checkNode",{attr:"id",name: "node-0-1-1-2",collapseChildren:false});
+$("#treeview").hummingbird("uncheckNode",{attr:"id",name: "node-0-1-1-2",collapseChildren:false});
 
 ```
 
@@ -467,46 +467,47 @@ $("#treeview").hummingbird("enableNode",{attr:"id",name: "node-0-1-1-2",state:fa
 
 ```
 
-- **getChecked(attr,List,{onlyEndNodes})**<br>
+- **getChecked(List,{onlyEndNodes})**<br>
   Get checked
-  nodes. Retrieve the id, data-id or text, which is defined via the
-  attr parameter. Thus, if you want to extract the text of a node set
-  attr:"text". Set onlyEndNodes to true if you want to retrieve only
+  nodes. Retrieve the id, data-id and text of the nodes.
+  Set onlyEndNodes to true if you want to retrieve only
   that nodes identified by class="hummingbird-end-node", i.e. those
   nodes without children, so to speak the last instance. Default is
   false, which means that all checked nodes are retrieved.  Define an
-  array, e.g. List, for the output of this method. Finally this List
+  object, List, for the output of this method. It is important to name 
+  the arrays exactly like in the example below.
+  Finally this List
   array can be bound to a DOM element and it is also straight forward
-  to do other stuff with that array, e.g. retrieving the length of it.
+  to do other stuff with the arrays, e.g. retrieving the length of it.
 
 ```javascript
 
-var List = [];
-$("#treeview").hummingbird("getChecked",{attr:"id",list:List,onlyEndNodes:true});
-$("#displayItems").html(List.join("<br>"));
-var L = List.length;
+var List = {"id" : [], "dataid" : [], "text" : []};
+$("#treeview").hummingbird("getChecked",{list:List,onlyEndNodes:true});
+$("#displayItems").html(List.text.join("<br>"));
+var L = List.id.length;
 
 ```
 
 - **getUnchecked(attr,List,{onlyEndNodes})**<br>
   Get unchecked
-  nodes. Retrieve the id, data-id or text, which is defined via the
-  attr parameter. Thus, if you want to extract the text of a node set
-  attr:"text". Set onlyEndNodes to true if you want to retrieve only
+  nodes. Retrieve the id, data-id and text of the nodes.
+  Set onlyEndNodes to true if you want to retrieve only
   that nodes identified by class="hummingbird-end-node", i.e. those
   nodes without children, so to speak the last instance. Default is
-  false, which means that all unchecked nodes are retrieved.  Define
-  an array, e.g. List, for the output of this method. Finally this
-  List array can be bound to a DOM element and it is also straight
-  forward to do other stuff with that array, e.g. retrieving the
-  length of it.
+  false, which means that all unchecked nodes are retrieved.  Define an
+  object, List, for the output of this method. It is important to name 
+  the arrays exactly like in the example below.
+  Finally this List
+  array can be bound to a DOM element and it is also straight forward
+  to do other stuff with the arrays, e.g. retrieving the length of it.
 
 ```javascript
 
-var List = [];
-$("#treeview").hummingbird("getUnchecked",{attr:"id",list:List,onlyEndNodes:true});
-$("#displayItems").html(List.join("<br>"));
-var L = List.length;
+var List = {"id" : [], "dataid" : [], "text" : []};
+$("#treeview").hummingbird("getUnchecked",{list:List,onlyEndNodes:true});
+$("#displayItems").html(List.text.join("<br>"));
+var L = List.id.length;
 
 ```
 
