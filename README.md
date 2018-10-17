@@ -453,7 +453,7 @@ $("#treeview").hummingbird("disableNode",{attr:"id",name: "node-0-1-1-2",state:t
 - **enableNode(attr,name,state,{enableChildren})**<br> Enables a
   former disabled node, which is identified by its id, data-id or text,
   which has to be defined in the attr parameter. The name parameter
-  holds the name of the id, data-id or text.  Set state to true if the node
+  holds the name of the id, data-id, or text.  Set state to true if the node
   should be enabled and checked, set it to false if the node should be
   enabled and unchecked. Optionally set enableChildren to false or
   true, default is true. Additionally, enabling a parent nodes with
