@@ -27,7 +27,7 @@
 
 
 	    var converter = $(this);
-	    console.log(converter)
+	    //console.log(converter)
 	    
 	    //hide simple treeview structure
 	    converter.hide();
@@ -375,7 +375,13 @@
 		} else {
 		    var box_disable = false;
 		}
-		$.fn.hummingbird.filter($(this),str,box_disable);
+		if (typeof args[1].filterChildren !== 'undefined') {
+		    var filterChildren = args[1].filterChildren;
+		} else {
+		    var filterChildren = true;
+		}
+		var onlyEndNodes = args[1].onlyEndNodes;
+		$.fn.hummingbird.filter($(this),str,box_disable,onlyEndNodes,filterChildren);
 	    });
 	}
 	
@@ -534,19 +540,49 @@
     };
 
     //-------------------filter--------------------//
-    $.fn.hummingbird.filter = function(tree,str,box_disable){
-	var entries = tree.find('input:checkbox.hummingbird-end-node');
+    $.fn.hummingbird.filter = function(tree,str,box_disable,onlyEndNodes,filterChildren){
+	if (onlyEndNodes) {
+	    var entries = tree.find('input:checkbox.hummingbird-end-node');
+	} else {
+	    var entries = tree.find('input:checkbox');
+	}
 	var re = new RegExp(str, 'g');
+	//console.log("str=")
+	//console.log(str)
 	$.each(entries, function(){
-	    var entry = $(this).parent("label").parent("li").text();
+	    var entry = $(this).parent("label").text();
+	    //console.log("entry= ")
+	    //console.log(entry)
+	    //skip if node has class noFilter
+	    if ($(this).parent("label").parent("li").hasClass("noFilter")) {
+		return;
+	    }
+	    //do not remove root node
+	    if ($(this).prop("id") == "hum_1") {
+		return;
+	    }
+	    
 	    if (entry.match(re) == null) {
-	    	//console.log(entry + " contains " + str)
+	    	console.log(entry + " not contains " + str)
+		//not filter if parent is not fitered		
 		if (box_disable) {
 		    $(this).prop("disabled",true);
 		} else {
+		    //console.log("remove that")
+		    //console.log($(this).parent("label").parent("li").remove())
 		    $(this).parent("label").parent("li").remove();
 		}
-	    } 
+	    } else {
+		//this node will not be filtered out
+		//set all children of this to be not filtered
+		//use find to catch really all to the deepest node
+		//console.log(entry + " contains")
+		//console.log($(this).parent("label").parent("li").children("ul").find("li"))
+		if (filterChildren == false) {
+		    $(this).parent("label").parent("li").children("ul").find("li").addClass("noFilter");
+		}
+	    }
+	    //}
 	});
     };
     
@@ -587,12 +623,12 @@
 	} else {
 	    this_checkbox = tree.find('input:checkbox:disabled[' + attr + '=' + name + ']');
 	}
-	console.log(this_checkbox)
+	//console.log(this_checkbox)
 	//a checkbox cannot be enabled if all children are disabled AND enableChildren is false
 	//get children checkboxes which are not disabled
 	var children_not_disabled_sum= this_checkbox.parent("label").next("ul").children("li").children("label").children("input:checkbox:not(:disabled)").length;
 	if (children_not_disabled_sum == 0 && enableChildren == false) {
-	    console.log("NOW!!!!!!!!!!!!!!!!!!!!!")
+	    //console.log("NOW!!!!!!!!!!!!!!!!!!!!!")
 	    return;
 	}
 	//the state where a parent is enabled and all children are disabled must be forbidden

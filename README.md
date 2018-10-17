@@ -513,19 +513,20 @@ var L = List.id.length;
 
 ```
 
-- **filter(str,{box_disable})**<br> 
-  Removes all nodes of 
-  class="hummingbird-end-node", which NOT match a search pattern.
+- **filter(str,{box_disable,onlyEndNodes,filterChildren})**<br> 
+  Removes all nodes which NOT match a search pattern.
   Use "|" as a seperator of search strings.
   The *filter* method uses the *OR* logic. For instance if *str=".txt|.jpg|test"*
-  then only nodes of class="hummingbird-end-node", which contain 
-  *.txt* or *.jpg* or *test* are shown in the treeview. Nodes, which are not 
-  of class="hummingbird-end-node" are still shown, thus not affected by *filter*.
-  Use *box_disable: true* to not remove the nodes, but disable them.
+  then only nodes which contain 
+  *.txt* or *.jpg* or *test* are shown in the treeview. 
+  To apply the filter only to nodes, which have no children, i.e. those of class="hummingbird-end-node" use
+  *onlyEndNodes:true*. Use *box_disable: true* to not remove the nodes, but disable them. 
+   Set *filterChildren:false*
+  to NOT remove children of a node that is not filtered out.
 
 ```javascript
 
-$("#treeview").hummingbird("filter",{str:".txt|.jpg|test"}, box_disable: false);
+$("#treeview").hummingbird("filter",{str:".txt|.jpg|test"}, box_disable:false, onlyEndNodes:false, filterChildren:true);
 
 ```
 
