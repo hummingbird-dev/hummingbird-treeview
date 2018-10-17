@@ -512,15 +512,10 @@
     //-------------------checkNode---------------//
     $.fn.hummingbird.checkNode = function(tree,attr,name){
 	if (attr == "text") {
-	    var that_nodes = tree.find('input:checkbox:not(:checked)').prop("indeterminate",false);
 	    name = name.trim();
-	    var regex = new RegExp(name,"g")
-	    $.each(that_nodes,function(i,e,){
-		if ($(this).parent("label").text().match(regex)) {
-		    //console.log("success")
-		    $(this).trigger("click");
-		}
-	    });
+	    var that_nodes = tree.find('input:checkbox:not(:checked)').prop("indeterminate",false).parent('label:contains(' + name + ')');
+	    //console.log(that_nodes)
+	    that_nodes.children('input:checkbox').trigger("click");
 	} else {
 	    tree.find('input:checkbox:not(:checked)[' + attr + '=' + name + ']').prop("indeterminate",false).trigger("click");
 	}
@@ -529,15 +524,10 @@
     //-------------------uncheckNode---------------//
     $.fn.hummingbird.uncheckNode = function(tree,attr,name){
 	if (attr == "text") {
-	    var that_nodes = tree.find('input:checkbox:checked').prop("indeterminate",false);
 	    name = name.trim();
-	    var regex = new RegExp(name,"g")
-	    $.each(that_nodes,function(i,e,){
-		if ($(this).parent("label").text().match(regex)) {
-		    //console.log("success")
-		    $(this).trigger("click");
-		}
-	    });
+	    var that_nodes = tree.find('input:checkbox:checked').prop("indeterminate",false).parent('label:contains(' + name + ')');
+	    //console.log(that_nodes)
+	    that_nodes.children('input:checkbox').trigger("click");
 	} else {
 	    tree.find('input:checkbox:checked[' + attr + '=' + name + ']').prop("indeterminate",false).trigger("click");
 	}
@@ -564,7 +554,14 @@
     
     //-------------------disableNode---------------//
     $.fn.hummingbird.disableNode = function(tree,attr,name,state,disableChildren){
-	var this_checkbox = tree.find('input:checkbox:not(:disabled)[' + attr + '=' + name + ']');
+	if (attr == "text") {
+	    name = name.trim();
+	    var that_nodes = tree.find('input:checkbox:not(:disabled)').parent('label:contains(' + name + ')');
+	    //console.log(that_nodes)
+	    var this_checkbox = that_nodes.children('input:checkbox');
+	} else {
+	    var this_checkbox = tree.find('input:checkbox:not(:disabled)[' + attr + '=' + name + ']');
+	}
 	//for a disabled unchecked node, set node checked and then trigger a click to uncheck
 	//for a disabled checked node, set node unchecked and then trigger a click to check
 	this_checkbox.prop("checked",state === false);
@@ -581,8 +578,16 @@
 
     //-------------------enableNode---------------//
     $.fn.hummingbird.enableNode = function(tree,attr,name,state,enableChildren){
-	var this_checkbox = tree.find('input:checkbox:disabled[' + attr + '=' + name + ']');
-
+	var this_checkbox = {};
+	if (attr == "text") {
+	    name = name.trim();
+	    var that_nodes = tree.find('input:checkbox:disabled').parent('label:contains(' + name + ')');
+	    //console.log(that_nodes)
+	    var this_checkbox = that_nodes.children('input:checkbox');
+	} else {
+	    this_checkbox = tree.find('input:checkbox:disabled[' + attr + '=' + name + ']');
+	}
+	console.log(this_checkbox)
 	//a checkbox cannot be enabled if all children are disabled AND enableChildren is false
 	//get children checkboxes which are not disabled
 	var children_not_disabled_sum= this_checkbox.parent("label").next("ul").children("li").children("label").children("input:checkbox:not(:disabled)").length;

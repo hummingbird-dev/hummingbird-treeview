@@ -372,8 +372,7 @@ $("#treeview").hummingbird("expandAll");
   optionally expandParents to true, if the
   parents of this node should be expanded on
   checking. Default of expandParents is
-  false. Note that using the id or data-id is 
-  slightly faster than using the text.
+  false. 
 
 ```javascript
 
@@ -390,8 +389,7 @@ $("#treeview").hummingbird("checkNode",{attr:"text",name: "Goodfellas",expandPar
   optionally collapseChildren to true, if the
   children of this node should be collapsed on
   unchecking. Default of collapseChildren is
-  false. Note that using the id or data-id is 
-  slightly faster than using the text.
+  false. 
 
 ```javascript
 
@@ -433,9 +431,9 @@ $("#treeview").hummingbird("collapseNode",{attr:"id",name: "node-0-1-1-2",collap
 ```
 
 - **disableNode(attr,name,state,{disableChildren})**<br> Disables a
-  node, which is identified by its id or data-id, which has to be
+  node, which is identified by its id, data-id or text, which has to be
   defined in the attr parameter. The name parameter holds the name of
-  the id or data-id.  Set state to true if the node should be disabled
+  the id, data-id or text.  Set state to true if the node should be disabled
   and checked, set it to false if the node should be disabled and
   unchecked. Optionally set disableChildren to false or true, default
   is true. Note that full tri-state functionality is provided also for
@@ -453,9 +451,9 @@ $("#treeview").hummingbird("disableNode",{attr:"id",name: "node-0-1-1-2",state:t
 ```
 
 - **enableNode(attr,name,state,{enableChildren})**<br> Enables a
-  former disabled node, which is identified by its id or data-id,
+  former disabled node, which is identified by its id, data-id or text,
   which has to be defined in the attr parameter. The name parameter
-  holds the name of the id or data-id.  Set state to true if the node
+  holds the name of the id, data-id or text.  Set state to true if the node
   should be enabled and checked, set it to false if the node should be
   enabled and unchecked. Optionally set enableChildren to false or
   true, default is true. Additionally, enabling a parent nodes with
