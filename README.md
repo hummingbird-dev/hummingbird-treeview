@@ -515,7 +515,7 @@ var L = List.id.length;
 
 ```
 
-- **filter(str)**<br> 
+- **filter(str,{box_disable})**<br> 
   Removes all nodes of 
   class="hummingbird-end-node", which NOT match a search pattern.
   Use "|" as a seperator of search strings.
@@ -523,10 +523,11 @@ var L = List.id.length;
   then only nodes of class="hummingbird-end-node", which contain 
   *.txt* or *.jpg* or *test* are shown in the treeview. Nodes, which are not 
   of class="hummingbird-end-node" are still shown, thus not affected by *filter*.
+  Use *box_disable: true* to not remove the nodes, but disable them.
 
 ```javascript
 
-$("#treeview").hummingbird("filter",{str:".txt|.jpg|test"});
+$("#treeview").hummingbird("filter",{str:".txt|.jpg|test"}, box_disable: false);
 
 ```
 

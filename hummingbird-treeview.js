@@ -370,7 +370,12 @@
 	if (methodName == "filter") {
 	    return this.each(function(){
 		var str = args[1].str;
-		$.fn.hummingbird.filter($(this),str);
+		if (typeof args[1].box_disable !== 'undefined') {
+		    var box_disable = args[1].box_disable;
+		} else {
+		    var box_disable = false;
+		}
+		$.fn.hummingbird.filter($(this),str,box_disable);
 	    });
 	}
 	
@@ -539,14 +544,18 @@
     };
 
     //-------------------filter--------------------//
-    $.fn.hummingbird.filter = function(tree,str){
+    $.fn.hummingbird.filter = function(tree,str,box_disable){
 	var entries = tree.find('input:checkbox.hummingbird-end-node');
 	var re = new RegExp(str, 'g');
 	$.each(entries, function(){
 	    var entry = $(this).parent("label").parent("li").text();
 	    if (entry.match(re) == null) {
 	    	//console.log(entry + " contains " + str)
-		$(this).parent("label").parent("li").remove();
+		if (box_disable) {
+		    $(this).prop("disabled",true);
+		} else {
+		    $(this).parent("label").parent("li").remove();
+		}
 	    } 
 	});
     };
