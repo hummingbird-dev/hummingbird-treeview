@@ -506,12 +506,36 @@
 
     //-------------------checkNode---------------//
     $.fn.hummingbird.checkNode = function(tree,attr,name){
-	tree.find('input:checkbox:not(:checked)[' + attr + '=' + name + ']').prop("indeterminate",false).trigger("click");
+	if (attr == "text") {
+	    var that_nodes = tree.find('input:checkbox:not(:checked)').prop("indeterminate",false);
+	    name = name.trim();
+	    var regex = new RegExp(name,"g")
+	    $.each(that_nodes,function(i,e,){
+		if ($(this).parent("label").text().match(regex)) {
+		    //console.log("success")
+		    $(this).trigger("click");
+		}
+	    });
+	} else {
+	    tree.find('input:checkbox:not(:checked)[' + attr + '=' + name + ']').prop("indeterminate",false).trigger("click");
+	}
     };
 
     //-------------------uncheckNode---------------//
     $.fn.hummingbird.uncheckNode = function(tree,attr,name){
-	tree.find('input:checkbox:checked[' + attr + '=' + name + ']').prop("indeterminate",false).trigger("click");
+	if (attr == "text") {
+	    var that_nodes = tree.find('input:checkbox:checked').prop("indeterminate",false);
+	    name = name.trim();
+	    var regex = new RegExp(name,"g")
+	    $.each(that_nodes,function(i,e,){
+		if ($(this).parent("label").text().match(regex)) {
+		    //console.log("success")
+		    $(this).trigger("click");
+		}
+	    });
+	} else {
+	    tree.find('input:checkbox:checked[' + attr + '=' + name + ']').prop("indeterminate",false).trigger("click");
+	}
     };
 
     //-------------------filter--------------------//

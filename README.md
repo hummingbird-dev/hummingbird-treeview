@@ -366,33 +366,37 @@ $("#treeview").hummingbird("expandAll");
 
 - **checkNode(attr,name,{expandParents})**<br>
   Checks a node, which is identified by its
-  id or data-id, which has to be defined in
+  id, data-id, or text, which has to be defined in
   the attr parameter. The name parameter
-  holds the name of the id or data-id. Set
+  holds the name of the id, data-id or text. Set
   optionally expandParents to true, if the
   parents of this node should be expanded on
   checking. Default of expandParents is
-  false.
+  false. Note that using the id or data-id is 
+  slightly faster than using the text.
 
 ```javascript
 
 $("#treeview").hummingbird("checkNode",{attr:"id",name: "node-0-1-1-2",expandParents:false});
+$("#treeview").hummingbird("checkNode",{attr:"text",name: "Goodfellas",expandParents:false});
 
 ```
 
 - **uncheckNode(attr,name,{collapseChildren})**<br>
   Unchecks a node, which is identified by its
-  id or data-id, which has to be defined in
+  id, data-id, or text which has to be defined in
   the attr parameter. The name parameter
-  holds the name of the id or data-id. Set
+  holds the name of the id, data-id or text. Set
   optionally collapseChildren to true, if the
   children of this node should be collapsed on
   unchecking. Default of collapseChildren is
-  false.
+  false. Note that using the id or data-id is 
+  slightly faster than using the text.
 
 ```javascript
 
 $("#treeview").hummingbird("uncheckNode",{attr:"id",name: "node-0-1-1-2",collapseChildren:false});
+$("#treeview").hummingbird("uncheckNode",{attr:"text",name: "Kevin Costner",collapseChildren:false});
 
 ```
 
