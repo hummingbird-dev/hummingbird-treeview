@@ -27,3 +27,6 @@
     cursor: pointer;
 }
 
+.hummingbird-base {
+    white-space:nowrap;
+}

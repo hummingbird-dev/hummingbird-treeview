@@ -41,7 +41,7 @@
 	    
 	    //create new treeview container
 	    var tree_html = '<div id="treeview_container' + converter_str + '" class="hummingbird-treeview" style="height: ' + converter_height  +'; overflow-y: ' + converter_scroll + ';">' +
-		'<ul style="white-space:nowrap;" id="treeview' + converter_str + '" class="hummingbird-base">';
+		'<ul id="treeview' + converter_str + '" class="hummingbird-base">';
 
 
 	    //get treeview elements
