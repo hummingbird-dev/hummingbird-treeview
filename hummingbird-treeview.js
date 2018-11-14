@@ -41,7 +41,7 @@
 	    
 	    //create new treeview container
 	    var tree_html = '<div id="treeview_container' + converter_str + '" class="hummingbird-treeview" style="height: ' + converter_height  +'; overflow-y: ' + converter_scroll + ';">' +
-		'<ul id="treeview' + converter_str + '" class="hummingbird-base">';
+		'<ul style="white-space:nowrap;" id="treeview' + converter_str + '" class="hummingbird-base">';
 
 
 	    //get treeview elements
@@ -547,43 +547,23 @@
 	    var entries = tree.find('input:checkbox');
 	}
 	var re = new RegExp(str, 'g');
-	//console.log("str=")
-	//console.log(str)
 	$.each(entries, function(){
 	    var entry = $(this).parent("label").text();
-	    //console.log("entry= ")
-	    //console.log(entry)
-	    //skip if node has class noFilter
-	    if ($(this).parent("label").parent("li").hasClass("noFilter")) {
-		return;
-	    }
-	    //do not remove root node
-	    if ($(this).prop("id") == "hum_1") {
-		return;
-	    }
-	    
-	    if (entry.match(re) == null) {
-	    	console.log(entry + " not contains " + str)
-		//not filter if parent is not fitered		
-		if (box_disable) {
-		    $(this).prop("disabled",true);
-		} else {
-		    //console.log("remove that")
-		    //console.log($(this).parent("label").parent("li").remove())
-		    $(this).parent("label").parent("li").remove();
-		}
-	    } else {
-		//this node will not be filtered out
-		//set all children of this to be not filtered
-		//use find to catch really all to the deepest node
-		//console.log(entry + " contains")
-		//console.log($(this).parent("label").parent("li").children("ul").find("li"))
+	    //if we have a match we add class to all parent li's
+	    if (entry.match(re)) {		
+		$(this).parents("li").addClass("noFilter");
 		if (filterChildren == false) {
-		    $(this).parent("label").parent("li").children("ul").find("li").addClass("noFilter");
+		    $(this).parent("label").parent("li").find("li").addClass("noFilter");
+		    //console.log($(this).parent("label").parent("li").find("li"))
 		}
 	    }
-	    //}
 	});
+	//now remove or disable all, which do not match
+	if (box_disable) {
+	    tree.find("li").not('.noFilter').prop("disabled",true);
+	} else {
+	    tree.find("li").not('.noFilter').remove();
+	}
     };
     
 
