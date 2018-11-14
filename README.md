@@ -275,9 +275,10 @@ The base `ul` must be assigned to the "hummingbird-base" class: `<ul id="treevie
   
 Do not change the "fa fa-plus", do this via the options (see below).
 
-Change **font-size**, **line-height**, checkbox
-**width** and **height** directly in the
-hummingbird-treeview.css.
+Change **font-size**, **line-height**, checkbox **width** and
+**height** directly in the hummingbird-treeview.css. Additionally, the
+**hummingbird-base** class disables line breaks of nodes. To change
+that, edit again directly the hummingbird-treeview.css.
 
 ## Options
 As you have seen above, options can be adjusted by calling
