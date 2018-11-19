@@ -546,6 +546,8 @@ $("#treeview").hummingbird();
  
  - **removeNode(attr,name)**<br> Remove a node, which is identified by 
    *attr* equal id, data-id, or text. Initialise the treeview again after removing a node.
+   Warning: Removing nodes dynamically during production can yield to inconsistencies 
+   in the tri-state logic. So it is recommended e.g. to un-check all nodes before removing a node.
 
 ```javascript
 
