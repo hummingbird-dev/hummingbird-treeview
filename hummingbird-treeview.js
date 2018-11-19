@@ -366,6 +366,42 @@
 	    });
 	}
 
+
+	//addNode
+	if (methodName == "addNode") {
+	    return this.each(function(){
+		var pos = args[1].pos;   //before or after
+		var anchor_attr = args[1].anchor_attr; //the anchor node
+		var anchor_name = args[1].anchor_name; //the anchor node
+		var text = args[1].text;
+		var the_id = args[1].the_id; 
+		var data_id = args[1].data_id;
+		if (typeof args[1].end_node !== 'undefined') {
+		    var end_node = args[1].end_node;
+		} else {
+		    var end_node = true;
+		}
+		if (typeof args[1].children !== 'undefined') {
+		    var children = args[1].children;
+		} else {
+		    var children = false;
+		}
+		$.fn.hummingbird.addNode($(this),pos,anchor_attr,anchor_name,text,the_id,data_id,end_node,children,options.collapsedSymbol);
+	    });
+	}
+
+
+	//removeNode
+	if (methodName == "removeNode") {
+	    return this.each(function(){
+		var name = args[1].name;
+		var attr = args[1].attr;
+		$.fn.hummingbird.removeNode($(this),attr,name);
+	    });
+	}
+
+
+	
 	//filter
 	if (methodName == "filter") {
 	    return this.each(function(){
@@ -537,6 +573,54 @@
 	} else {
 	    tree.find('input:checkbox:checked[' + attr + '=' + name + ']').prop("indeterminate",false).trigger("click");
 	}
+    };
+
+    //-------------------removeNode---------------//
+    $.fn.hummingbird.removeNode = function(tree,attr,name){
+	if (attr == "text") {
+	    name = name.trim();
+	    tree.find('input:checkbox').parent('label:contains(' + name + ')').parent('li').remove();
+	} else {
+	    tree.find('input:checkbox[' + attr + '=' + name + ']').parent('li').remove();
+	}
+    };
+
+    //-------------------addNode---------------//
+    $.fn.hummingbird.addNode = function(tree,pos,anchor_attr,anchor_name,text,the_id,data_id,end_node,children,collapsedSymbol){
+	//find the node
+	if (anchor_attr == "text") {
+	    anchor_name = anchor_name.trim();
+	    var that_node = tree.find('input:checkbox').parent('label:contains(' + anchor_name + ')').parent("li");
+	} else {
+	    var that_node = tree.find('input:checkbox[' + anchor_attr + '=' + anchor_name + ']').parent("label").parent("li");
+	}
+	//
+	//console.log(that_node)
+	//
+	if (end_node) {
+	    var Xclass = "hummingbird-end-node";
+	    if (pos == "before") {
+		that_node.before('<li><label><input class="'+ Xclass  +'" id="'+ the_id  +'" data-id="'+ data_id  +'" type="checkbox"> '+ text  +'</label></li>')
+	    }
+	    if (pos == "after") {
+		that_node.after('<li><label><input class="'+ Xclass  +'" id="'+ the_id  +'" data-id="'+ data_id  +'" type="checkbox"> '+ text  +'</label></li>')
+	    }
+	} else {
+	    var Xclass = "";
+	    //create subtree
+	    var subtree = "";
+	    $.each(children, function(i,e){
+		console.log(e)
+		subtree = subtree + '<li><label><input class="'+ 'hummingbird-end-node'  +'" id="'+ e.id  +'" data-id="'+ e.data_id  +'" type="checkbox"> '+ e.text  +'</label></li>'
+	    });
+	    if (pos == "before") {		
+		that_node.before('<li>'+"\n"+'<i class="fa '+ collapsedSymbol  +'"></i>'+ "\n" +'<label>'+"\n"+'<input class="'+ Xclass  +'" id="'+ the_id  +'" data-id="'+ data_id  +'" type="checkbox"> '+ text  +'</label>'+ "\n" +'<ul>'+ "\n" + subtree  +'</ul>'+"\n"+'</li>')
+	    }
+	    if (pos == "after") {
+		that_node.after('<li>'+"\n"+'<i class="fa '+ collapsedSymbol  +'"></i>'+ "\n" +'<label>'+"\n"+'<input class="'+ Xclass  +'" id="'+ the_id  +'" data-id="'+ data_id  +'" type="checkbox"> '+ text  +'</label>'+ "\n" +'<ul>'+ "\n" + subtree  +'</ul>'+"\n"+'</li>')
+	    }	    
+	}
+	//
     };
 
     //-------------------filter--------------------//

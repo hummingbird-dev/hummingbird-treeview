@@ -470,6 +470,57 @@ $("#treeview").hummingbird("enableNode",{attr:"id",name: "node-0-1-1-2",state:fa
 
 ```
 
+- **addNode(pos,anchor_attr,anchor_name,text,the_id,data_id,{end_node,children})**<br> Add a node at pos = 
+  'before' or 'after' an already existing
+  node. The existing node is called here *anchor*. To identify the
+  anchor node define the *anchor_attr* as id, data-id or text. The 
+  parameter *anchor_name* is then the respective name of the *anchor_attr*. 
+  Next define the *text* of the new node, the new id (*the_id*) and the new *data_id*.
+  Note that we use *data-id* with hyphen and *data_id* with underscore. By default a 
+  *hummingbird-end-node* is added, i.e. *end_node:true*, shown below:
+
+
+```javascript
+
+$("#treeview").hummingbird('addNode',{pos:'after',anchor_attr:'text',anchor_name:'node-0-1-1-2',text:'New Node',the_id:'new_id',data_id:'new_data_id'});
+
+$("#treeview").hummingbird();
+
+```
+	If you want to add a node including children, *end_node* must be set to *false* and an object
+	containing the children must be passed to the method with name *children*:
+
+
+```javascript
+
+var new_children = {
+   child1: {id:'child1',data_id:'child1',text:'child1'},
+   child2: {id:'child2',data_id:'child2',text:'child2'},
+};
+
+$("#treeview").hummingbird('addNode',{pos:'after',anchor_attr:'text',anchor_name:'node-0-1-1-2',text:'New Node',the_id:'new_id',data_id:'new_data_id',end_node:false,children:new_children});
+
+$("#treeview").hummingbird();
+
+```
+ Finally it is important to initialise the treeview again after adding nodes.
+ Warning: Adding nodes dynamically during production can yield to inconsistencies 
+ in the tri-state logic. So it is recommended e.g. to un-check all nodes before adding a node.
+ Further be careful by using URL query parameters, cookies, 
+ or form inputs to create nodes, because this can introduce cross-site-scripting (XSS) 
+ vulnerabilities. Remove or escape any user input before adding content to the document. 
+ 
+ - **removeNode(attr,name)**<br> Remove a node, which is identified by 
+   *attr* equal id, data-id, or text. Initialise the treeview again after removing a node.
+
+```javascript
+
+$("#treeview").hummingbird('removeNode',{attr:'id',name:'node-0-1-1-2'});
+
+$("#treeview").hummingbird();
+
+```
+
 - **getChecked(List,{onlyEndNodes})**<br>
   Get checked
   nodes. Retrieve the id, data-id and text of the nodes.
