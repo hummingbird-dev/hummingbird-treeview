@@ -506,6 +506,11 @@ $("#treeview").hummingbird();
 
 ```
   Finally it is important to initialise the treeview again after adding nodes.
+  In the case you want to add a parent node, which contains again parent nodes, 
+  create first the parent node with a *hummingbird-end-node* child as above. Then
+  add the next parent to the created *hummingbird-end-node* and finally remove the 
+  *hummingbird-end-node* node.
+    
   Warning: Adding nodes dynamically during production can yield to inconsistencies 
   in the tri-state logic. So it is recommended e.g. to un-check all nodes before adding a node.
   Further be careful by using URL query parameters, cookies, 
