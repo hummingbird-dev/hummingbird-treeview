@@ -581,7 +581,7 @@
 	    name = name.trim();
 	    tree.find('input:checkbox').parent('label:contains(' + name + ')').parent('li').remove();
 	} else {
-	    tree.find('input:checkbox[' + attr + '=' + name + ']').parent('li').remove();
+	    tree.find('input:checkbox[' + attr + '=' + name + ']').parent("label").parent('li').remove();
 	}
     };
 

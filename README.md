@@ -509,7 +509,34 @@ $("#treeview").hummingbird();
   In the case you want to add a parent node, which contains again parent nodes, 
   create first the parent node with a *hummingbird-end-node* child as above. Then
   add the next parent to the created *hummingbird-end-node* and finally remove the 
-  *hummingbird-end-node* node.
+  *hummingbird-end-node* node:
+  
+```javascript
+
+var children = {
+   child1: {id:'child1',data_id:'child1',text:'child1'},
+};
+
+$("#treeview").hummingbird('addNode',{pos:'before',anchor_attr:'text',anchor_name:'Joe Pesci',
+text:'Ray Liotta',the_id:'Ray',data_id:'Ray',end_node:false,children:children});
+
+$("#treeview").hummingbird();
+
+var children = {
+   child2: {id:'child2',data_id:'child2',text:'child2'},
+   child3: {id:'child3',data_id:'child3',text:'child3'},
+};
+		 
+$("#treeview").hummingbird('addNode',{pos:'after',anchor_attr:'text',anchor_name:'child1',
+text:'child1',the_id:'child1x',data_id:'child1x',end_node:false,children});
+		 
+$("#treeview").hummingbird();
+
+$("#treeview").hummingbird('removeNode',{attr:'id',name:'child1'});
+
+$("#treeview").hummingbird();
+
+```
     
   Warning: Adding nodes dynamically during production can yield to inconsistencies 
   in the tri-state logic. So it is recommended e.g. to un-check all nodes before adding a node.
