@@ -488,8 +488,8 @@ $("#treeview").hummingbird();
 
 ```
 
-> If you want to add a node including children, *end_node* must be set to *false* and an object
->  containing the children must be passed to the method with name *children*:
+&nbsp; If you want to add a node including children, *end_node* must be set to *false* and an object
+&nbsp; containing the children must be passed to the method with name *children*:
 
 
 ```javascript
