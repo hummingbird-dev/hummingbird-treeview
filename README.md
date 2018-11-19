@@ -488,8 +488,9 @@ text:'New Node',the_id:'new_id',data_id:'new_data_id'});
 $("#treeview").hummingbird();
 
 ```
-	If you want to add a node including children, *end_node* must be set to *false* and an object
-	containing the children must be passed to the method with name *children*:
+
+If you want to add a node including children, *end_node* must be set to *false* and an object
+containing the children must be passed to the method with name *children*:
 
 
 ```javascript
