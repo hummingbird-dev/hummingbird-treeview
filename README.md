@@ -489,8 +489,8 @@ $("#treeview").hummingbird();
 
 ```
 
-If you want to add a node including children, *end_node* must be set to *false* and an object
-containing the children must be passed to the method with name *children*:
+  If you want to add a node including children, *end_node* must be set to *false* and an object
+  containing the children must be passed to the method with name *children*:
 
 
 ```javascript
@@ -506,12 +506,12 @@ text:'New Node',the_id:'new_id',data_id:'new_data_id',end_node:false,children:ne
 $("#treeview").hummingbird();
 
 ```
- Finally it is important to initialise the treeview again after adding nodes.
- Warning: Adding nodes dynamically during production can yield to inconsistencies 
- in the tri-state logic. So it is recommended e.g. to un-check all nodes before adding a node.
- Further be careful by using URL query parameters, cookies, 
- or form inputs to create nodes, because this can introduce cross-site-scripting (XSS) 
- vulnerabilities. Remove or escape any user input before adding content to the document. 
+  Finally it is important to initialise the treeview again after adding nodes.
+  Warning: Adding nodes dynamically during production can yield to inconsistencies 
+  in the tri-state logic. So it is recommended e.g. to un-check all nodes before adding a node.
+  Further be careful by using URL query parameters, cookies, 
+  or form inputs to create nodes, because this can introduce cross-site-scripting (XSS) 
+  vulnerabilities. Remove or escape any user input before adding content to the document. 
  
  - **removeNode(attr,name)**<br> Remove a node, which is identified by 
    *attr* equal id, data-id, or text. Initialise the treeview again after removing a node.
