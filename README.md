@@ -478,6 +478,7 @@ $("#treeview").hummingbird("enableNode",{attr:"id",name: "node-0-1-1-2",state:fa
   Next define the *text* of the new node, the new id (*the_id*) and the new *data_id*.
   Note that we use *data-id* with hyphen and *data_id* with underscore. By default a 
   *hummingbird-end-node* is added, i.e. *end_node:true*, shown below:
+
 ```javascript
 
 $("#treeview").hummingbird('addNode',{pos:'after',anchor_attr:'text',anchor_name:'node-0-1-1-2',
@@ -486,8 +487,9 @@ text:'New Node',the_id:'new_id',data_id:'new_data_id'});
 $("#treeview").hummingbird();
 
 ```
-   If you want to add a node including children, *end_node* must be set to *false* and an object
-   containing the children must be passed to the method with name *children*:
+
+  * If you want to add a node including children, *end_node* must be set to *false* and an object
+  *  containing the children must be passed to the method with name *children*:
 
 
 ```javascript
