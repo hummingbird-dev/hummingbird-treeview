@@ -482,7 +482,8 @@ $("#treeview").hummingbird("enableNode",{attr:"id",name: "node-0-1-1-2",state:fa
 
 ```javascript
 
-$("#treeview").hummingbird('addNode',{pos:'after',anchor_attr:'text',anchor_name:'node-0-1-1-2',text:'New Node',the_id:'new_id',data_id:'new_data_id'});
+$("#treeview").hummingbird('addNode',{pos:'after',anchor_attr:'text',anchor_name:'node-0-1-1-2',
+text:'New Node',the_id:'new_id',data_id:'new_data_id'});
 
 $("#treeview").hummingbird();
 
@@ -498,7 +499,8 @@ var new_children = {
    child2: {id:'child2',data_id:'child2',text:'child2'},
 };
 
-$("#treeview").hummingbird('addNode',{pos:'after',anchor_attr:'text',anchor_name:'node-0-1-1-2',text:'New Node',the_id:'new_id',data_id:'new_data_id',end_node:false,children:new_children});
+$("#treeview").hummingbird('addNode',{pos:'after',anchor_attr:'text',anchor_name:'node-0-1-1-2',
+text:'New Node',the_id:'new_id',data_id:'new_data_id',end_node:false,children:new_children});
 
 $("#treeview").hummingbird();
 
