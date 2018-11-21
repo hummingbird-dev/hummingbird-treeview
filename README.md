@@ -13,6 +13,8 @@ A tiny and fast jQuery treeview plugin
 - Supports n-tuple nodes, i.e. doubles, triplets, etc.
 - Supports disabled nodes, checked or unchecked.
 - Get checked/unchecked items programmatically.
+- Add and remove nodes dynamically.
+- Filter nodes.
 - Supports HTML5 data-* attribute to embed custom data.
 - Supports Font Awesome icons.
 - Search function.
