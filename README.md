@@ -2,6 +2,8 @@
 
 A tiny and fast jQuery treeview plugin
 
+#### [View CHANGES.md](https://github.com/hummingbird-dev/hummingbird-treeview/blob/master/CHANGES.md)
+
 #### [Visit demo page ](https://hummingbird-dev.000webhostapp.com/hummingbird-treeview)
 
 ## Features
