@@ -308,8 +308,10 @@ $.fn.hummingbird.defaults.option= value;
 
 Following options are available:
 
-- **SymbolPrefix**<br>
-  String, set this to "fas" or "far" if you are using Font-Awesome 5.*.
+- **SymbolPrefix**<br> 
+  String, set this to "fas" or "far" if you are
+  using Font-Awesome 5.*.  Note that the modes "fas" and "far" cannot
+  be mixed for the collapsed and expanded symbols. Only one mode for all is supported.
 
 - **collapsedSymbol**<br>
   String, default="fa-plus". This can be any icon
