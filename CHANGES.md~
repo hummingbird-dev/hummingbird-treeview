@@ -23,9 +23,9 @@ A tiny and fast jQuery treeview plugin
 ## Dependencies
 
 - jQuery v3.1.1 
-- font-awesome v4.7.0 and font-awesome v5.8.1
+- font-awesome v4.7.0 
 
-The hummingbird-treeview is tested with these versions, other versions work most probably as well.
+The hummingbird-treeview is tested with these versions, newer versions work most probably as well.
 
 ## Example 
 
@@ -104,23 +104,12 @@ Set options, e.g.: (detailed description of all options below)
 
 ```javascript
 
-$.fn.hummingbird.defaults.collapsedSymbol = "fa-arrow-circle-o-right";
-$.fn.hummingbird.defaults.expandedSymbol = "fa-arrow-circle-o-down";
-$.fn.hummingbird.defaults.checkDoubles = true; 
+$.fn.hummingbird.defaults.collapsedSymbol= "fa-arrow-circle-o-right";
+$.fn.hummingbird.defaults.expandedSymbol= "fa-arrow-circle-o-down";
+$.fn.hummingbird.defaults.checkDoubles= true; 
 ...
 
-```
-
-For using Font-Awesome 5.* add *SymbolPrefix="fas"* or *SymbolPrefix="far"*. Use e.g.
-
-```javascript
-$.fn.hummingbird.defaults.SymbolPrefix = "fas";
-$.fn.hummingbird.defaults.collapsedSymbol = "fa-hand-point-right";
-$.fn.hummingbird.defaults.expandedSymbol = "fa-hand-point-down";
-...
-
-```
-
+```    
 
 Initialize hummingbird-treeview:
 
@@ -261,8 +250,6 @@ Create treeview structure/data:
 
 ```
 
-Use here exactly the *class="fa fa-plus"* and change Symbols via the options functionality.
-
 Only change the following:
 ### Treeview structure and node properties
 
@@ -305,9 +292,6 @@ $.fn.hummingbird.defaults.option= value;
 ```
 
 Following options are available:
-
-- **SymbolPrefix**<br>
-  String, set this to "fas" or "far" if you are using Font-Awesome 5.*.
 
 - **collapsedSymbol**<br>
   String, default="fa-plus". This can be any icon

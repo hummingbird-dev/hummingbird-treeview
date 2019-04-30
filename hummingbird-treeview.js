@@ -167,10 +167,20 @@
 	if (typeof(methodName) == "undefined" ) {
 	    return this.each(function(){
 		//-------------------options-------------------------------------------------------//
+
+		//change symbol prefix
+		//font-awesome 4.7 uses fa
+		//font-awesome 5. uses fas
+		if (options.SymbolPrefix != "fa") {
+		    $(this).find("i").removeClass("fa").addClass(options.SymbolPrefix);
+		}
+		
+
 		//change symbols
 		if (options.collapsedSymbol != "fa-plus") {
 		    $(this).find("i").removeClass("fa-plus").addClass(options.collapsedSymbol);
 		}
+
 
 		//hide checkboxes
 		if (options.checkboxes == "disabled") {
@@ -466,6 +476,7 @@
 
     //options defaults
     $.fn.hummingbird.defaults = {
+	SymbolPrefix: "fa",
 	expandedSymbol: "fa-minus",
 	collapsedSymbol: "fa-plus",
 	collapseAll: true,

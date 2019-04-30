@@ -27,6 +27,11 @@
     cursor: pointer;
 }
 
+.hummingbird-treeview .fas {
+    font-style: normal;
+    cursor: pointer;
+}
+
 .hummingbird-base {
     white-space:nowrap;
 }
