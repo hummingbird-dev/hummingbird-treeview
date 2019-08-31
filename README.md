@@ -639,7 +639,7 @@ var L = List.id.length;
 
 ```javascript
 
-$("#treeview").hummingbird("filter",{str:".txt|.jpg|test", caseSensitive: true, box_disable:false, onlyEndNodes:false, filterChildren:true});
+$("#treeview").hummingbird("filter",{str:".txt|.jpg|test", caseSensitive: false, box_disable:false, onlyEndNodes:false, filterChildren:true});
 
 ```
 
