@@ -629,15 +629,17 @@ var L = List.id.length;
   The *filter* method uses the *OR* logic. For instance if *str=".txt|.jpg|test"*
   then only nodes which contain
   *.txt* or *.jpg* or *test* are shown in the treeview.
+  Optional setting:<br> 
+  Use *box_disable: true* to not remove the nodes, but disable them.
+  Use *caseSensitive: true* to restrict searches to exact case-match, the deafult filter criteria is case-insensitive.
   To apply the filter only to nodes, which have no children, i.e. those of class="hummingbird-end-node" use
-  *caseSensitive:true*. Use *caseSensitive: true* to restrict searches to exact case-match, the deafult filter criteria is case-insensitive.
-  *onlyEndNodes:true*. Use *box_disable: true* to not remove the nodes, but disable them.
+  *onlyEndNodes:true*. 
    Set *filterChildren:false*
   to NOT remove children of a node that is not filtered out.
 
 ```javascript
 
-$("#treeview").hummingbird("filter",{str:".txt|.jpg|test", box_disable:false, onlyEndNodes:false, filterChildren:true});
+$("#treeview").hummingbird("filter",{str:".txt|.jpg|test", caseSensitive: true, box_disable:false, onlyEndNodes:false, filterChildren:true});
 
 ```
 

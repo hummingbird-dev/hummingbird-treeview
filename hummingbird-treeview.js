@@ -426,8 +426,16 @@
 		} else {
 		    var filterChildren = true;
 		}
-		var onlyEndNodes = args[1].onlyEndNodes;
-        var caseSensitive = args[1].caseSensitive;
+		if (typeof args[1].onlyEndNodes !== 'undefined') {
+		    var onlyEndNodes = args[1].onlyEndNodes;
+		} else {
+		    var onlyEndNodes = false;
+		}
+		if (typeof args[1].caseSensitive !== 'undefined') {
+		    var caseSensitive = args[1].caseSensitive;
+		} else {
+		    var caseSensitive = false;
+		}
 		$.fn.hummingbird.filter($(this),str,box_disable,caseSensitive,onlyEndNodes,filterChildren);
 	    });
 	}
