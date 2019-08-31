@@ -623,14 +623,15 @@ var L = List.id.length;
 
 ```
 
-- **filter(str,{box_disable,onlyEndNodes,filterChildren})**<br> 
+- **filter(str,{box_disable,caseSensitive,onlyEndNodes,filterChildren})**<br>
   Removes all nodes which NOT match a search pattern.
   Use "|" as a seperator of search strings.
   The *filter* method uses the *OR* logic. For instance if *str=".txt|.jpg|test"*
-  then only nodes which contain 
-  *.txt* or *.jpg* or *test* are shown in the treeview. 
+  then only nodes which contain
+  *.txt* or *.jpg* or *test* are shown in the treeview.
   To apply the filter only to nodes, which have no children, i.e. those of class="hummingbird-end-node" use
-  *onlyEndNodes:true*. Use *box_disable: true* to not remove the nodes, but disable them. 
+  *caseSensitive:true*. Use *caseSensitive: true* to restrict searches to exact case-match, the deafult filter criteria is case-insensitive.
+  *onlyEndNodes:true*. Use *box_disable: true* to not remove the nodes, but disable them.
    Set *filterChildren:false*
   to NOT remove children of a node that is not filtered out.
 

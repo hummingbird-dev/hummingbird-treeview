@@ -427,7 +427,8 @@
 		    var filterChildren = true;
 		}
 		var onlyEndNodes = args[1].onlyEndNodes;
-		$.fn.hummingbird.filter($(this),str,box_disable,onlyEndNodes,filterChildren);
+        var caseSensitive = args[1].caseSensitive;
+		$.fn.hummingbird.filter($(this),str,box_disable,caseSensitive,onlyEndNodes,filterChildren);
 	    });
 	}
 	
@@ -624,28 +625,32 @@
 		console.log(e)
 		subtree = subtree + '<li><label><input class="'+ 'hummingbird-end-node'  +'" id="'+ e.id  +'" data-id="'+ e.data_id  +'" type="checkbox"> '+ e.text  +'</label></li>'
 	    });
-	    if (pos == "before") {		
+	    if (pos == "before") {
 		that_node.before('<li>'+"\n"+'<i class="fa '+ collapsedSymbol  +'"></i>'+ "\n" +'<label>'+"\n"+'<input class="'+ Xclass  +'" id="'+ the_id  +'" data-id="'+ data_id  +'" type="checkbox"> '+ text  +'</label>'+ "\n" +'<ul>'+ "\n" + subtree  +'</ul>'+"\n"+'</li>')
 	    }
 	    if (pos == "after") {
 		that_node.after('<li>'+"\n"+'<i class="fa '+ collapsedSymbol  +'"></i>'+ "\n" +'<label>'+"\n"+'<input class="'+ Xclass  +'" id="'+ the_id  +'" data-id="'+ data_id  +'" type="checkbox"> '+ text  +'</label>'+ "\n" +'<ul>'+ "\n" + subtree  +'</ul>'+"\n"+'</li>')
-	    }	    
+	    }
 	}
 	//
     };
 
     //-------------------filter--------------------//
-    $.fn.hummingbird.filter = function(tree,str,box_disable,onlyEndNodes,filterChildren){
+    $.fn.hummingbird.filter = function(tree,str,box_disable,caseSensitive,onlyEndNodes,filterChildren){
 	if (onlyEndNodes) {
 	    var entries = tree.find('input:checkbox.hummingbird-end-node');
 	} else {
 	    var entries = tree.find('input:checkbox');
 	}
-	var re = new RegExp(str, 'g');
+    var modifier = 'i';
+    if(caseSensitive){
+        modifier = 'g';
+    }
+    var re = new RegExp(str, modifier);
 	$.each(entries, function(){
 	    var entry = $(this).parent("label").text();
 	    //if we have a match we add class to all parent li's
-	    if (entry.match(re)) {		
+	    if (entry.match(re)) {
 		$(this).parents("li").addClass("noFilter");
 		if (filterChildren == false) {
 		    $(this).parent("label").parent("li").find("li").addClass("noFilter");
