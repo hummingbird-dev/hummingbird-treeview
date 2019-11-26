@@ -4,7 +4,10 @@ A tiny and fast jQuery treeview plugin
 
 #### [View CHANGES.md](https://github.com/hummingbird-dev/hummingbird-treeview/blob/master/CHANGES.md)
 
-#### [Visit demo page ](https://hummingbird-dev.000webhostapp.com/hummingbird-treeview)
+#### [Visit demo page ](https://hummingbird-dev.000webhostapp.com/hummingbird-treeview) for most of the functionality.
+
+#### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird_converter.php), which shows how to use the pseudo HTML structure and how to add and remove nodes dynamically.
+
 
 ## Features
 
@@ -84,7 +87,8 @@ embed the treeview data into the page.
 	
 ```
 
-#### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird_converter.php)
+#### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird_converter.php), which shows how to use the pseudo HTML structure and how to add and remove nodes dynamically.
+
 
 The hyphens indicate the level of indenting. It is important to note
 that down the tree the next node can maximal be indented by one level,
@@ -491,6 +495,9 @@ $("#treeview").hummingbird("disableNode",{attr:"id",name: "node-0-1-1-2",state:t
 $("#treeview").hummingbird("enableNode",{attr:"id",name: "node-0-1-1-2",state:false,enableChildren:true});
 
 ```
+
+#### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird_converter.php), which shows how to use the pseudo HTML structure and how to add and remove nodes dynamically.
+
 
 - **addNode(pos,anchor_attr,anchor_name,text,the_id,data_id,{end_node,children})**<br> Add a node at pos = 
   'before' or 'after' an already existing
