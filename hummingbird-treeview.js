@@ -1030,7 +1030,7 @@
 	    });
 	    if (num_search_results == 0) {
 		$(dialog + " #" + search_output).append("&nbsp; &nbsp; Nothing found");
-	    }
+	    }	    
 	    //click on search dropdown
 	    $(dialog + " #" + search_output + " li").on("click", function(e) {
 		//no focus on the input field to trigger the search scrolling
