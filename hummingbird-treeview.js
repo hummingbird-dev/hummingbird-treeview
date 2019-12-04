@@ -100,7 +100,7 @@
 		    	allowed = false;
 		    }
 		    //
-		    item = item + '<li>' +"\n";
+		    item = item + '<li data-id="' + numHyphen + '">' +"\n";
 		    item = item + '<i class="fa fa-plus"></i>' + "\n";
 		    item = item + '<label>' + "\n";
 		    item = item + '<input id="' + id_str  + '" data-id="' + data_id + '" type="checkbox" /> ' + treeText;
@@ -228,14 +228,30 @@
 		
 		//three state logic
 		//$.fn.hummingbird.ThreeStateLogic($(this),doubleMode,allVariables,options.checkDoubles,options.checkDisabled);		
-		$.fn.hummingbird.ThreeStateLogic($(this),doubleMode,allVariables,options.checkDoubles,checkDisabled);
+		$.fn.hummingbird.ThreeStateLogic($(this),doubleMode,allVariables,options.checkDoubles,checkDisabled,);
 		
-		//expandSingle
+		//expandSingle and check if options.singleGroupOpen is set
+		var tmp_tree=$(this);
 		$(this).on("click", 'li i.' + options.collapsedSymbol, function() {
+		    if (options.singleGroupOpen > 0){
+			//console.log("expand")
+			//options.singleGroupOpen
+			//get level  	
+			var level = $(this).parent("li").attr("data-id");
+			//console.log(level)
+			//collapse all nodes on that level tree.find('input[' + attr + '=' + name + ']');
+			var all_nodes_on_level = tmp_tree.find('li[data-id=' + level + ']').children('label').children('input');
+			//console.log(all_nodes_on_level)
+			$.each(all_nodes_on_level, function(i,e){
+			    //console.log($(this).attr('id'))
+			    tmp_tree.hummingbird("collapseNode",{attr:"id",name: $(this).attr('id'),collapseChildren:true});
+			});
+		    }
 		    $.fn.hummingbird.expandSingle($(this),options.collapsedSymbol,options.expandedSymbol);
 		});
 		//collapseSingle
 		$(this).on("click", 'li i.' + options.expandedSymbol, function() {
+		    console.log("collapse")
 		    $.fn.hummingbird.collapseSingle($(this),options.collapsedSymbol,options.expandedSymbol);
 		});		
 	    });
@@ -492,6 +508,7 @@
 	checkboxes: "enabled",
 	checkboxesGroups: "enabled",
 	checkDoubles: false,
+	singleGroupOpen: 0,
 	//checkDisabled: false,   //this is now not changeable and true always
     };
 

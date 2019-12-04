@@ -350,6 +350,13 @@ Following options are available:
   automatically. The same applies for triplets, quadruplets, etc. By
   enabling this option, also the full tri-state functionality accounts for the n-tuples.
 
+- **singleGroupOpen**<br> Integer, default=0. Set this to an integer greater 0 to
+  enable the functionality to allow only one group of a defined level to be opened at a time. 
+  The number provided defines the level to which the function should be applied.
+  For instance, if *singleGroupOpen=1* (which is the typical used level) it means that at level 1 of the tree
+  only one group can be opened at a time. As soon as another group of this level is opened, 
+  all others will be closed.
+
 
 
 ## Methods
