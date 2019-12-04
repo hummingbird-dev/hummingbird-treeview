@@ -218,13 +218,13 @@ Create treeview structure/data:
 
     <div id="treeview_container" class="hummingbird-treeview" style="height: 230px; overflow-y: scroll;">
     	<ul id="treeview" class="hummingbird-base">
-	    <li>
+	    <li data-id="0">
 		<i class="fa fa-plus"></i>
 		<label>
 		    <input id="xnode-0" data-id="custom-0" type="checkbox" /> node-0
 		</label>
 		<ul>
-		    <li>
+		    <li data-id="1">
 			<i class="fa fa-plus"></i>
 			<label>
 			    <input  id="xnode-0-1" data-id="custom-0-1" type="checkbox" /> node-0-1
@@ -242,7 +242,7 @@ Create treeview structure/data:
 			    </li>
 			</ul>
 		    </li>
-		    <li>
+		    <li data-id="1">
 			<i class="fa fa-plus"></i>
 			<label>
 			    <input  id="xnode-0-2" data-id="custom-0-2" type="checkbox" /> node-0-2
@@ -268,6 +268,8 @@ Create treeview structure/data:
 ```
 
 Use here exactly the *class="fa fa-plus"* and change Symbols via the options functionality.
+The *data-id* of the group `<li>` tags indicates the level or depth of that group. It starts a 0. This is
+needed for the option *singleGroupOpen*.
 
 Only change the following:
 ### Treeview structure and node properties
@@ -350,10 +352,10 @@ Following options are available:
   automatically. The same applies for triplets, quadruplets, etc. By
   enabling this option, also the full tri-state functionality accounts for the n-tuples.
 
-- **singleGroupOpen**<br> Integer, default=0. Set this to an integer greater 0 to
+- **singleGroupOpen**<br> Integer, default=-1. Set this to an integer greater -1 to
   enable the functionality to allow only one group of a defined level to be opened at a time. 
-  The number provided defines the level to which the function should be applied.
-  For instance, if *singleGroupOpen=1* (which is the typical used level) it means that at level 1 of the tree
+  The number provided defines the level to which the function should be applied (starting at 0).
+  For instance, if *singleGroupOpen=0* (which is the typical used level) it means that at level 0 of the tree
   only one group can be opened at a time. As soon as another group of this level is opened, 
   all others will be closed.
 
