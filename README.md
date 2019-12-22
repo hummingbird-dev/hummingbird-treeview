@@ -360,6 +360,36 @@ Following options are available:
   all others will be closed.
 
 
+## Add on options and functionality
+Combining different options, methods, events and using additional logic, advanced 
+treeview functionalities can be achieve.
+
+- **select-single-node**<br>
+  For some applications it makes sense to allow only to select one single node. Therefore we first disable
+  checking of folders, i.e. parent nodes using the respective option before initializing the treeview.
+  
+```javascript
+$.fn.hummingbird.defaults.checkboxesGroups= "disabled";
+$("#treeview").hummingbird();
+
+var List = {"id" : [], "dataid" : [], "text" : []};
+$("#treeview").on("CheckUncheckDone", function(){
+   //uncheck all previously selected nodes
+   if (List.id != "") {
+      $.each(List.id, function(i,e) {
+         $("#treeview").hummingbird("uncheckNode",{attr:"id",name: '"' + e + '"',collapseChildren:false});
+      });
+   }
+   //initialize List freshly
+   List = {"id" : [], "dataid" : [], "text" : []};
+   //get all checked nodes
+   $("#treeview").hummingbird("getChecked",{list:List,onlyEndNodes:true});
+});
+
+```
+  
+
+
 
 ## Methods
 Methods are used to interact with the treeview programmatically. Following methods are available:
