@@ -367,18 +367,28 @@ treeview functionalities can be achieve.
 - **select-single-node**<br>
   For some applications it makes sense to allow only to select one single node. Therefore we first disable
   checking of folders, i.e. parent nodes using the respective option before initializing the treeview.
+  On the *CheckUncheckDone* event we uncheck all previously selected nodes, initialize the *List* again and
+  get again the checked node. The *againChecking* is used to not go recursively through the function, when unchecking the nodes.
+  
+  #### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird_converter_single_node.php)
   
 ```javascript
 $.fn.hummingbird.defaults.checkboxesGroups= "disabled";
 $("#treeview").hummingbird();
 
 var List = {"id" : [], "dataid" : [], "text" : []};
+var againChecking = false;
 $("#treeview").on("CheckUncheckDone", function(){
    //uncheck all previously selected nodes
+   if (againChecking == true){
+      return;
+   }
    if (List.id != "") {
+      againChecking = true;
       $.each(List.id, function(i,e) {
          $("#treeview").hummingbird("uncheckNode",{attr:"id",name: '"' + e + '"',collapseChildren:false});
       });
+      againChecking = false;
    }
    //initialize List freshly
    List = {"id" : [], "dataid" : [], "text" : []};
@@ -388,8 +398,56 @@ $("#treeview").on("CheckUncheckDone", function(){
 
 ```
   
+- **select-single-group**<br>  
+  This functionality is in an experimental state, I've tested it not fully, thus please be aware.
+  This add on functionality can be used to allow selected nodes only within one group. You can select whole groups or
+  nodes within groups, but not end-nodes across groups. The approach is to store all selected nodes in and below the group, where
+  the last node was selected. Then uncheck all nodes and following again check all the before stored nodes in that group and below.
+  
+  #### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird_converter_single_group.php)
 
+```javascript
+var ListGroup = {"id" : [], "dataid" : [], "text" : []};
+var ListGroupOld = {};
+var List = {"id" : [], "dataid" : [], "text" : []};
+var againChecking = false;
+$("#treeview").on("CheckUncheckDone", function(){
+   //
+   if (againChecking == true){
+      return;
+   }
+   //get all checked nodes below this one
+   $("#treeview").hummingbird("getChecked",{list:ListGroup,onlyEndNodes:true,onlyParents:false,fromThis:true});
+   //console.log(ListGroup)
+   ListGroupOld = ListGroup;
 
+   if (List.id != "") {
+      againChecking = true;
+      $.each(List.id, function(i,e) {
+         $("#treeview").hummingbird("uncheckNode",{attr:"id",name: '"' + e + '"',collapseChildren:false});
+      });
+      againChecking = false;
+   }
+   //initialize List freshly
+   List = {"id" : [], "dataid" : [], "text" : []};
+   ListGroup = {"id" : [], "dataid" : [], "text" : []};
+   //get all checked nodes
+   $("#treeview").hummingbird("getChecked",{list:List,onlyEndNodes:true,onlyParents:false,fromThis:false});
+   $(document).trigger('reCheckGroup');
+});
+
+$(document).on("reCheckGroup", function(){
+   //check all from group
+   if (ListGroupOld.id != "") {
+      $.each(ListGroupOld.id, function(i,e) {
+         //console.log(e)
+         $("#treeview").hummingbird("checkNode",{attr:"id",name: '"' + e + '"',collapseChildren:false});
+      });
+   }
+});
+	
+
+```
 
 ## Methods
 Methods are used to interact with the treeview programmatically. Following methods are available:
@@ -625,13 +683,15 @@ $("#treeview").hummingbird();
 
 ```
 
-- **getChecked(List,{onlyEndNodes})**<br>
+- **getChecked(List,{onlyEndNodes,onlyParents})**<br>
   Get checked
   nodes. Retrieve the id, data-id and text of the nodes.
   Set onlyEndNodes to true if you want to retrieve only
   that nodes identified by class="hummingbird-end-node", i.e. those
   nodes without children, so to speak the last instance. Default is
-  false, which means that all checked nodes are retrieved.  Define an
+  false, which means that all checked nodes are retrieved. Set onlyParents to true ( and onlyEndNodes to false)
+  to get only parents nodes.
+  Define an
   object, List, for the output of this method. It is important to name 
   the arrays exactly like in the example below.
   Finally this List
@@ -641,7 +701,7 @@ $("#treeview").hummingbird();
 ```javascript
 
 var List = {"id" : [], "dataid" : [], "text" : []};
-$("#treeview").hummingbird("getChecked",{list:List,onlyEndNodes:true});
+$("#treeview").hummingbird("getChecked",{list:List,onlyEndNodes:true,onlyParents:false});
 $("#displayItems").html(List.text.join("<br>"));
 var L = List.id.length;
 
@@ -653,7 +713,9 @@ var L = List.id.length;
   Set onlyEndNodes to true if you want to retrieve only
   that nodes identified by class="hummingbird-end-node", i.e. those
   nodes without children, so to speak the last instance. Default is
-  false, which means that all unchecked nodes are retrieved.  Define an
+  false, which means that all unchecked nodes are retrieved. Set onlyParents to true ( and onlyEndNodes to false)
+  to get only parents nodes.
+    Define an
   object, List, for the output of this method. It is important to name 
   the arrays exactly like in the example below.
   Finally this List
@@ -663,7 +725,7 @@ var L = List.id.length;
 ```javascript
 
 var List = {"id" : [], "dataid" : [], "text" : []};
-$("#treeview").hummingbird("getUnchecked",{list:List,onlyEndNodes:true});
+$("#treeview").hummingbird("getUnchecked",{list:List,onlyEndNodes:true,onlyParents:false});
 $("#displayItems").html(List.text.join("<br>"));
 var L = List.id.length;
 
