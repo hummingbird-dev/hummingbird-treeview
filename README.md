@@ -683,14 +683,14 @@ $("#treeview").hummingbird();
 
 ```
 
-- **getChecked(List,{onlyEndNodes,onlyParents})**<br>
+- **getChecked(List,{onlyEndNodes,onlyParents,fromThis})**<br>
   Get checked
   nodes. Retrieve the id, data-id and text of the nodes.
   Set onlyEndNodes to true if you want to retrieve only
   that nodes identified by class="hummingbird-end-node", i.e. those
   nodes without children, so to speak the last instance. Default is
   false, which means that all checked nodes are retrieved. Set onlyParents to true ( and onlyEndNodes to false)
-  to get only parents nodes.
+  to get only parents nodes. Set *fromThis* to true to only retrieve nodes from the current group and below (default is false).
   Define an
   object, List, for the output of this method. It is important to name 
   the arrays exactly like in the example below.
@@ -701,7 +701,7 @@ $("#treeview").hummingbird();
 ```javascript
 
 var List = {"id" : [], "dataid" : [], "text" : []};
-$("#treeview").hummingbird("getChecked",{list:List,onlyEndNodes:true,onlyParents:false});
+$("#treeview").hummingbird("getChecked",{list:List,onlyEndNodes:true,onlyParents:false,fromThis:false});
 $("#displayItems").html(List.text.join("<br>"));
 var L = List.id.length;
 
