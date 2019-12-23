@@ -707,7 +707,7 @@ var L = List.id.length;
 
 ```
 
-- **getUnchecked(List,{onlyEndNodes})**<br>
+- **getUnchecked(List,{onlyEndNodes,onlyParents})**<br>
   Get unchecked
   nodes. Retrieve the id, data-id and text of the nodes.
   Set onlyEndNodes to true if you want to retrieve only
