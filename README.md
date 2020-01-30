@@ -359,6 +359,27 @@ Following options are available:
   only one group can be opened at a time. As soon as another group of this level is opened, 
   all others will be closed.
 
+- **hoverItems**<br> Boolean, true or false. This option enables a visual mouse hover effect, i.e. on hover on an item the background color
+  of this item is changed and also the text color is changed. The default colors for background and text on hover are "#6c757c" and "white".
+  And "white" and "black" on non hover.
+  
+- **hoverColorBg1**<br> This relates to the "hoverItems" option and
+  sets the background color on hover, default is "#6c757c". It accepts
+  html color names, HEX or RGB (e.g. "rgb(255,0,0)").
+
+- **hoverColorBg2**<br> Same as above for non hover. Default "white".
+
+- **hoverColorText1**<br> Set text color on hover, default is "white".
+
+- **hoverColorText2**<br> Set text color on non hover, default is "black".
+
+- **hoverMode**<br> This options relates as well to the **hoverItems**
+	option. If this is set to "bootstrap", bootstrap colors can be used. Be
+	aware that this only works if you have included the bootstrap
+	libraries in your sourcecode. For setting the colors you have to use the option below.
+	
+- **hoverColorBootstrap**<br>  Default is "bg-secondary text-white". Use any bootstrap color for bg and text.
+
 
 ## Add on options and functionality
 Combining different options, methods, events and using additional logic, advanced 

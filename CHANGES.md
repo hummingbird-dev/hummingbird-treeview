@@ -1,5 +1,17 @@
 # CHANGES
 
+## 2020/01/30
+
+- New option: Customizable hover effect.
+
+## 2019/12/22
+
+- Add on functions: *select-single-node* and *select-single-group*.
+
+## 2019/12/22
+
+- New section "Add on options and functionality".
+
 ## 2019/12/04
 
 - New option *singleGroupOpen* to allow only one group to be open and collapse all others.

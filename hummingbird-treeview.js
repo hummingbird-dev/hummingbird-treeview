@@ -184,6 +184,33 @@
 		}
 
 
+		//hoverItem
+		if (options.hoverItems == true) {
+		    //console.log("hoverItem on")
+		    //get li
+		    //var lis = $(this).find("input.hummingbird-end-node").parent("label").parent("li");
+		    var this_labels = $(this).find("label");
+
+		    //bootstrap
+		    if (options.hoverMode == "bootstrap"){
+			this_labels.hover(function() {
+		    	    $( this ).addClass(options.hoverColorBootstrap);
+			}, function() {
+			    $( this ).removeClass(options.hoverColorBootstrap);
+			});
+		    }
+		    //html
+		    if (options.hoverMode == "html"){
+			this_labels.hover(function() {
+		    	    $( this ).css({'background-color':options.hoverColorBg1, 'color':options.hoverColorText1});
+			}, function() {
+			    $( this ).css({'background-color':options.hoverColorBg2, 'color':options.hoverColorText2});
+			});
+		    }
+		    //
+		}
+
+
 		//hide checkboxes
 		if (options.checkboxes == "disabled") {
 		    $(this).find("input:checkbox").hide();
@@ -255,7 +282,7 @@
 			if (this_level == level){
 			    //collapse all nodes on that level tree.find('input[' + attr + '=' + name + ']');
 			    var all_nodes_on_level = tmp_tree.find('li[data-id=' + level + ']').children('label').children('input');
-			    console.log(all_nodes_on_level)
+			    //console.log(all_nodes_on_level)
 			    $.each(all_nodes_on_level, function(i,e){
 				//console.log($(this).attr('id'))
 				tmp_tree.hummingbird("collapseNode",{attr:"id",name: $(this).attr('id'),collapseChildren:true});
@@ -266,7 +293,7 @@
 		});
 		//collapseSingle
 		$(this).on("click", 'li i.' + options.expandedSymbol, function() {
-		    console.log("collapse")
+		    //console.log("collapse")
 		    $.fn.hummingbird.collapseSingle($(this),options.collapsedSymbol,options.expandedSymbol);
 		});		
 	    });
@@ -545,6 +572,13 @@
 	checkboxesEndNodes: "enabled",
 	checkDoubles: false,
 	singleGroupOpen: -1,
+	hoverItems: false,
+	hoverMode: "html",
+	hoverColorBg1: "#6c757c",
+	hoverColorBg2: "white",
+	hoverColorText1: "white",
+	hoverColorText2: "black",
+	hoverColorBootstrap: "bg-secondary text-white",
 	//checkDisabled: false,   //this is now not changeable and true always
     };
 
@@ -683,7 +717,7 @@
 	    //create subtree
 	    var subtree = "";
 	    $.each(children, function(i,e){
-		console.log(e)
+		//console.log(e)
 		subtree = subtree + '<li><label><input class="'+ 'hummingbird-end-node'  +'" id="'+ e.id  +'" data-id="'+ e.data_id  +'" type="checkbox"> '+ e.text  +'</label></li>'
 	    });
 	    if (pos == "before") {
