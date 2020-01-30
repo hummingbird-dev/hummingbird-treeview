@@ -147,12 +147,15 @@ the same page will receive the ids *treeview2*, *treeview3*,
 etc. Similar to above the unique ids of the items/nodes now follow the
 schema: id="hum2_1", id="hum2_2", ... for the second treeview,
 id="hum3_1", id="hum3_2", ... for the third treeview, etc. Thus
-initialization of every treeview is needed:
+initialization of every treeview is needed. Options can be set before each initialization.
 
 ```javascript
 
 $("#treeview").hummingbird();
+
+$.fn.hummingbird.defaults.checkboxesGroups= "disabled";
 $("#treeview2").hummingbird();
+
 $("#treeview3").hummingbird();
 ...
 
