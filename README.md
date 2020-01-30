@@ -367,7 +367,7 @@ Following options are available:
   of this item is changed and also the text color is changed. The default colors for background and text on hover are "#6c757c" and "white".
   And "white" and "black" on non hover.
   
-- **hoverColorBg1**<br> This relates to the "hoverItems" option and
+- **hoverColorBg1**<br> This relates to the **hoverItems** option and
   sets the background color on hover, default is "#6c757c". It accepts
   html color names, HEX or RGB (e.g. "rgb(255,0,0)").
 
@@ -378,7 +378,7 @@ Following options are available:
 - **hoverColorText2**<br> Set text color on non hover, default is "black".
 
 - **hoverMode**<br> This options relates as well to the **hoverItems**
-	option. If this is set to "bootstrap", bootstrap colors can be used. Be
+	option. Default is the string "html". If this is set to "bootstrap", bootstrap colors can be used. Be
 	aware that this only works if you have included the bootstrap
 	libraries in your sourcecode. For setting the colors you have to use the option below.
 	
