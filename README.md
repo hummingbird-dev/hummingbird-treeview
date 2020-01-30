@@ -156,6 +156,7 @@ $("#treeview").hummingbird();
 $.fn.hummingbird.defaults.checkboxesGroups= "disabled";
 $("#treeview2").hummingbird();
 
+$.fn.hummingbird.defaults.checkboxesGroups= "enabled";
 $("#treeview3").hummingbird();
 ...
 
