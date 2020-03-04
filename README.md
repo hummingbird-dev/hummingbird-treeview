@@ -23,7 +23,7 @@ A tiny and fast jQuery treeview plugin
 - Supports HTML5 data-* attribute to embed custom data.
 - Supports Font Awesome icons.
 - Search function.
-
+- ... and much more
 
 ## Dependencies
 
@@ -384,7 +384,7 @@ Following options are available:
 	
 - **hoverColorBootstrap**<br>  Default is "bg-secondary text-white". Use any bootstrap color for bg and text.
 
-- **clickGroupsToggle**<br> Boolean, default="disabled". Set this to "enabled"
+- **clickGroupsToggle**<br> String, default="disabled". Set this to "enabled"
    to add collapse and expand functionality to a click on a parent node name.
 
 
