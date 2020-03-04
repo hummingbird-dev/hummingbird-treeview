@@ -1,5 +1,13 @@
 # CHANGES
 
+## 2020/03/03
+
+- New method: disableToggle
+
+## 2020/03/03
+
+- New option: clickGroupsToggle 
+
 ## 2020/01/30
 
 - New option: Customizable hover effect.

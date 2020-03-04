@@ -14,6 +14,7 @@
 
     var clickedNode = {};
 
+    //var groups_labels = {};
     
     //converter
     $(document).ready(function() {
@@ -210,6 +211,8 @@
 		    //
 		}
 
+		//set cursor pointer to all end-nodes
+		$(this).find('input:checkbox.hummingbird-end-node').parent("label").css({"cursor":"pointer"});
 
 		//hide checkboxes
 		if (options.checkboxes == "disabled") {
@@ -239,6 +242,21 @@
 		    end_nodes.prop("disabled",true).parent("label").css({"cursor":"not-allowed"});
 		    //this_checkbox.prop("disabled",true).parent("label").parent("li").css({'color':'#c8c8c8',"cursor":"not-allowed"});
 		}
+		if (options.clickGroupsToggle == "enabled") {
+		    var groups = $(this).find('input:checkbox:not(".hummingbird-end-node")');
+		    groups.prop("disabled",true).parent("label").css({"cursor":"pointer"});
+		    //trigger the i before
+		    $(this).on("click", 'label', function() {
+			if ($(this).children('input').hasClass('hummingbird-end-node')){
+			    //console.log("this is an end-node")
+			} else {
+			    //console.log("this is a parent")
+			    $(this).prev('i').trigger("click");
+			}
+		    });
+		}
+
+		
 
 		
 		//collapseAll
@@ -295,7 +313,13 @@
 		$(this).on("click", 'li i.' + options.expandedSymbol, function() {
 		    //console.log("collapse")
 		    $.fn.hummingbird.collapseSingle($(this),options.collapsedSymbol,options.expandedSymbol);
-		});		
+		});
+		//prevent doubleclick on label
+		// $(this).on("dblclick", 'label', function(e) {
+		//     console.log("dblclick")
+		//     e.preventDefault();
+		// });
+
 	    });
 	}
 
@@ -369,6 +393,14 @@
 	    });
 	}
 
+	//disableToggle
+	if (methodName == "disableToggle") {
+	    return this.each(function(){		
+		var name = args[1].name;
+		var attr = args[1].attr;
+		$.fn.hummingbird.disableToggle($(this),attr,name);
+	    });
+	}
 	
 
 	//setNodeColor
@@ -569,6 +601,7 @@
 	collapseAll: true,
 	checkboxes: "enabled",
 	checkboxesGroups: "enabled",
+	clickGroupsToggle: "disabled",
 	checkboxesEndNodes: "enabled",
 	checkDoubles: false,
 	singleGroupOpen: -1,
@@ -612,49 +645,61 @@
     };
 
     //-------------------collapseAll---------------//
-    $.fn.hummingbird.collapseAll = function(tree,collapsedSymbol,expandedSymbol){
-	tree.find("ul").hide();
-	tree.find('.' + expandedSymbol).removeClass(expandedSymbol).addClass(collapsedSymbol);
+    $.fn.hummingbird.collapseAll = function(tree,collapsedSymbol,expandedSymbol){	
+	var that_nodes = tree.find('label:not(.disableToggle)');
+	that_nodes.siblings("ul").hide();
+	that_nodes.siblings('.' + expandedSymbol).removeClass(expandedSymbol).addClass(collapsedSymbol);
     };
 
     //------------------expandAll------------------//
     $.fn.hummingbird.expandAll = function(tree,collapsedSymbol,expandedSymbol){
-	tree.find("ul").show();
-	tree.find('.' + collapsedSymbol).removeClass(collapsedSymbol).addClass(expandedSymbol);
+	var that_nodes = tree.find('label:not(.disableToggle)');
+	that_nodes.siblings("ul").show();
+	that_nodes.siblings('.' + collapsedSymbol).removeClass(collapsedSymbol).addClass(expandedSymbol);
     };
 
     //-------------------collapseSingle---------------//
     $.fn.hummingbird.collapseSingle = function(node,collapsedSymbol,expandedSymbol){
-	node.parent("li").children("ul").hide();
-	node.removeClass(expandedSymbol).addClass(collapsedSymbol);
+	if (!node.next('label').hasClass('disableToggle')){
+	    node.parent("li").children("ul").hide();
+	    node.removeClass(expandedSymbol).addClass(collapsedSymbol);
+	}
     };
 
     //-------------------expandSingle---------------//
     $.fn.hummingbird.expandSingle = function(node,collapsedSymbol,expandedSymbol){
-	node.parent("li").children("ul").show();
-	node.removeClass(collapsedSymbol).addClass(expandedSymbol);
+	if (!node.next('label').hasClass('disableToggle')){
+	    node.parent("li").children("ul").show();
+	    node.removeClass(collapsedSymbol).addClass(expandedSymbol);
+	}
     };
 
     //-------------------expandNode---------------//
     $.fn.hummingbird.expandNode = function(tree,attr,name,expandParents,collapsedSymbol,expandedSymbol){
 	var that_node = tree.find('input[' + attr + '=' + name + ']');
-	var that_ul = that_node.parent("label").siblings("ul");
-	that_ul.show().siblings("i").removeClass(collapsedSymbol).addClass(expandedSymbol);
-	//expand all parents and change symbol
-	if (expandParents === true) {
-	    that_node.parents("ul").show().siblings("i").removeClass(collapsedSymbol).addClass(expandedSymbol);
+	var that_label = that_node.parent("label");
+	if (!that_label.hasClass('disableToggle')){
+	    var that_ul = that_label.siblings("ul");
+	    that_ul.show().siblings("i").removeClass(collapsedSymbol).addClass(expandedSymbol);
+	    //expand all parents and change symbol
+	    if (expandParents === true) {
+		that_node.parents("ul").show().siblings("i").removeClass(collapsedSymbol).addClass(expandedSymbol);
+	    }
 	}
     };
 
     //-------------------collapseNode---------------//
     $.fn.hummingbird.collapseNode = function(tree,attr,name,collapseChildren,collapsedSymbol,expandedSymbol){
 	var that_node = tree.find('input[' + attr + '=' + name + ']');
-	var that_ul = that_node.parent("label").siblings("ul");
-	//collapse children and change symbol
-	if (collapseChildren === true) {
-	    that_node.parent("label").parent("li").find("ul").hide().siblings("i").removeClass(expandedSymbol).addClass(collapsedSymbol);
-	} else {	    
-	    that_ul.hide().siblings("i").removeClass(expandedSymbol).addClass(collapsedSymbol);
+	var that_label = that_node.parent("label");
+	if (!that_label.hasClass('disableToggle')){
+	    var that_ul = that_label.siblings("ul");
+	    //collapse children and change symbol
+	    if (collapseChildren === true) {
+		that_node.parent("label").parent("li").find("ul").hide().siblings("i").removeClass(expandedSymbol).addClass(collapsedSymbol);
+	    } else {	    
+		that_ul.hide().siblings("i").removeClass(expandedSymbol).addClass(collapsedSymbol);
+	    }
 	}
     };
 
@@ -682,6 +727,22 @@
 	}
     };
 
+    //-------------------disableToggle---------------//
+    $.fn.hummingbird.disableToggle = function(tree,attr,name){
+	if (attr == "text") {
+	    name = name.trim();
+	    var that_nodes = tree.find('label:contains(' + name + ')');
+	    //console.log("name")
+	    //console.log(that_nodes)
+	} else {
+	    var that_nodes = tree.find('input:checkbox:not(:checked)[' + attr + '=' + name + ']').parent('label');
+	    //console.log("else")
+	    //console.log(that_nodes)
+	}
+	that_nodes.addClass('disableToggle');
+    };
+
+    
     //-------------------removeNode---------------//
     $.fn.hummingbird.removeNode = function(tree,attr,name){
 	if (attr == "text") {
@@ -1114,7 +1175,8 @@
 	if (EnterKey == true) {
 	    $(document).keyup(function(e) {
 		if (e.which == 13) {
-		    //console.log("current_page= " + enter_key_2)
+		    //console.log("enter_key_1= " + enter_key_1)
+		    //console.log("enter_key_2= " + enter_key_2)
 		    if (enter_key_1 == enter_key_2) {
 			$(dialog + " #" + search_button).trigger("click");
 		    }
@@ -1141,6 +1203,8 @@
 	    } else {
 		var onlyEndNodes_Class = "";
 	    }
+	    //delete list
+	    $(dialog + " #" + search_output).children('li').remove();
 	    tree.find('input:checkbox' + onlyEndNodes_Class).each(function() {
 		if ($(this).parent().text().toUpperCase().includes(search_str.toUpperCase())) {
 		    //add items to dropdown

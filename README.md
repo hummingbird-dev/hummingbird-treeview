@@ -384,6 +384,10 @@ Following options are available:
 	
 - **hoverColorBootstrap**<br>  Default is "bg-secondary text-white". Use any bootstrap color for bg and text.
 
+- **clickGroupsToggle**<br> Boolean, default="disabled". Set this to "enabled"
+   to add collapse and expand functionality to a click on a parent node name.
+
+
 
 ## Add on options and functionality
 Combining different options, methods, events and using additional logic, advanced 
@@ -579,6 +583,19 @@ $("#treeview").hummingbird("collapseNode",{attr:"id",name: "node-0-1-1-2",collap
 
 ```
 
+- **disableToggle(attr,name)**<br>
+  Disables expand and collapse functionality of a node, which is identified by its
+  id or data-id, which has to be defined in
+  the attr parameter. The name parameter
+  holds the name of the id or data-id. 
+
+```javascript
+
+$("#treeview").hummingbird("disableToggle",{attr:"id",name: "node-0-1-1-2"});
+
+```
+
+
 - **disableNode(attr,name,state,{disableChildren})**<br> Disables a
   node, which is identified by its id, data-id or text, which has to be
   defined in the attr parameter. The name parameter holds the name of
@@ -617,6 +634,7 @@ $("#treeview").hummingbird("disableNode",{attr:"id",name: "node-0-1-1-2",state:t
 $("#treeview").hummingbird("enableNode",{attr:"id",name: "node-0-1-1-2",state:false,enableChildren:true});
 
 ```
+
 
 #### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird_converter.php), which shows how to use the pseudo HTML structure and how to add and remove nodes dynamically.
 
