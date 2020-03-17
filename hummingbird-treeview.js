@@ -841,10 +841,12 @@
 	this_checkbox.trigger("click");
 	//disable this node and all children
 	if (disableChildren === true) {
-	    this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",true).parent("label").parent("li").css({'color':'#c8c8c8',"cursor":"not-allowed"});
+	    //this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",true).parent("label").parent("li").css({'color':'#c8c8c8',"cursor":"not-allowed"});
+	    this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",true).parent("label").css({'color':'#c8c8c8',"cursor":"not-allowed"});
 	} else {
 	    //console.log(this_checkbox.prop("disabled",true).parent("label").parent("li"))
-	    this_checkbox.prop("disabled",true).parent("label").parent("li").css({'color':'#c8c8c8',"cursor":"not-allowed"});
+	    //this_checkbox.prop("disabled",true).parent("label").parent("li").css({'color':'#c8c8c8',"cursor":"not-allowed"});
+	    this_checkbox.prop("disabled",true).parent("label").css({'color':'#c8c8c8',"cursor":"not-allowed"});
 	}
     };
 
@@ -871,13 +873,16 @@
 
 	//for a disabled unchecked node, set node checked and then trigger a click to uncheck
 	//for a disabled checked node, set node unchecked and then trigger a click to check
-	this_checkbox.prop("disabled",false).parent("label").parent("li").css({'color':'#636b6f',"cursor":"default"});
+	//this_checkbox.prop("disabled",false).parent("label").parent("li").css({'color':'#636b6f',"cursor":"default"});
+	//this_checkbox.prop("disabled",false).parent("label").parent("li").css({'color':'black',"cursor":"default"});
+	this_checkbox.prop("disabled",false).parent("label").css({'color':'black',"cursor":"default"});
 	//all parents enabled
 	//no action on parents
 	//this_checkbox.parent("label").parent("li").parents("li").children("label").children("input[type='checkbox']").prop("disabled",false).parents("label").parent("li").css({'color':'#636b6f',"cursor":"default"});
 	//all children enabled
 	if (enableChildren === true) {
-	    this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",false).parent("label").parent("li").css({'color':'#636b6f',"cursor":"default"});
+	    //this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",false).parent("label").parent("li").css({'color':'black',"cursor":"default"});
+	    this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",false).parent("label").css({'color':'black',"cursor":"default"});
 	}
 	this_checkbox.prop("checked",state === false);
 	nodeEnabled = true;
@@ -1228,7 +1233,7 @@
 		    if (this_var_checkbox.prop("disabled")) {
 			this_var_checkbox.parent("label").parent("li").css({'color':'#c8c8c8',"cursor":"not-allowed"});
 		    } else {
-			this_var_checkbox.parent("label").parent("li").css({'color':'#636b6f',"cursor":"default"});
+			this_var_checkbox.parent("label").parent("li").css({'color':'black',"cursor":"default"});
 		    }
 	    	}
 	    	//before jumping to the hummingbird-end-node a collapse all is needed
