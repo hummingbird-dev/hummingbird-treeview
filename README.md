@@ -8,7 +8,7 @@ A tiny and fast jQuery treeview plugin
 
 #### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird_converter.php), which shows how to use the pseudo HTML structure and how to add and remove nodes dynamically.
 
-#### [Test here](https://jsfiddle.net/hummingbird_dev/1s9qy6dh/10/) on JSFiddle.
+#### [Test here](https://jsfiddle.net/hummingbird_dev/1s9qy6dh/17/) on JSFiddle.
 
 ## Features
 
