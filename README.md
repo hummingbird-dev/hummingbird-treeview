@@ -58,6 +58,19 @@ Add the following resources for the hummingbird-treeview to function correctly:
     <script src="/path/to/hummingbird-treeview.js"></script>
 
 ```
+Or integrate the resources via cdn.jsdelivr.net:
+
+```html
+	
+    <!-- Required Stylesheets -->
+    <link href="/path/to/font-awesome.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@master/hummingbird-treeview.css" rel="stylesheet">
+
+    <!-- Required Javascript -->
+    <script src="/path/to/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@master/hummingbird-treeview.js"></script>
+
+```
 
 The treeview input data can have two different formats, a very simple
 pseudo HTML list or a real HTML list structure. The simple pseudo HTML

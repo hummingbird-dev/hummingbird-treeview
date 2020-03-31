@@ -184,6 +184,8 @@
 		    $(this).find("i").removeClass("fa-plus").addClass(options.collapsedSymbol);
 		}
 
+		//set text color
+		$(this).find("label").css({'background-color':options.hoverColorBg2, 'color':options.hoverColorText2});
 
 		//hoverItem
 		if (options.hoverItems == true) {
