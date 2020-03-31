@@ -58,16 +58,16 @@ Add the following resources for the hummingbird-treeview to function correctly:
     <script src="/path/to/hummingbird-treeview.js"></script>
 
 ```
-Or integrate the resources via cdn.jsdelivr.net:
+Or integrate the resources via CDNs:
 
 ```html
 	
     <!-- Required Stylesheets -->
-    <link href="/path/to/font-awesome.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@master/hummingbird-treeview.css" rel="stylesheet">
 
     <!-- Required Javascript -->
-    <script src="/path/to/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@master/hummingbird-treeview.js"></script>
 
 ```
