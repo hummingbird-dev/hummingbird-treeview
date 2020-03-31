@@ -4,6 +4,10 @@
 
 - hummingbird-treeview resources now available via cdn.jsdelivr.net
 
+## 2020/03/15
+
+- Test on JSFiddle
+
 ## 2020/03/03
 
 - New method: disableToggle
