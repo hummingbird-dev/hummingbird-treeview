@@ -421,8 +421,9 @@ treeview functionalities can be achieve.
 	
 ```
  Then add the following snipped:
- ```javascript
  
+ ```javascript
+  
 	var pre_check = [1,2];
     $.each(pre_check, function(i,e){
       $("#treeview").hummingbird("checkNode",{attr:"data-id",name: e,expandParents:false});
