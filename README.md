@@ -409,7 +409,7 @@ treeview functionalities can be achieve.
 
 - **Pre-check**<br>
   Pre-check some nodes by adding "id's" or "data-id's" to the items, e.g. 
-  ``` html
+  ```html
 
 		...
         <li data-id="1">--Morgan Freeman</li>
@@ -419,7 +419,7 @@ treeview functionalities can be achieve.
         <li data-id="2">--Kevin Costner</li>
 		...
 	
-```
+  ```
  Then add the following snipped:
  
  ```javascript
