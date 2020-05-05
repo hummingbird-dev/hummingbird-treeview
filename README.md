@@ -420,7 +420,7 @@ treeview functionalities can be achieve.
 		...
 	
   ```
- Then add the following snipped:
+ Then add the following snipped after treeview initialization:
  
  ```javascript
   
