@@ -407,6 +407,32 @@ Following options are available:
 Combining different options, methods, events and using additional logic, advanced 
 treeview functionalities can be achieve.
 
+- **Pre-check**<br>
+  Pre-check some nodes by adding "id's" or "data-id's" to the items, e.g. 
+  ``` html
+
+		...
+        <li data-id="1">--Morgan Freeman</li>
+        <li>Paramount</li>
+        <li>-The Untouchables</li>
+        <li>--Robert De Niro</li>
+        <li data-id="2">--Kevin Costner</li>
+		...
+	
+```
+ Then add the following snipped:
+ ```javascript
+ 
+	var pre_check = [1,2];
+    $.each(pre_check, function(i,e){
+      $("#treeview").hummingbird("checkNode",{attr:"data-id",name: e,expandParents:false});
+    });
+	
+ ```
+ 
+  [Example here](https://jsfiddle.net/hummingbird_dev/aneL59y8/1/) on JSFiddle.
+
+
 - **select-single-node**<br>
   For some applications it makes sense to allow only to select one single node. Therefore we first disable
   checking of folders, i.e. parent nodes using the respective option before initializing the treeview.
