@@ -182,7 +182,8 @@ $("#treeview3").hummingbird();
 
 ``` html
 
-     <div class="hummingbird-treeview-converter" data-height="230px" data-scroll="true" data-id="_movies">
+     <div class="hummingbird-treeview-converter" data-height="230px" 
+	 data-scroll="true" data-id="_movies">
         <li id="item_1" data-id="Studio_1">Warner Bros.</li>
         <li id="item_2" data-id="Movie_1">-Goodfellas</li>
         <li id="item_3" data-id="Actor_1">--Robert De Niro</li>
