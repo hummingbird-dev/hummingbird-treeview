@@ -37,6 +37,8 @@
 
 	    var converter_height = converter.attr("data-height");
 	    var converter_scroll = converter.attr("data-scroll");
+	    var converter_id = converter.attr("data-id");
+	    
 	    if (converter_scroll == "true") {
 		converter_scroll = "scroll";
 	    }
@@ -44,7 +46,7 @@
 	    
 	    //create new treeview container
 	    var tree_html = '<div id="treeview_container' + converter_str + '" class="hummingbird-treeview" style="height: ' + converter_height  +'; overflow-y: ' + converter_scroll + ';">' +
-		'<ul id="treeview' + converter_str + '" class="hummingbird-base">';
+		'<ul id="treeview' + converter_str + converter_id + '" class="hummingbird-base">';
 
 
 	    //get treeview elements

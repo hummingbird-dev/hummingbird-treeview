@@ -1,5 +1,9 @@
 # CHANGES
 
+## 2020/06/29
+
+- data-id added to div class="hummingbird-treeview-converter" to set individual id's to address the treeview e.g. via $("#treeview_movies").hummingbird();
+
 ## 2020/03/31
 
 - hummingbird-treeview resources now available via cdn.jsdelivr.net

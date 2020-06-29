@@ -182,7 +182,7 @@ $("#treeview3").hummingbird();
 
 ``` html
 
-     <div class="hummingbird-treeview-converter" data-height="230px" data-scroll="true">
+     <div class="hummingbird-treeview-converter" data-height="230px" data-scroll="true" data-id="_movies">
         <li id="item_1" data-id="Studio_1">Warner Bros.</li>
         <li id="item_2" data-id="Movie_1">-Goodfellas</li>
         <li id="item_3" data-id="Actor_1">--Robert De Niro</li>
@@ -205,7 +205,8 @@ Set the height of the treeview element and make it
 scrollable. Additionally it is possible to set custom ids and
 data-ids. To account for double (triplet, ...) nodes make sure that
 they have the same data-id and the option "checkDoubles" is set to
-true.
+true. Set a data-id (e.g. to "_movies") to the div class="hummingbird-treeview-converter"
+to address the treeview via the id "treeview_movies". Leave it empty to use the standard id "treeview".
 
 Set options, e.g.: (detailed description of all options below)
 
@@ -222,9 +223,19 @@ Initialize hummingbird-treeview:
 
 ```javascript
 
+$("#treeview_movies").hummingbird();
+
+```
+
+Or if you have left the data-id of the div class="hummingbird-treeview-converter" empty use the standard initialization:
+
+```javascript
+
 $("#treeview").hummingbird();
 
 ```
+
+
 
 Congratulations, you are done, your pseudo HTML list has now treeview functionality.
 
