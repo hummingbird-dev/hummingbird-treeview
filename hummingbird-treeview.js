@@ -40,12 +40,22 @@
 	    var converter_id = converter.attr("data-id");
 	    
 	    if (converter_scroll == "true") {
-		converter_scroll = "scroll";
+		converter_scroll = 'overflow-y:scroll;';
+	    } else {
+		converter_scroll = "";
+	    }
+	    if (converter_height == "undefined"){
+		converter_height = "";
+	    } else {
+		converter_height = 'height: ' + converter_height  +';';
+	    }
+	    if (converter_id == "undefined"){
+		converter_id = "";
 	    }
 
 	    
 	    //create new treeview container
-	    var tree_html = '<div id="treeview_container' + converter_str + '" class="hummingbird-treeview" style="height: ' + converter_height  +'; overflow-y: ' + converter_scroll + ';">' +
+	    var tree_html = '<div id="treeview_container' + converter_str + '" class="hummingbird-treeview" style="' + converter_height  + ' ' + converter_scroll + '">' +
 		'<ul id="treeview' + converter_str + converter_id + '" class="hummingbird-base">';
 
 
