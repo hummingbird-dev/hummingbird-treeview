@@ -44,12 +44,12 @@
 	    } else {
 		converter_scroll = "";
 	    }
-	    if (converter_height == "undefined"){
+	    if (typeof(converter_height) == "undefined"){
 		converter_height = "";
 	    } else {
 		converter_height = 'height: ' + converter_height  +';';
 	    }
-	    if (converter_id == "undefined"){
+	    if (typeof(converter_id) == "undefined"){
 		converter_id = "";
 	    }
 
