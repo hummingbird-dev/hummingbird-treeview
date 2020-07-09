@@ -8,7 +8,7 @@ A tiny and fast jQuery treeview plugin
 
 #### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird_converter.php), which shows how to use the pseudo HTML structure and how to add and remove nodes dynamically.
 
-#### [Test here](https://jsfiddle.net/hummingbird_dev/1s9qy6dh/23/) on JSFiddle.
+#### [Test here](https://jsfiddle.net/hummingbird_dev/1s9qy6dh/26/) on JSFiddle.
 
 ## Features
 
@@ -64,11 +64,11 @@ Or integrate the resources via CDNs:
 	
     <!-- Required Stylesheets -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@master/hummingbird-treeview.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.0/hummingbird-treeview.css" rel="stylesheet">
 
     <!-- Required Javascript -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@master/hummingbird-treeview.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.0/hummingbird-treeview.js"></script>
 
 ```
 
