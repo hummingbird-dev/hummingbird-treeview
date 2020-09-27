@@ -38,6 +38,8 @@
 	    var converter_height = converter.attr("data-height");
 	    var converter_scroll = converter.attr("data-scroll");
 	    var converter_id = converter.attr("data-id");
+	    var boldParents = converter.attr("data-boldParents");
+
 	    
 	    if (converter_scroll == "true") {
 		converter_scroll = 'overflow-y:scroll;';
@@ -51,6 +53,11 @@
 	    }
 	    if (typeof(converter_id) == "undefined"){
 		converter_id = "";
+	    }
+	    if (typeof(boldParents) == "undefined"){
+		boldParents = false;
+	    } else {
+		boldParents = true;
 	    }
 
 	    
@@ -118,7 +125,11 @@
 		    item = item + '<li data-id="' + numHyphen + '">' +"\n";
 		    item = item + '<i class="fa fa-plus"></i>' + "\n";
 		    item = item + '<label>' + "\n";
-		    item = item + '<input id="' + id_str  + '" data-id="' + data_id + '" type="checkbox" /> ' + treeText;
+		    if (boldParents){
+			item = item + '<input id="' + id_str  + '" data-id="' + data_id + '" type="checkbox" /> <b>' + treeText + '</b>';
+		    } else {
+			item = item + '<input id="' + id_str  + '" data-id="' + data_id + '" type="checkbox" /> ' + treeText;
+		    }
 		    item = item + '</label>' + "\n";
 		    item = item + '<ul>' + "\n";
 		    //console.log(item);
@@ -297,7 +308,7 @@
 		
 		//three state logic
 		//$.fn.hummingbird.ThreeStateLogic($(this),doubleMode,allVariables,options.checkDoubles,options.checkDisabled);		
-		$.fn.hummingbird.ThreeStateLogic($(this),doubleMode,allVariables,options.checkDoubles,checkDisabled,);
+		$.fn.hummingbird.ThreeStateLogic($(this),doubleMode,allVariables,options.checkDoubles,checkDisabled);
 		
 		//expandSingle and check if options.singleGroupOpen is set
 		var tmp_tree=$(this);
