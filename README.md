@@ -420,6 +420,16 @@ Following options are available:
 
 - **data-boldParents="true"**<br>  Changes the font of all parent nodes to bold font.
 
+``` html
+
+     <div class="hummingbird-treeview-converter" data-height="230px" 
+	 data-scroll="true" data-id="_movies" data-boldParents="true">
+        <li id="item_1" data-id="Studio_1">Warner Bros.</li>
+		...
+```
+
+
+
 
 ## Add on options and functionality
 Combining different options, methods, events and using additional logic, advanced 
