@@ -220,19 +220,30 @@
 		    //bootstrap
 		    if (options.hoverMode == "bootstrap"){
 			this_labels.hover(function() {
+                          //only change if not disabled
+                          //console.log($(this).children('input').prop('disabled'))                          
+                          if ($(this).children('input').prop('disabled') == false){
 		    	    $( this ).addClass(options.hoverColorBootstrap);
+                          }
 			}, function() {
+                          if ($(this).children('input').prop('disabled') == false){
 			    $( this ).removeClass(options.hoverColorBootstrap);
+                          }
 			});
 		    }
 		    //html
 		    if (options.hoverMode == "html"){
-			this_labels.hover(function() {
+			this_labels.hover(function() {                             
+                          if ($(this).children('input').prop('disabled') == false){            
 		    	    $( this ).css({'background-color':options.hoverColorBg1, 'color':options.hoverColorText1});
+                          }
 			}, function() {
-			    $( this ).css({'background-color':options.hoverColorBg2, 'color':options.hoverColorText2});
+                           if ($(this).children('input').prop('disabled') == false){
+                             $( this ).css({'background-color':options.hoverColorBg2, 'color':options.hoverColorText2});
+                           }
 			});
 		    }
+                    
 		    //
 		}
 

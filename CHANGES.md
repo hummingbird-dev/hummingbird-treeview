@@ -1,5 +1,9 @@
 # CHANGES
 
+## 2020/10/22
+
+- bug fix, disabled nodes changed color on hover, now disabled nodes do not react on hover
+
 ## 2020/09/27
 
 - new data-* attribute for setting parents font to bold 
