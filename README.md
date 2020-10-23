@@ -43,6 +43,21 @@ The hummingbird-treeview is tested with these versions, other versions work most
 
 
 ## Getting started
+
+
+### Installation
+
+Install via npm
+
+``` shell
+
+npm i hummingbird-treeview
+
+```
+
+or download manually here on GitHub or integrate via CDNs (see below).
+
+
 ### Usage
 
 Add the following resources for the hummingbird-treeview to function correctly:
@@ -51,26 +66,26 @@ Add the following resources for the hummingbird-treeview to function correctly:
 	
     <!-- Required Stylesheets -->
     <link href="/path/to/font-awesome.css" rel="stylesheet">
-    <link href="/path/to/hummingbird-treeview.css" rel="stylesheet">
+    <link href="/path/to/hummingbird-treeview.min.css" rel="stylesheet">
 
     <!-- Required Javascript -->
     <script src="/path/to/jquery.js"></script>
-    <script src="/path/to/hummingbird-treeview.js"></script>
+    <script src="/path/to/hummingbird-treeview.min.js"></script>
 
 ```
 Or integrate the resources via CDNs:
 
-### Important: newest release is v2.1 !!!
+### Important: newest release is v2.1.1 !!!
 
 ```html
 	
     <!-- Required Stylesheets -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1/hummingbird-treeview.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.1/hummingbird-treeview.min.css" rel="stylesheet">
 
     <!-- Required Javascript -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1/hummingbird-treeview.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.1/hummingbird-treeview.min.js"></script>
 
 ```
 
@@ -144,11 +159,14 @@ $.fn.hummingbird.defaults.expandedSymbol = "fa-hand-point-down";
 ```
 
 
-Initialize hummingbird-treeview:
+Initialize hummingbird-treeview within a $(document).ready() block:
 
 ```javascript
+$(document).ready(function() {
 
 $("#treeview").hummingbird();
+
+})
 
 ```
 

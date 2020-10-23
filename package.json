@@ -1,0 +1,23 @@
+{
+  "name": "hummingbird-treeview",
+  "version": "2.1.1",
+  "description": "A tiny and fast jQuery treeview plugin",
+  "main": "hummingbird-treeview.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hummingbird-dev/hummingbird-treeview.git"
+  },
+  "author": "Sebastian Mieruch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hummingbird-dev/hummingbird-treeview/issues"
+  },
+  "homepage": "https://github.com/hummingbird-dev/hummingbird-treeview#readme",
+  "dependencies": {
+    "jquery": ">3.1.1",
+    "font-awesome": "4.7.0"
+  }
+}
