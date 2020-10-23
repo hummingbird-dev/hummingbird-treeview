@@ -1,5 +1,9 @@
 # CHANGES
 
+## 2020/10/23
+
+- npm package made available
+
 ## 2020/10/22
 
 - bug fix, disabled nodes changed color on hover, now disabled nodes do not react on hover
