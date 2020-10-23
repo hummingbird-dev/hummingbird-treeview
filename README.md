@@ -51,7 +51,7 @@ Install via npm
 
 ``` shell
 
-npm i hummingbird-treeview
+$ npm i hummingbird-treeview
 
 ```
 
@@ -164,7 +164,7 @@ Initialize hummingbird-treeview within a $(document).ready() block:
 ```javascript
 $(document).ready(function() {
 
-$("#treeview").hummingbird();
+  $("#treeview").hummingbird();
 
 })
 
