@@ -1,5 +1,9 @@
 # CHANGES
 
+## 2020/11/19
+
+- Some bug fixes regarding disabled nodes.
+
 ## 2020/10/23
 
 - npm package made available

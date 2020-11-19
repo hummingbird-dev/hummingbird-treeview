@@ -6,7 +6,9 @@ A tiny and fast jQuery treeview plugin
 
 #### [Visit demo page ](https://hummingbird-dev.000webhostapp.com/hummingbird-treeview) for most of the functionality.
 
-#### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird_converter.php), which shows how to use the pseudo HTML structure and how to add and remove nodes dynamically.
+#### [Add / remove nodes](https://hummingbird-dev.000webhostapp.com/hummingbird_converter.php) example, which shows how to use the pseudo HTML structure and how to add and remove nodes dynamically
+
+#### [Enable / disable nodes](https://hummingbird-dev.000webhostapp.com/hummingbird-dev-ftp/tests/DisableEnable/hummingbird_treeview_disable_enable.html) hands-on example
 
 #### [Test here](https://jsfiddle.net/hummingbird_dev/1s9qy6dh/26/) on JSFiddle.
 
@@ -710,8 +712,9 @@ $("#treeview").hummingbird("disableNode",{attr:"id",name: "node-0-1-1-2",state:t
   should be enabled and checked, set it to false if the node should be
   enabled and unchecked. Optionally set enableChildren to false or
   true, default is true. Additionally, enabling a parent nodes with
-  all children disabled (enableChildren=false) is not allowed. Similar
-  to the disableNode above it is possible to have a parent node
+  all children disabled (enableChildren=false) is not allowed. 
+  Also for any *hummingbird-end-node* enableChildren=true must be set to enable the node.
+  Similar to the disableNode above it is possible to have a parent node
   disabled, while the children are enabled. In such a case full
   tri-state functionality is applied to that parent, but it is still
   not clickable, i.e. disabled.
