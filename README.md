@@ -77,17 +77,17 @@ Add the following resources for the hummingbird-treeview to function correctly:
 ```
 Or integrate the resources via CDNs:
 
-### Important: newest release is v2.1.1 !!!
+### Important: newest release is v2.1.3 !!!
 
 ```html
 	
     <!-- Required Stylesheets -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.1/hummingbird-treeview.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.3/hummingbird-treeview.min.css" rel="stylesheet">
 
     <!-- Required Javascript -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.1/hummingbird-treeview.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.3/hummingbird-treeview.min.js"></script>
 
 ```
 
