@@ -44,10 +44,6 @@ The hummingbird-treeview is tested with these versions, other versions work most
 
 ![alt text](./treeview_anim.gif "hummingbird-treeview example animation")
 
-## Advanced application
-
-![alt text](./hummingbird-treeview.png "hummingbird-treeview application")
-
 
 ## Getting started
 
