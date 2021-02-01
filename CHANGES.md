@@ -1,5 +1,13 @@
 # CHANGES
 
+## 2021/01/12
+
+- New feature data-str.
+
+## 2021/01/12
+
+- New methods hide / show.
+
 ## 2020/11/19
 
 - Some bug fixes regarding disabled nodes.

@@ -1,14 +1,19 @@
 # hummingbird-treeview
 
-A tiny and fast jQuery treeview plugin
+A powerful and fast jQuery treeview plugin
 
 #### [View CHANGES.md](https://github.com/hummingbird-dev/hummingbird-treeview/blob/master/CHANGES.md)
 
-#### [Visit demo page ](https://hummingbird-dev.000webhostapp.com/hummingbird-treeview) for most of the functionality.
 
-#### [Add / remove nodes](https://hummingbird-dev.000webhostapp.com/hummingbird_converter.php) example, which shows how to use the pseudo HTML structure and how to add and remove nodes dynamically
+## Demos
 
-#### [Enable / disable nodes](https://hummingbird-dev.000webhostapp.com/hummingbird-dev-ftp/tests/DisableEnable/hummingbird_treeview_disable_enable.html) hands-on example
+#### [Enable/disable nodes and hide/show nodes](https://hummingbird-dev.000webhostapp.com/hummingbird-dev-ftp/tests/DisableEnable/hummingbird_treeview_disable_enable.html) example, which shows the general behavior and how to enable/disable nodes and hide/show nodes.
+
+#### [Add/remove nodes](https://hummingbird-dev.000webhostapp.com/hummingbird_converter.php) example, which shows how to add and remove nodes dynamically.
+
+#### [Select single node](https://hummingbird-dev.000webhostapp.com/hummingbird_converter_single_node.php) example shows how to allow only the selection of one end-node.
+
+#### [Select single group](https://hummingbird-dev.000webhostapp.com/hummingbird_converter_single_group.php) example shows how to allow only the selection of one group-node.
 
 #### [Test here](https://jsfiddle.net/hummingbird_dev/1s9qy6dh/26/) on JSFiddle.
 
@@ -21,7 +26,7 @@ A tiny and fast jQuery treeview plugin
 - Supports n-tuple nodes, i.e. doubles, triplets, etc.
 - Supports disabled nodes, checked or unchecked.
 - Get checked/unchecked items programmatically.
-- Add and remove nodes dynamically.
+- Hide, show, or add and remove nodes dynamically.
 - Filter nodes.
 - Supports HTML5 data-* attribute to embed custom data.
 - Supports Font Awesome icons.
@@ -77,17 +82,17 @@ Add the following resources for the hummingbird-treeview to function correctly:
 ```
 Or integrate the resources via CDNs:
 
-### Important: newest release is v2.1.3 !!!
+### Important: newest release is v2.1.4 !!!
 
 ```html
 	
     <!-- Required Stylesheets -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.3/hummingbird-treeview.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.4/hummingbird-treeview.min.css" rel="stylesheet">
 
     <!-- Required Javascript -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.3/hummingbird-treeview.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.4/hummingbird-treeview.min.js"></script>
 
 ```
 
@@ -200,7 +205,7 @@ $("#treeview3").hummingbird();
 
 
 
-### 2. Simple pseudo HTML plus height, scroll, id, data-id
+### 2. Simple pseudo HTML plus height, scroll, id, data-id, data-str
 
 ``` html
 
@@ -214,7 +219,7 @@ $("#treeview3").hummingbird();
         <li id="item_6" data-id="Actor_3">--Tim Robbins</li>
         <li id="item_7" data-id="Actor_4">--Morgan Freeman</li>
         <li id="item_8" data-id="Studio_2">Paramount</li>
-        <li id="item_9" data-id="Movie_3">-The Untouchables</li>
+        <li id="item_9" data-id="Movie_3" data-str='data-toggle="tooltip" data-placement="auto" title="1987"' >-The Untouchables</li>
         <li id="item_10" data-id="Actor_1">--Robert De Niro</li>
         <li id="item_11" data-id="Actor_5">--Kevin Costner</li>
         <li id="item_12" data-id="Movie_4">-Forrest Gump</li>
@@ -230,6 +235,10 @@ data-ids. To account for double (triplet, ...) nodes make sure that
 they have the same data-id and the option "checkDoubles" is set to
 true. Set a data-id (e.g. to "_movies") to the div class="hummingbird-treeview-converter"
 to address the treeview via the id "treeview_movies". Leave it empty to use the standard id "treeview".
+Add more custom functionality to the nodes by injecting the "data-str", see node "The Untouchables" above.
+The "data-str" has custom commands enclosed in single quotes, which can be used e.g. by other JavaScript methods.
+In this example we use Bootstraps tool-tips to show the production year of the movie in a tool-tip.
+
 
 Set options, e.g.: (detailed description of all options below)
 
@@ -447,6 +456,24 @@ Following options are available:
         <li id="item_1" data-id="Studio_1">Warner Bros.</li>
 		...
 ```
+
+- **data-str**<br>  Add custom functionality to a node.
+
+``` html
+
+     <div class="hummingbird-treeview-converter" data-height="230px" 
+	 data-scroll="true" data-id="_movies">
+        <li id="item_8" data-id="Studio_2">Paramount</li>
+        <li id="item_9" data-id="Movie_3" data-str='data-toggle="tooltip" data-placement="auto" title="1987"' >-The Untouchables</li>
+        <li id="item_10" data-id="Actor_1">--Robert De Niro</li>
+        <li id="item_11" data-id="Actor_5">--Kevin Costner</li>
+     </div>
+
+```
+
+Add more custom functionality to the nodes by injecting the "data-str", see node "The Untouchables" above.
+The "data-str" has custom commands enclosed in single quotes, which can be used e.g. by other JavaScript methods.
+In this example we use Bootstraps tool-tips to show the production year of the movie in a tool-tip.
 
 
 
@@ -722,6 +749,31 @@ $("#treeview").hummingbird("disableNode",{attr:"id",name: "node-0-1-1-2",state:t
 ```javascript
 
 $("#treeview").hummingbird("enableNode",{attr:"id",name: "node-0-1-1-2",state:false,enableChildren:true});
+
+```
+
+- **hideNode(attr,name})**<br> Hide a node, which is identified by its id, data-id or text,
+  which has to be defined in the attr parameter. The name parameter
+  holds the name of the id, data-id, or text. Be careful, because inconsistencies in the tri-state logic
+  are possible to occur. Therefore it is recommended to *uncheck* the node prior to hiding.
+
+```javascript
+
+$("#treeview").hummingbird("hideNode",{attr:"id",name: "node-0-1-1-2"});
+
+```
+
+- **showNode(attr,name})**<br> Show a previously hidden node, which is
+  identified by its id, data-id or text, which has to be defined in
+  the attr parameter. The name parameter holds the name of the id,
+  data-id, or text. Be careful, because inconsistencies in the
+  tri-state logic are possible to occur. Therefore it is recommended
+  to use *checkNode* and *uncheckNode* together with
+  *showNode*. Additionally keep an eye on parent and child nodes.
+
+```javascript
+
+$("#treeview").hummingbird("showNode",{attr:"id",name: "node-0-1-1-2"});
 
 ```
 

@@ -8,6 +8,8 @@
     //this is now default and not changable anymore
     var checkDisabled = true;
 
+
+
     //
     var checkboxesGroups_grayed = false;
     var checkboxesGroups = false;
@@ -96,7 +98,7 @@
 
 		//remove leading hyphens
 		treeText = treeText.replace(regExp, "");
-		//extract optional id and data-id		
+		//extract optional id and data-id and data-str		
 		if ($(this).attr("id")) {
 		    id_str = $(this).attr("id");
 		} else {
@@ -108,7 +110,13 @@
 		} else {
 		    data_id = treeText;
 		}
+		if ($(this).attr("data-str")) {
+		    data_str = $(this).attr("data-str");
+		} else {
+		    data_str = "";
+		}
 
+		
 		
 		//what is this, parent, children or sibling
 		//this is a parent
@@ -126,7 +134,7 @@
 		    //
 		    item = item + '<li data-id="' + numHyphen + '">' +"\n";
 		    item = item + '<i class="fa fa-plus"></i>' + "\n";
-		    item = item + '<label>' + "\n";
+		    item = item + '<label ' + data_str  + '>' + "\n";
 		    if (boldParents){
 			item = item + '<input id="' + id_str  + '" data-id="' + data_id + '" type="checkbox" /> <b>' + treeText + '</b>';
 		    } else {
@@ -139,7 +147,7 @@
 		//hummingbird-end-node
 		if (numHyphen == numHyphen_next) {
 		    item = item + '<li>' +"\n";
-		    item = item + '<label>' + "\n";
+		    item = item + '<label ' + data_str  + '>' + "\n";
 		    item = item + '<input class="hummingbird-end-node" id="' + id_str + '" data-id="' + data_id + '" type="checkbox" /> ' + treeText;
 		    item = item + '</label>' + "\n";
 		    item = item + '</li>' + "\n";
@@ -150,7 +158,7 @@
 		//thus close this ul
 		if (numHyphen > numHyphen_next) {
 		    item = item + '<li>' +"\n";
-		    item = item + '<label>' + "\n";
+		    item = item + '<label ' + data_str  + '>' + "\n";
 		    item = item + '<input class="hummingbird-end-node" id="' + id_str + '" data-id="' + data_id + '" type="checkbox" /> ' + treeText;
 		    item = item + '</label>' + "\n";
 		    item = item + '</li>' + "\n";
@@ -412,6 +420,28 @@
 	    });
 	}
 
+	//hideNode
+	if (methodName == "hideNode") {
+	    return this.each(function(){
+		var name = args[1].name;
+		var attr = args[1].attr;
+		$.fn.hummingbird.hideNode($(this),attr,name);
+	    });
+	}
+
+	//showNode
+	if (methodName == "showNode") {
+	    return this.each(function(){
+		var name = args[1].name;
+		var attr = args[1].attr;
+		$.fn.hummingbird.showNode($(this),attr,name);
+	    });
+	}
+	
+
+	
+
+	
 	//checkNode
 	if (methodName == "checkNode") {
 	    return this.each(function(){		
@@ -836,6 +866,9 @@
 	//
     };
 
+
+
+    
     //-------------------filter--------------------//
     $.fn.hummingbird.filter = function(tree,str,box_disable,caseSensitive,onlyEndNodes,filterChildren){
 	if (onlyEndNodes) {
@@ -948,6 +981,42 @@
 	this_checkbox.trigger("click");	
     };
 
+
+    //-------------------hideNode---------------//
+    $.fn.hummingbird.hideNode = function(tree,attr,name){
+	if (attr == "text") {
+	    name = name.trim();
+	    var that_nodes = tree.find('input:checkbox').parent('label:contains(' + name + ')');
+	    var this_checkbox = that_nodes.children('input:checkbox');
+	} else {
+	    var this_checkbox = tree.find('input:checkbox[' + attr + '=' + name + ']');
+	}
+	//this_checkbox.hide();
+	this_checkbox.attr("type","hidden");
+	this_checkbox.parent("label").parent("li").hide();
+    };
+
+    //-------------------showNode---------------//
+    $.fn.hummingbird.showNode = function(tree,attr,name){
+	console.log("showNode")
+	console.log(attr)
+	console.log(name)
+	if (attr == "text") {
+	    name = name.trim();
+	    var that_nodes = tree.find('input').parent('label:contains(' + name + ')');
+	    var this_checkbox = that_nodes.children('input');
+	} else {
+	    var this_checkbox = tree.find('input[' + attr + '=' + name + ']');
+	}
+	//this_checkbox.hide();
+	//console.log(this)
+	this_checkbox.attr("type","checkbox");
+	this_checkbox.parent("label").parent("li").show();
+    };
+
+
+
+    
     //--------------get all checked items------------------//
     $.fn.hummingbird.getChecked = function(tree,list,onlyEndNodes,onlyParents,fromThis){
 
@@ -1126,7 +1195,7 @@
 	    //do this for all
 	    //if (checkDisabled) {
 		$(this).parent("label").parents("li").map(function() {
-		    console.log($(this))
+		    //console.log($(this))
 		    var indeterminate_sum = 0;
 		    //number of checked if an uncheck happened or number of unchecked if a check happened
 		    var checked_unchecked_sum = $(this).siblings().addBack().children("label").children(checkSiblings).length;
@@ -1232,6 +1301,7 @@
 	    //so that the next clicked node can be a normal node or again a disbaled node
 	    nodeDisabled = false;
 	    nodeEnabled = false;
+
 
 	    
 	    //fire event
