@@ -188,10 +188,12 @@
 		converter.after(msg);
 	    }
 
+	    //delete converter
+	    //console.log("remove")
+	    //console.log(converter)
+	    converter.remove();
+	    //end converter
 	});
-	//delete converter
-	converter.remove();
-	//end converter
     });
 
     
@@ -1153,13 +1155,13 @@
 	//now check and set indeterminate
 	if (jQuery.isEmptyObject(restore_state) == false) {
 	    if (jQuery.isEmptyObject(restore_state.checked) == false) {
-		$.each(restore_state.checked.id, function(i,e){
+		$.each(restore_state.checked, function(i,e){
 		    //console.log("checked: "+e)
 		    tree.find("input:checkbox#"+e).prop("checked",true);
 		});
 	    }
 	    if (jQuery.isEmptyObject(restore_state.indeterminate) == false) {
-		$.each(restore_state.indeterminate.id, function(i,e){
+		$.each(restore_state.indeterminate, function(i,e){
 		    //console.log("indeterminate: "+e)
 		    tree.find("input:checkbox#"+e).prop("indeterminate",true);
 		});
