@@ -190,7 +190,7 @@
 
 	});
 	//delete converter
-	//converter.remove();
+	converter.remove();
 	//end converter
     });
 
