@@ -1,5 +1,10 @@
 # CHANGES
 
+## 2021/02/05
+
+- Remove the div with class hummingbird-treeview-converter after finalising 
+  initialization
+
 ## 2021/02/04
 
 - New methods, saveState and restoreState, getIndeterminate
