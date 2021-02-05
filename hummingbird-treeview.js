@@ -189,6 +189,8 @@
 	    }
 
 	});
+	//delete converter
+	//converter.remove();
 	//end converter
     });
 
@@ -527,11 +529,15 @@
 	if (methodName == "getChecked") {
 	    return this.each(function(){
 		var list = args[1].list;
-		var onlyEndNodes = args[1].onlyEndNodes;
+		if (typeof args[1].onlyEndNodes !== 'undefined') {
+		    var onlyEndNodes = args[1].onlyEndNodes;
+		} else {
+		    var onlyEndNodes = false;
+		}		
 		if (typeof args[1].onlyParents !== 'undefined') {
 		    var onlyParents = args[1].onlyParents;
 		} else {
-		    var onlyParents = true;
+		    var onlyParents = false;
 		}		
 		if (typeof args[1].fromThis !== 'undefined') {
 		    var fromThis = args[1].fromThis;
@@ -546,11 +552,15 @@
 	if (methodName == "getUnchecked") {
 	    return this.each(function(){
 		var list = args[1].list;
-		var onlyEndNodes = args[1].onlyEndNodes;
+		if (typeof args[1].onlyEndNodes !== 'undefined') {
+		    var onlyEndNodes = args[1].onlyEndNodes;
+		} else {
+		    var onlyEndNodes = false;
+		}		
 		if (typeof args[1].onlyParents !== 'undefined') {
 		    var onlyParents = args[1].onlyParents;
 		} else {
-		    var onlyParents = true;
+		    var onlyParents = false;
 		}
 		if (typeof args[1].fromThis !== 'undefined') {
 		    var fromThis = args[1].fromThis;
@@ -561,6 +571,30 @@
 	    });
 	}
 
+	//getIndeterminate
+	if (methodName == "getIndeterminate") {
+	    return this.each(function(){
+		var list = args[1].list;
+		$.fn.hummingbird.getIndeterminate($(this),list);
+	    });
+	}
+
+	//saveState
+	if (methodName == "saveState") {
+	    return this.each(function(){
+		var save_state = args[1].save_state;
+		$.fn.hummingbird.saveState($(this),save_state);
+	    });
+	}
+
+	//restoreState
+	if (methodName == "restoreState") {
+	    return this.each(function(){
+		var restore_state = args[1].restore_state;
+		$.fn.hummingbird.restoreState($(this),restore_state);
+	    });
+	}
+	
 
 	//addNode
 	if (methodName == "addNode") {
@@ -998,9 +1032,9 @@
 
     //-------------------showNode---------------//
     $.fn.hummingbird.showNode = function(tree,attr,name){
-	console.log("showNode")
-	console.log(attr)
-	console.log(name)
+	// console.log("showNode")
+	// console.log(attr)
+	// console.log(name)
 	if (attr == "text") {
 	    name = name.trim();
 	    var that_nodes = tree.find('input').parent('label:contains(' + name + ')');
@@ -1085,7 +1119,57 @@
     };
     //--------------get all unchecked items------------------//
 
+    //--------------get all indeterminate items------------------//
+    $.fn.hummingbird.getIndeterminate = function(tree,list){
+	tree.find('input:indeterminate').each(function() {
+	    list.text.push($(this).parent("label").parent("li").text());
+	    list.id.push($(this).attr("id"));
+	    list.dataid.push($(this).attr("data-id"));
+	});
+    };
+    //--------------get all indeterminate items------------------//
+    
 
+    //--------------saveState------------------//
+    $.fn.hummingbird.saveState = function(tree,save_state){
+	//console.log("humming saveState")
+	//save_state.checked = {"hallo":"123"};
+	var List_full = {"id" : [], "dataid" : [], "text" : []};
+	tree.hummingbird("getChecked",{list:List_full});
+	//console.log(List_full)
+	var List_indeterminate = {"id" : [], "dataid" : [], "text" : []};
+	tree.hummingbird("getIndeterminate",{list:List_indeterminate});
+	//console.log(List_indeterminate)
+	save_state.checked = List_full.id;
+	save_state.indeterminate = List_indeterminate.id;
+    };
+    //--------------saveState------------------//
+
+    //--------------restoreState------------------//
+    $.fn.hummingbird.restoreState = function(tree,restore_state){
+	//console.log("humming restoreState")
+	//uncheck all and remove indeterminate
+	tree.find("input:checkbox").prop("checked",false).prop("indeterminate",false);
+	//now check and set indeterminate
+	if (jQuery.isEmptyObject(restore_state) == false) {
+	    if (jQuery.isEmptyObject(restore_state.checked) == false) {
+		$.each(restore_state.checked.id, function(i,e){
+		    //console.log("checked: "+e)
+		    tree.find("input:checkbox#"+e).prop("checked",true);
+		});
+	    }
+	    if (jQuery.isEmptyObject(restore_state.indeterminate) == false) {
+		$.each(restore_state.indeterminate.id, function(i,e){
+		    //console.log("indeterminate: "+e)
+		    tree.find("input:checkbox#"+e).prop("indeterminate",true);
+		});
+	    }
+	}
+    };
+    //--------------restoreState------------------//
+    
+
+    
     //-------------------setNodeColor---------------//
     $.fn.hummingbird.setNodeColor = function(tree,attr,ID,color){
 	tree.find('input:checkbox[' + attr + '=' + ID + ']').parent("li").css({'color':color});

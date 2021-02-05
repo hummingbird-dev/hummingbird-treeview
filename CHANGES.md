@@ -1,5 +1,9 @@
 # CHANGES
 
+## 2021/02/04
+
+- New methods, saveState and restoreState, getIndeterminate
+
 ## 2021/01/12
 
 - New feature data-str.

@@ -22,6 +22,7 @@ A powerful and fast jQuery treeview plugin
 - Display hierarchical tree structures.
 - Based on simple pseudo HTML lists or full HTML structures.
 - Tri-state logic.
+- Save and restore full treeview state
 - Manual and programmatical check, uncheck, collapse, expand, etc.
 - Supports n-tuple nodes, i.e. doubles, triplets, etc.
 - Supports disabled nodes, checked or unchecked.
@@ -909,6 +910,65 @@ var List = {"id" : [], "dataid" : [], "text" : []};
 $("#treeview").hummingbird("getUnchecked",{list:List,onlyEndNodes:true,onlyParents:false});
 $("#displayItems").html(List.text.join("<br>"));
 var L = List.id.length;
+
+```
+
+- **getIndeterminate(List)**<br>
+  Get indeterminate
+  nodes. Retrieve the id, data-id and text of the nodes.
+  Define an
+  object, List, for the output of this method. It is important to name 
+  the arrays exactly like in the example below.
+  Finally this List
+  array can be bound to a DOM element and it is also straight forward
+  to do other stuff with the arrays, e.g. retrieving the length of it.
+
+```javascript
+
+var List = {"id" : [], "dataid" : [], "text" : []};
+$("#treeview").hummingbird("getIndeterminate",{list:List});
+$("#displayItems").html(List.text.join("<br>"));
+var L = List.id.length;
+
+```
+
+- **saveState(treeState)**<br> A typically occuring situation is that
+    it is needed to save the state of the treeview for later
+    rebuilding.  This can be accomplished by using the *saveState* and
+    *restoreState* methods.  First save the state in the object
+    *treeState* and restore it later. A good point for saving the
+    state is after receiving the *CheckUncheckDone* event.
+
+```javascript
+
+var treeState = {};
+$("#treeview").hummingbird("saveState",{save_state:treeState});
+
+```
+
+- **restoreState(treeState)**<br> Restore the before saved state from the object *treeState*.
+
+```javascript
+
+$("#treeview").hummingbird("restoreState",{restore_state:treeState});
+
+```
+  In addition *restoreState* can be used to create any arbitrary states created by custom methods.
+  Therefore the *treeState* object must look like the following:
+  
+```javascript
+
+var treeState = {"checked":{}, "indeterminate":{}};
+treeState.checked = checked;
+treeState.indeterminate = indeterminate;
+
+```
+where the objects *checked* and *indeterminate* contain the respective node ID information:
+
+```javascript
+
+var checked = {"id" : []};
+var indeterminate = {"id" : []};
 
 ```
 
