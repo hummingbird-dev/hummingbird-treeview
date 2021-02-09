@@ -1,6 +1,6 @@
 {
   "name": "hummingbird-treeview",
-  "version": "2.1.5",
+  "version": "2.1.7",
   "description": "A tiny and fast jQuery treeview plugin",
   "main": "hummingbird-treeview.js",
   "scripts": {

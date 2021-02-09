@@ -1,5 +1,13 @@
 # CHANGES
 
+## 2021/02/09
+
+- Bugfix on disable/enable functionality
+
+## 2021/02/09
+
+- New method skipCheckUncheckDone
+
 ## 2021/02/05
 
 - Remove the div with class hummingbird-treeview-converter after finalising 

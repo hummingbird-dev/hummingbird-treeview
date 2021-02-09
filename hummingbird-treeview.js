@@ -8,6 +8,7 @@
     //this is now default and not changable anymore
     var checkDisabled = true;
 
+    var skip_next_check_uncheck = false;
 
 
     //
@@ -596,6 +597,13 @@
 		$.fn.hummingbird.restoreState($(this),restore_state);
 	    });
 	}
+
+	//skipCheckUncheckDone
+	if (methodName == "skipCheckUncheckDone") {
+	    return this.each(function(){
+		$.fn.hummingbird.skipCheckUncheckDone();
+	    });
+	}
 	
 
 	//addNode
@@ -1130,6 +1138,14 @@
 	});
     };
     //--------------get all indeterminate items------------------//
+
+
+    //--------------skipCheckUncheckDone------------------//
+    $.fn.hummingbird.skipCheckUncheckDone = function(){
+	skip_next_check_uncheck = true;
+    };
+    //--------------skipCheckUncheckDone------------------//
+
     
 
     //--------------saveState------------------//
@@ -1225,8 +1241,21 @@
 	    //if (checkDisabled || nodeDisabled === false) {
 	    $(this).parent("label").parent().parents("li").children("label").children("input:checkbox").prop("indeterminate",true);
 	    $(this).parent("label").parent().parents("li").children("label").children("input:checkbox").prop("checked",false);	
-	    
 
+
+	    //if a node directly below that is disabled
+	    //do nothing, i.e. reverse the check
+	    //console.log($(this).parent("label").siblings("ul"))
+	    // $(this).parent("label").siblings("ul").children("li").children("label").children("input").map(function(){
+	    // 	console.log($(this))
+	    // 	if ($(this).prop("disabled")){
+	    // 	    var direct_child_state = $(this).prop("checked");
+	    // 	    console.log($(this).prop("checked"))
+	    // 	    $(this).prop("checked", direct_child_state === false);
+	    // 	    console.log($(this).prop("checked"))
+	    // 	}
+	    // });
+	    
 	    //travel down the dom through all ul's, but not the ul directly under that, because that will be changed
 	    //console.log($(this).parent("label").parent("li").find("ul"))
 	    //$(this).parent("label").parent("li").find("ul").map(function(){
@@ -1238,16 +1267,28 @@
 		//check if children are disabled
 		//console.log($(this).parent("label").next("ul").children("li").children("label").children("input:checkbox"))
 		//var not_disabled_sum_children = $(this).parent("label").next("ul").children("li").children("label").children("input:checkbox:not(:disabled)").length;
+
+		//I think I have to take into account only end-nodes???
 		var disabled_sum_children = $(this).children("li").children("label").children("input:checkbox:disabled").length;
 		//console.log("disabled_sum_children= " + disabled_sum_children)
 		//if a check has happened count how many are checked
 		//if an uncheck has happened count how many are unchecked
 		//var checked_unchecked_sum_children = $(this).parent("label").next("ul").children("li").children("label").children(checkSiblings).length;
 		//a check has happened
-		    var checked_sum_children = $(this).children("li").children("label").children("input:checkbox:checked").length;
-		    var unchecked_sum_children = $(this).children("li").children("label").children("input:checkbox:not(:checked)").length;
-		//console.log("checked_sum_children= " + checked_sum_children)
-		//console.log("unchecked_sum_children= " + unchecked_sum_children)
+
+
+		var checked_sum_children = $(this).children("li").children("label").children("input:checkbox:checked").length;
+		var unchecked_sum_children = $(this).children("li").children("label").children("input:checkbox:not(:checked)").length;
+		var num_children_endnode = $(this).children("li").children("label").children("input:checkbox.hummingbird-end-node").length;
+
+		
+
+		// console.log("disabled_sum_children= " + disabled_sum_children)
+		// console.log("checked_sum_children= " + checked_sum_children)
+		// console.log("unchecked_sum_children= " + unchecked_sum_children)
+		// console.log("num_children_endnode= " + num_children_endnode)
+
+
 		//if all children disabled set appropriate state of this checkbox
 		//This happens e.g. if all children of this box are disabled and checked, so this box is actually also checked and disabled, but because it is
 		//not an end-node it can be checked, unchecked. Now a parent of this has been unchecked, thus this box is also unchecked, although all children are checked
@@ -1256,19 +1297,30 @@
 		//there are children disabled:
 		//if a check happened, all children are checked
 		//if an uncheck happened all children are unchecked
+		//console.log($(this).siblings("label").children("input:checkbox"))
+
+		//there are disabled nodes below that
 		if (disabled_sum_children > 0) {
 		    if (checked_sum_children == 0) {
 			$(this).siblings("label").children("input:checkbox").prop("checked",false);
 		    }
-		    if (unchecked_sum_children == 0) {
-			$(this).siblings("label").children("input:checkbox").prop("checked",true);
+		    //if there are no unchecked below, it means that this must be checked,
+		    //but this is only true if this group has end-node children
+		    //otherwise it can have unchecked group nodes
+		    if (unchecked_sum_children == 0){
+			if (num_children_endnode > 0){
+			    //if (unchecked_sum_children == 0) {
+			    $(this).siblings("label").children("input:checkbox").prop("checked",true);
+			} else {
+			    $(this).siblings("label").children("input:checkbox").prop("checked",false);
+			}
 		    }
 		    if (checked_sum_children > 0 && unchecked_sum_children > 0) {
 			//console.log("hallo")
 			$(this).siblings("label").children("input:checkbox").prop("checked",false); //.prop("indeterminate",true);
 		    }
 		}
-
+		
 	    });
 
 
@@ -1280,9 +1332,9 @@
 	    //thus, set parents checked / unchecked, if children are all checked or all unchecked with no indeterminates
 	    //do this for all
 	    //if (checkDisabled) {
-		$(this).parent("label").parents("li").map(function() {
-		    //console.log($(this))
-		    var indeterminate_sum = 0;
+	    $(this).parent("label").parents("li").map(function() {
+		//console.log($(this))
+		var indeterminate_sum = 0;
 		    //number of checked if an uncheck happened or number of unchecked if a check happened
 		    var checked_unchecked_sum = $(this).siblings().addBack().children("label").children(checkSiblings).length;
 		    //check how many not disabled are here (below that parent)
@@ -1326,7 +1378,7 @@
 			    }
 		    	}
 		    }		    
-		});
+	    });
 	    //}
 	    
 	    //------------------check if this variable has doubles-----------------------//
@@ -1360,6 +1412,7 @@
 	    //--------------------------disabled-----------------------------------------//
 	    //check if this box has hummingbird-end-node children
 	    if (checkDisabled) {
+		//console.log($(this))
 		if ($(this).hasClass("hummingbird-end-node") === false) {
 		    //if this box has been checked, check if "not checked disabled" exist
 		    if (state === true) {
@@ -1376,7 +1429,7 @@
 		    //not if all checked or unchecked
 		    if (disabledCheckboxes.length > 0 && num_state_inverse_Checkboxes.length > 0) {
 			//only if the boxes are enabled
-//			disabledCheckboxes.parent("label").parent("li").parents("li").children("label").children("input:checkbox:not(:disabled)").prop("indeterminate",true).prop("checked",state);
+			disabledCheckboxes.parent("label").parent("li").parents("li").children("label").children("input:checkbox:not(:disabled)").prop("indeterminate",true).prop("checked",state);
 		    }
 		}
 	    }
@@ -1389,9 +1442,13 @@
 	    nodeEnabled = false;
 
 
-	    
+	    //if skip_next_check_uncheck == true skip it and set back to false
 	    //fire event
-	    tree.trigger("CheckUncheckDone");	    
+	    if (skip_next_check_uncheck == false){
+		tree.trigger("CheckUncheckDone");
+	    } else {
+		skip_next_check_uncheck = false;
+	    }
 	});
     }
     //--------------three-state-logic----------------------//

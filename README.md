@@ -79,17 +79,17 @@ Add the following resources for the hummingbird-treeview to function correctly:
 ```
 Or integrate the resources via CDNs:
 
-### Important: newest release is v2.1.5 !!!
+### Important: newest release is v2.1.7 !!!
 
 ```html
 	
     <!-- Required Stylesheets -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.5/hummingbird-treeview.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.7/hummingbird-treeview.min.css" rel="stylesheet">
 
     <!-- Required Javascript -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.5/hummingbird-treeview.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.7/hummingbird-treeview.min.js"></script>
 
 ```
 
@@ -937,7 +937,10 @@ var L = List.id.length;
     rebuilding.  This can be accomplished by using the *saveState* and
     *restoreState* methods.  First save the state in the object
     *treeState* and restore it later. A good point for saving the
-    state is after receiving the *CheckUncheckDone* event.
+    state is after receiving the *CheckUncheckDone* event. However it
+    is important to note that *saveState* does not trigger the
+    tri-state logic, thus be careful, especially if used with customly
+    generates *treeState*.
 
 ```javascript
 
@@ -953,8 +956,9 @@ $("#treeview").hummingbird("saveState",{save_state:treeState});
 $("#treeview").hummingbird("restoreState",{restore_state:treeState});
 
 ```
-  In addition *restoreState* can be used to create any arbitrary states created by custom methods.
-  Therefore the *treeState* object must look like the following:
+   <br>
+   In addition *restoreState* can be used to create any arbitrary states created by custom methods.
+   Therefore the *treeState* object must look like the following:
   
 ```javascript
 
@@ -963,12 +967,22 @@ treeState.checked = checked;
 treeState.indeterminate = indeterminate;
 
 ```
-where the objects *checked* and *indeterminate* contain the respective node ID information:
+   <br>
+   where the objects *checked* and *indeterminate* contain the respective node ID information:
 
 ```javascript
 
 var checked = {"id" : []};
 var indeterminate = {"id" : []};
+
+```
+
+- **skipCheckUncheckDone**<br> Skip firing the *CheckUncheckDone* event in the following call.
+  This method can be called before any other method to skip firing the *CheckUncheckDone* event in the followed method.
+
+```javascript
+
+$("#treeview").hummingbird("skipCheckUncheckDone");
 
 ```
 
