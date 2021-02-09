@@ -15,7 +15,7 @@ A powerful and fast jQuery treeview plugin
 
 #### [Select single group](https://hummingbird-dev.000webhostapp.com/hummingbird_converter_single_group.php) example shows how to allow only the selection of one group-node.
 
-#### [Test here](https://jsfiddle.net/hummingbird_dev/1s9qy6dh/26/) on JSFiddle.
+#### [Test here](https://jsfiddle.net/hummingbird_dev/1s9qy6dh/66/) on JSFiddle.
 
 ## Features
 
