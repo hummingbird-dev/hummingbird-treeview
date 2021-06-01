@@ -1,7 +1,7 @@
 {
   "name": "hummingbird-treeview",
-  "version": "2.1.7",
-  "description": "A tiny and fast jQuery treeview plugin",
+  "version": "3.0.0",
+  "description": "A powerful and fast jQuery treeview plugin",
   "main": "hummingbird-treeview.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

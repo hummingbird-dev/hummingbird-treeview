@@ -31,7 +31,7 @@ So then, have fun with the new hummingbird-treeview !
 
 ## Demo
 
-#### [Test](https://hummingbird-dev.000webhostapp.com).
+#### [https://hummingbird-dev.000webhostapp.com](https://hummingbird-dev.000webhostapp.com).
 
 ## Features
 
