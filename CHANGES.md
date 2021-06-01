@@ -1,5 +1,11 @@
 # CHANGES
 
+## 2021/06/01
+
+- Big upgrade to mass assignments. If you have used the treeview only
+  interactively, no change needed. However, if you have used it
+  programatically with respective methods, you have to change your syntax and concept!
+
 ## 2021/02/09
 
 - Bugfix on disable/enable functionality

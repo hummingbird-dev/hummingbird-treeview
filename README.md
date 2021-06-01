@@ -4,18 +4,34 @@ A powerful and fast jQuery treeview plugin
 
 #### [View CHANGES.md](https://github.com/hummingbird-dev/hummingbird-treeview/blob/master/CHANGES.md)
 
+## Big Upgrade 2021/06/01
 
-## Demos
+The hummingbird-treeview has been upgraded extensively. If you have used the treeview only
+interactively, no changes are needed. However, if you have used it
+programatically with respective methods, you have to change your syntax and concept!
+  
+We now fully support mass assignements, i.e. the methods expect now
+arrays of nodes for manipulation. Thus now you can e.g. check many
+nodes simultaneously by simply sending an array of id's to the
+respective method. The same concept is now valid for all methods.
 
-#### [Enable/disable nodes and hide/show nodes](https://hummingbird-dev.000webhostapp.com/hummingbird-dev-ftp/tests/DisableEnable/hummingbird_treeview_disable_enable.html) example, which shows the general behavior and how to enable/disable nodes and hide/show nodes.
+Under the hood we have a complete new implementation of the tri-state
+logic, i.e. setting parent nodes to "indeterminate" if at least one,
+but not all children nodes are checked etc. This speeds up the
+processing massively and together with the new array concept makes the
+treeview super-fast.
 
-#### [Add/remove nodes](https://hummingbird-dev.000webhostapp.com/hummingbird_converter.php) example, which shows how to add and remove nodes dynamically.
+The new functionalities allow new useful methods like e.g. *saveState*
+and *restoreState*, which can be used to permanently save a treeview
+state (remembering of all checked, unchecked, indeterminate
+checkboxes) and restore it at any time.
 
-#### [Select single node](https://hummingbird-dev.000webhostapp.com/hummingbird_converter_single_node.php) example shows how to allow only the selection of one end-node.
+So then, have fun with the new hummingbird-treeview !
 
-#### [Select single group](https://hummingbird-dev.000webhostapp.com/hummingbird_converter_single_group.php) example shows how to allow only the selection of one group-node.
 
-#### [Test here](https://jsfiddle.net/hummingbird_dev/1s9qy6dh/66/) on JSFiddle.
+## Demo
+
+#### [Test](https://hummingbird-dev.000webhostapp.com).
 
 ## Features
 
@@ -23,8 +39,8 @@ A powerful and fast jQuery treeview plugin
 - Based on simple pseudo HTML lists or full HTML structures.
 - Tri-state logic.
 - Save and restore full treeview state
-- Manual and programmatical check, uncheck, collapse, expand, etc.
-- Supports n-tuple nodes, i.e. doubles, triplets, etc.
+- Interactively check, uncheck, collapse, expand.
+- Programmatical mass assignments to check, uncheck, collapse, expand, etc.
 - Supports disabled nodes, checked or unchecked.
 - Get checked/unchecked items programmatically.
 - Hide, show, or add and remove nodes dynamically.
@@ -79,17 +95,17 @@ Add the following resources for the hummingbird-treeview to function correctly:
 ```
 Or integrate the resources via CDNs:
 
-### Important: newest release is v2.1.7 !!!
+### Important: newest release is v3.0.0 !!!
 
 ```html
 	
     <!-- Required Stylesheets -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.7/hummingbird-treeview.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v3.0.0/hummingbird-treeview.min.css" rel="stylesheet">
 
     <!-- Required Javascript -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v2.1.7/hummingbird-treeview.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v3.0.0/hummingbird-treeview.min.js"></script>
 
 ```
 
@@ -122,9 +138,6 @@ embed the treeview data into the page.
 	
 ```
 
-#### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird_converter.php), which shows how to use the pseudo HTML structure and how to add and remove nodes dynamically.
-
-
 The hyphens indicate the level of indenting. It is important to note
 that down the tree the next node can maximal be indented by one level,
 i.e. it can only have one hyphen more than the node before (e.g. from
@@ -138,8 +151,7 @@ id="treeview_container". The treeview itself is given the
 id="treeview". The unique ids of the items/nodes (Warner Bros.,
 Goodfellas, ...) follow this schema: id="hum_1", id="hum_2", etc. The
 data-ids are given the name of the nodes, i.e. data-id="Warner Bros.",
-data-id="Goodfellas", etc. To account for double (triplet, ...) nodes
-make sure that the option "checkDoubles" is set to true.
+data-id="Goodfellas", etc. 
 
 Set options, e.g.: (detailed description of all options below)
 
@@ -228,9 +240,7 @@ $("#treeview3").hummingbird();
 
 Set the height of the treeview element and make it
 scrollable. Additionally it is possible to set custom ids and
-data-ids. To account for double (triplet, ...) nodes make sure that
-they have the same data-id and the option "checkDoubles" is set to
-true. Set a data-id (e.g. to "_movies") to the div class="hummingbird-treeview-converter"
+data-ids. Set a data-id (e.g. to "_movies") to the div class="hummingbird-treeview-converter"
 to address the treeview via the id "treeview_movies". Leave it empty to use the standard id "treeview".
 Add more custom functionality to the nodes by injecting the "data-str", see node "The Untouchables" above.
 The "data-str" has custom commands enclosed in single quotes, which can be used e.g. by other JavaScript methods.
@@ -326,7 +336,7 @@ Create treeview structure/data:
 ```
 
 Use here exactly the *class="fa fa-plus"* and change Symbols via the options functionality.
-The *data-id* of the group `<li>` tags indicates the level or depth of that group. It starts a 0. This is
+The *data-id* of the group `<li>` tags indicates the level or depth of that group. It starts at 0. This is
 needed for the option *singleGroupOpen*.
 
 Only change the following:
@@ -344,11 +354,7 @@ The base `ul` must be assigned to the "hummingbird-base" class: `<ul id="treevie
 - **input id's and data-id's**<br>
   The input id's and data-id's
   e.g. `<input id="xnode-0" data-id="custom-0"` ... can be set. The
-  data-id can be any text. It is important for the support of
-  the n-tuple (doubles, triplets, ...) nodes. That means you can have more than one node with
-  the same data-id's but different id's. Thus every node can be
-  addressed via the unique id. And all copies of a node including
-  itself can be addressed via the common data-id.
+  data-id can be any text. 
 
 - **input class="hummingbird-end-node"**<br>
   Add this to every node, which is
@@ -402,13 +408,6 @@ Following options are available:
   tri-state functionality. Thus, if a child of a disabled parent has
   been checked, the parent node is set to the indeterminate state to
   indicate that a child has been checked.
-
-- **checkDoubles**<br> Boolean, default=false. Set this to true to
-  enable the functionality to account for n-tuples (doubles,
-  triplets, ...). That means, if we have e.g. two equal nodes (i.e. same data-id)
-  and one of these is checked then the other will be checked
-  automatically. The same applies for triplets, quadruplets, etc. By
-  enabling this option, also the full tri-state functionality accounts for the n-tuples.
 
 - **singleGroupOpen**<br> Integer, default=-1. Set this to an integer greater -1 to
   enable the functionality to allow only one group of a defined level to be opened at a time. 
@@ -497,40 +496,33 @@ treeview functionalities can be achieve.
  ```javascript
   
 	var pre_check = [1,2];
-    $.each(pre_check, function(i,e){
-      $("#treeview").hummingbird("checkNode",{attr:"data-id",name: e,expandParents:false});
-    });
+	$("#treeview").hummingbird("checkNode",{sel:"data-id",vals: pre_check});
+
 	
  ```
  
-  [Example here](https://jsfiddle.net/hummingbird_dev/aneL59y8/1/) on JSFiddle.
 
-
-- **select-single-node**<br>
-  For some applications it makes sense to allow only to select one single node. Therefore we first disable
-  checking of folders, i.e. parent nodes using the respective option before initializing the treeview.
-  On the *CheckUncheckDone* event we uncheck all previously selected nodes, initialize the *List* again and
-  get again the checked node. The *againChecking* is used to not go recursively through the function, when unchecking the nodes.
+- **select-single-node**<br> For some applications it makes sense to
+  allow only to select one single node. Therefore we first disable
+  checking of folders, i.e. parent nodes using the respective option
+  before initializing the treeview.  On the *CheckUncheckDone* event
+  we uncheck all previously selected nodes, initialize the *List*
+  again and get again the checked node. It's important to use the
+  *skipCheckUncheckDone* method prior to unchecking, to prevent the
+  event to be fired on the unchecking.
   
-  #### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird_converter_single_node.php)
+
   
 ```javascript
 $.fn.hummingbird.defaults.checkboxesGroups= "disabled";
 $("#treeview").hummingbird();
 
 var List = {"id" : [], "dataid" : [], "text" : []};
-var againChecking = false;
 $("#treeview").on("CheckUncheckDone", function(){
    //uncheck all previously selected nodes
-   if (againChecking == true){
-      return;
-   }
    if (List.id != "") {
-      againChecking = true;
-      $.each(List.id, function(i,e) {
-         $("#treeview").hummingbird("uncheckNode",{attr:"id",name: '"' + e + '"',collapseChildren:false});
-      });
-      againChecking = false;
+	   $("#treeview").hummingbird("skipCheckUncheckDone");
+	   $("#treeview").hummingbird("uncheckNode",{sel:"id",vals:[List.id]});
    }
    //initialize List freshly
    List = {"id" : [], "dataid" : [], "text" : []};
@@ -546,29 +538,22 @@ $("#treeview").on("CheckUncheckDone", function(){
   nodes within groups, but not end-nodes across groups. The approach is to store all selected nodes in and below the group, where
   the last node was selected. Then uncheck all nodes and following again check all the before stored nodes in that group and below.
   
-  #### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird_converter_single_group.php)
+
 
 ```javascript
 var ListGroup = {"id" : [], "dataid" : [], "text" : []};
 var ListGroupOld = {};
 var List = {"id" : [], "dataid" : [], "text" : []};
-var againChecking = false;
+
 $("#treeview").on("CheckUncheckDone", function(){
-   //
-   if (againChecking == true){
-      return;
-   }
    //get all checked nodes below this one
    $("#treeview").hummingbird("getChecked",{list:ListGroup,onlyEndNodes:true,onlyParents:false,fromThis:true});
    //console.log(ListGroup)
    ListGroupOld = ListGroup;
 
    if (List.id != "") {
-      againChecking = true;
-      $.each(List.id, function(i,e) {
-         $("#treeview").hummingbird("uncheckNode",{attr:"id",name: '"' + e + '"',collapseChildren:false});
-      });
-      againChecking = false;
+	   $("#treeview").hummingbird("skipCheckUncheckDone");
+	   $("#treeview").hummingbird("uncheckNode",{sel:"id",vals:[List.id]});
    }
    //initialize List freshly
    List = {"id" : [], "dataid" : [], "text" : []};
@@ -581,10 +566,7 @@ $("#treeview").on("CheckUncheckDone", function(){
 $(document).on("reCheckGroup", function(){
    //check all from group
    if (ListGroupOld.id != "") {
-      $.each(ListGroupOld.id, function(i,e) {
-         //console.log(e)
-         $("#treeview").hummingbird("checkNode",{attr:"id",name: '"' + e + '"',collapseChildren:false});
-      });
+	   $("#treeview").hummingbird("checkNode",{sel:"id",vals:[ListGroupOld.id]});
    }
 });
 	
@@ -630,232 +612,209 @@ $("#treeview").hummingbird("expandAll");
 
 ```
 
-- **checkNode(attr,name,{expandParents})**<br>
-  Checks a node, which is identified by its
-  id, data-id, or text, which has to be defined in
-  the attr parameter. The name parameter
-  holds the name of the id, data-id or text. Set
-  optionally expandParents to true, if the
-  parents of this node should be expanded on
-  checking. Default of expandParents is
-  false. 
+- **checkNode(sel, vals)**<br>
+  This method checks nodes. *sel* must be either
+  "id", "data-id" or "text" to define the selector. 
+  *vals* is an array containing the respective nodes.
+
 
 ```javascript
 
-$("#treeview").hummingbird("checkNode",{attr:"id",name: "node-0-1-1-2",expandParents:false});
-$("#treeview").hummingbird("checkNode",{attr:"text",name: "Goodfellas",expandParents:false});
+$("#treeview").hummingbird("checkNode",{sel:"id", vals:["hum_1","hum_2","hum_3"]});
+$("#treeview").hummingbird("checkNode",{sel:"text", vals:["Goodfellas","Tom Hanks"]});
 
 ```
 
-- **uncheckNode(attr,name,{collapseChildren})**<br>
-  Unchecks a node, which is identified by its
-  id, data-id, or text which has to be defined in
-  the attr parameter. The name parameter
-  holds the name of the id, data-id or text. Set
-  optionally collapseChildren to true, if the
-  children of this node should be collapsed on
-  unchecking. Default of collapseChildren is
-  false. 
+- **uncheckNode(sel, vals)**<br>
+  This method unchecks nodes. *sel* must be either
+  "id", "data-id" or "text" to define the selector. 
+  *vals* is an array containing the respective nodes.
 
 ```javascript
 
-$("#treeview").hummingbird("uncheckNode",{attr:"id",name: "node-0-1-1-2",collapseChildren:false});
-$("#treeview").hummingbird("uncheckNode",{attr:"text",name: "Kevin Costner",collapseChildren:false});
+$("#treeview").hummingbird("uncheckNode",{sel:"id", vals:["hum_1","hum_2","hum_3"]});
+$("#treeview").hummingbird("uncheckNode",{sel:"text", vals:["Goodfellas","Tom Hanks"]});
+
 
 ```
 
-- **expandNode(attr,name,{expandParents})**<br>
-  Expands a node, which is identified by its
-  id or data-id, which has to be defined in
-  the attr parameter. The name parameter
-  holds the name of the id or data-id. Set
-  optionally expandParents to true, if the
-  parents of this node should be
+- **expandNode(sel,vals,{expandParents})**<br>
+  Expand nodes, which are identified by their
+  id's or data-id's, which has to be defined in
+  the *sel* parameter. The *vals* array
+  holds the names of the id's or data-id's. Set
+  optionally expandParents to false, if the
+  parents of this node should not be
   expanded. Default of expandParents is
-  false.
+  true.
 
 ```javascript
 
-$("#treeview").hummingbird("expandNode",{attr:"id",name: "node-0-1-1-2",expandParents:true});
+$("#treeview").hummingbird("expandNode",{sel:"id",vals:["hum_5","hum_14"],expandParents:true});
 
 ```
 
-- **collapseNode(attr,name,{collapseChildren})**<br>
-  Collapses a node, which is identified by its
-  id or data-id, which has to be defined in
-  the attr parameter. The name parameter
-  holds the name of the id or data-id. Set
-  optionally collapseChildren to true, if the
-  children of this node should be
+- **collapseNode(sel,vals,{collapseChildren})**<br>
+  Collapses nodes, which are identified by their
+  id's or data-id's, which have to be defined in
+  the *sel* parameter. The *vals* array
+  holds the names of the id's or data-id's. Set
+  optionally collapseChildren to false, if the
+  children of this node should not be
   collapsed. Default of collapseChildren is
-  false.
+  true.
 
 ```javascript
 
-$("#treeview").hummingbird("collapseNode",{attr:"id",name: "node-0-1-1-2",collapseChildren:true});
+$("#treeview").hummingbird("collapseNode",{sel:"id",vals:["hum_2","hum_15"],collapseChildren:true});
 
 ```
 
 - **disableToggle(attr,name)**<br>
-  Disables expand and collapse functionality of a node, which is identified by its
-  id or data-id, which has to be defined in
-  the attr parameter. The name parameter
-  holds the name of the id or data-id. 
+  Disables expand and collapse functionality of nodes, which are identified by their
+  id's, data-id's or text which have to be defined in
+  the *sel* parameter. The *vals* array
+  holds the names of the id's or data-id's. 
 
 ```javascript
 
-$("#treeview").hummingbird("disableToggle",{attr:"id",name: "node-0-1-1-2"});
+$("#treeview").hummingbird("disableToggle",{sel:"id",vals:["hum_12","hum_15"]});
 
 ```
 
 
-- **disableNode(attr,name,state,{disableChildren})**<br> Disables a
-  node, which is identified by its id, data-id or text, which has to be
-  defined in the attr parameter. The name parameter holds the name of
-  the id, data-id or text.  Set state to true if the node should be disabled
-  and checked, set it to false if the node should be disabled and
+- **disableNode(sel,vals,state,{disableChildren})**<br> Disables 
+  nodes, which are identified by their id's, data-id's or text, which has to be
+  defined in the *sel* parameter. The *vals* array holds the names of
+  the id's, data-id's or text's.  Set state to true if the nodes should be disabled
+  and checked, set it to false if the nodes should be disabled and
   unchecked. Optionally set disableChildren to false or true, default
-  is true. Note that full tri-state functionality is provided also for
-  disabled nodes, although that they are not clickable. Additionally
-  if all children of a parent node are disabled, that parent is
-  automatically disabled. Although it looks like introducing a logic
-  conflict, a parent node can be disabled, while the children are
-  enabled. In such a case full tri-state functionality is applied to
-  that parent, but it is still not clickable, i.e. disabled.
+  is true. 
 
 ```javascript
 
-$("#treeview").hummingbird("disableNode",{attr:"id",name: "node-0-1-1-2",state:true,disableChildren:true});
+$("#treeview").hummingbird("disableNode",{sel:"id",vals: ["hum_5", "hum_13", "hum_14", "hum_15"],state:false,disableChildren:true});
 
 ```
 
-- **enableNode(attr,name,state,{enableChildren})**<br> Enables a
-  former disabled node, which is identified by its id, data-id or text,
-  which has to be defined in the attr parameter. The name parameter
-  holds the name of the id, data-id, or text.  Set state to true if the node
-  should be enabled and checked, set it to false if the node should be
+- **enableNode(sel,vals,state,{enableChildren})**<br> Enables 
+  former disabled nodes, which are identified by their id's, data-id's or text,
+  which has to be defined in the *sel* parameter. The *vals* array
+  holds the names of the id's, data-id's, or texts.  Set state to true if the nodes
+  should be enabled and checked, set it to false if the nodes should be
   enabled and unchecked. Optionally set enableChildren to false or
-  true, default is true. Additionally, enabling a parent nodes with
-  all children disabled (enableChildren=false) is not allowed. 
-  Also for any *hummingbird-end-node* enableChildren=true must be set to enable the node.
-  Similar to the disableNode above it is possible to have a parent node
-  disabled, while the children are enabled. In such a case full
-  tri-state functionality is applied to that parent, but it is still
-  not clickable, i.e. disabled.
+  true, default is true. 
 
 ```javascript
 
-$("#treeview").hummingbird("enableNode",{attr:"id",name: "node-0-1-1-2",state:false,enableChildren:true});
+$("#treeview").hummingbird("enableNode",{sel:"id",vals: ["hum_5", "hum_13", "hum_14", "hum_15"],state:false,enableChildren:true});
 
 ```
 
-- **hideNode(attr,name})**<br> Hide a node, which is identified by its id, data-id or text,
-  which has to be defined in the attr parameter. The name parameter
-  holds the name of the id, data-id, or text. Be careful, because inconsistencies in the tri-state logic
-  are possible to occur. Therefore it is recommended to *uncheck* the node prior to hiding.
+- **hideNode(sel,vals})**<br> Hide nodes, which are identified by their id's, data-id's or text,
+  which has to be defined in the *sel* parameter. The *vals* array
+  holds the names of the id's, data-id's, or text. 
 
 ```javascript
 
-$("#treeview").hummingbird("hideNode",{attr:"id",name: "node-0-1-1-2"});
+$("#treeview").hummingbird("hideNode",{sel:"id",vals: ["hum_5","hum_6"]});
 
 ```
 
-- **showNode(attr,name})**<br> Show a previously hidden node, which is
-  identified by its id, data-id or text, which has to be defined in
-  the attr parameter. The name parameter holds the name of the id,
-  data-id, or text. Be careful, because inconsistencies in the
-  tri-state logic are possible to occur. Therefore it is recommended
-  to use *checkNode* and *uncheckNode* together with
-  *showNode*. Additionally keep an eye on parent and child nodes.
+- **showNode(sel,vals})**<br> Show previously hidden nodes, which are
+  identified by their id's, data-id's or text, which has to be defined in
+  the *sel* parameter. The *vals* array holds the names of the id's,
+  data-id's, or text. 
 
 ```javascript
 
-$("#treeview").hummingbird("showNode",{attr:"id",name: "node-0-1-1-2"});
+$("#treeview").hummingbird("showNode",{sel:"id",vals: ["hum_5","hum_6"]});
 
 ```
 
 
-#### [View example here](https://hummingbird-dev.000webhostapp.com/hummingbird_converter.php), which shows how to use the pseudo HTML structure and how to add and remove nodes dynamically.
-
-
-- **addNode(pos,anchor_attr,anchor_name,text,the_id,data_id,{end_node,children})**<br> Add a node at pos = 
-  'before' or 'after' an already existing
-  node. The existing node is called here *anchor*. To identify the
-  anchor node define the *anchor_attr* as id, data-id or text. The 
-  parameter *anchor_name* is then the respective name of the *anchor_attr*. 
-  Next define the *text* of the new node, the new id (*the_id*) and the new *data_id*.
+- **addNode(pos,anchor_sel,anchor_vals,text,the_id,data_id,{end_node,children})**<br> All parameters are arrays. Add nodes at pos = 
+  ['before','before','after'...] already existing
+  nodes. The existing nodes are called here *anchor*. To identify the
+  anchor nodes define the *anchor_sel* as id, data-id or text. The 
+  parameter *anchor_vals* are then the respective names of the *anchor_sel*. 
+  Next define the *text* of the new nodes, the new id's (*the_id*) and the new *data_id's*.
   Note that we use *data-id* with hyphen and *data_id* with underscore. By default a 
-  *hummingbird-end-node* is added, i.e. *end_node:true*, shown below:
+  *hummingbird-end-node* is added, i.e. *end_node:true*, shown below. IMPORTANT: The treeview must be initialized again after adding nodes.
 
 ```javascript
 
-$("#treeview").hummingbird('addNode',{pos:'after',anchor_attr:'text',anchor_name:'node-0-1-1-2',
-text:'New Node',the_id:'new_id',data_id:'new_data_id'});
+$("#treeview").hummingbird('addNode',{pos:['after','after'],anchor_sel:['text','id'],anchor_vals:['node-0-1-1-2','hum_5'],
+text:['New Node1','New Node2'],the_id:['new_id1','new_id2'],data_id:['new_data_id1','new_data_id2']});
 
 $("#treeview").hummingbird();
 
 ```
 
   If you want to add a node including children, *end_node* must be set to *false* and 
-  an object containing the children must be passed to the method with name *children*:
+  an array containing children objects must be passed to the method with name *children*:
+  In this example we create two new nodes each having two children.
 
 
 ```javascript
 
-var new_children = {
-   child1: {id:'child1',data_id:'child1',text:'child1'},
-   child2: {id:'child2',data_id:'child2',text:'child2'},
-};
+var new_children = [
+    [
+		{id:'n1_child1',data_id:'n1_child1',text:'n1_child1'},
+		{id:'n1_child2',data_id:'n1_child2',text:'n1_child2'},
+    ],
+    [
+		{id:'n2_child1',data_id:'n2_child1',text:'n2_child1'},
+		{id:'n2_child2',data_id:'n2_child2',text:'n2_child2'},			 
+    ]
+];
 
-$("#treeview").hummingbird('addNode',{pos:'after',anchor_attr:'text',anchor_name:'node-0-1-1-2',
-text:'New Node',the_id:'new_id',data_id:'new_data_id',end_node:false,children:new_children});
+$("#treeview").hummingbird('addNode',{pos:["before","after"],anchor_sel:["text","text"],anchor_vals:["Goodfellas","Paramount"],text:["new_node_1","new_node_2"],the_id:["new_node_1","new_node_2"],data_id:["new_node_1","new_node_2"],end_node:false,children:new_children});
 
 $("#treeview").hummingbird();
 
 ```
-  Finally it is important to initialise the treeview again after adding nodes.
-  In the case you want to add a parent node, which contains again parent nodes, 
-  create first the parent node with a *hummingbird-end-node* child as above. Then
-  add the next parent to the created *hummingbird-end-node* and finally remove the 
-  *hummingbird-end-node* node:
+<!--   Finally it is important to initialise the treeview again after adding nodes. -->
+<!--   In the case you want to add a parent node, which contains again parent nodes,  -->
+<!--   create first the parent node with a *hummingbird-end-node* child as above. Then -->
+<!--   add the next parent to the created *hummingbird-end-node* and finally remove the  -->
+<!--   *hummingbird-end-node* node: -->
   
-```javascript
+<!-- ```javascript -->
 
-var children = {
-   child1: {id:'child1',data_id:'child1',text:'child1'},
-};
+<!-- var children = { -->
+<!--    child1: {id:'child1',data_id:'child1',text:'child1'}, -->
+<!-- }; -->
 
-$("#treeview").hummingbird('addNode',{pos:'before',anchor_attr:'text',anchor_name:'Joe Pesci',
-text:'Ray Liotta',the_id:'Ray',data_id:'Ray',end_node:false,children:children});
+<!-- $("#treeview").hummingbird('addNode',{pos:'before',anchor_attr:'text',anchor_name:'Joe Pesci', -->
+<!-- text:'Ray Liotta',the_id:'Ray',data_id:'Ray',end_node:false,children:children}); -->
 
-$("#treeview").hummingbird();
+<!-- $("#treeview").hummingbird(); -->
 
-var children = {
-   child2: {id:'child2',data_id:'child2',text:'child2'},
-   child3: {id:'child3',data_id:'child3',text:'child3'},
-};
+<!-- var children = { -->
+<!--    child2: {id:'child2',data_id:'child2',text:'child2'}, -->
+<!--    child3: {id:'child3',data_id:'child3',text:'child3'}, -->
+<!-- }; -->
 		 
-$("#treeview").hummingbird('addNode',{pos:'after',anchor_attr:'text',anchor_name:'child1',
-text:'child1',the_id:'child1x',data_id:'child1x',end_node:false,children});
+<!-- $("#treeview").hummingbird('addNode',{pos:'after',anchor_attr:'text',anchor_name:'child1', -->
+<!-- text:'child1',the_id:'child1x',data_id:'child1x',end_node:false,children}); -->
 		 
-$("#treeview").hummingbird();
+<!-- $("#treeview").hummingbird(); -->
 
-$("#treeview").hummingbird('removeNode',{attr:'id',name:'child1'});
+<!-- $("#treeview").hummingbird('removeNode',{attr:'id',name:'child1'}); -->
 
-$("#treeview").hummingbird();
+<!-- $("#treeview").hummingbird(); -->
 
-```
+<!-- ``` -->
     
-  Warning: Adding nodes dynamically during production can yield to inconsistencies 
-  in the tri-state logic. So it is recommended e.g. to un-check all nodes before adding a node.
-  Further be careful by using URL query parameters, cookies, 
+  Warning: Be careful by using URL query parameters, cookies, 
   or form inputs to create nodes, because this can introduce cross-site-scripting (XSS) 
   vulnerabilities. Remove or escape any user input before adding content to the document. 
  
- - **removeNode(attr,name)**<br> Remove a node, which is identified by 
-   *attr* equal id, data-id, or text. Initialise the treeview again after removing a node.
-   Warning: Removing nodes dynamically during production can yield to inconsistencies 
-   in the tri-state logic. So it is recommended e.g. to un-check all nodes before removing a node.
+ 
+- **removeNode(sel,vals)**<br> Remove a node, which is identified by 
+   *sel* equal id, data-id, or text. 
+   
 
 ```javascript
 
@@ -937,10 +896,8 @@ var L = List.id.length;
     rebuilding.  This can be accomplished by using the *saveState* and
     *restoreState* methods.  First save the state in the object
     *treeState* and restore it later. A good point for saving the
-    state is after receiving the *CheckUncheckDone* event. However it
-    is important to note that *saveState* does not trigger the
-    tri-state logic, thus be careful, especially if used with customly
-    generates *treeState*.
+    state is after receiving the *CheckUncheckDone* event. 
+
 
 ```javascript
 
@@ -974,6 +931,15 @@ treeState.indeterminate = indeterminate;
 
 var checked = {"id" : []};
 var indeterminate = {"id" : []};
+
+```
+
+- **triState**<br> This is the function, which controls the tri-state
+  functionality. Use it if you have changed the treeview by external procedures to achieve a consistent tri-state.
+
+```javascript
+
+$("#treeview").hummingbird("triState");
 
 ```
 
@@ -1137,44 +1103,4 @@ $("#treeview").on("CheckUncheckDone", function(){
 });
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

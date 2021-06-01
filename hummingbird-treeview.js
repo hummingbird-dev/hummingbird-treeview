@@ -18,7 +18,10 @@
     var clickedNode = {};
 
     var textcolor = "";
-    
+
+    var boldParents_str1 = '';
+    var	boldParents_str2 = '';
+
     //var groups_labels = {};
     
     //converter
@@ -61,8 +64,12 @@
 	    }
 	    if (typeof(boldParents) == "undefined"){
 		boldParents = false;
+		boldParents_str1 = '';
+		boldParents_str2 = '';
 	    } else {
 		boldParents = true;
+		boldParents_str1 = '<b>';
+		boldParents_str2 = '</b>';
 	    }
 
 	    
@@ -199,11 +206,12 @@
 
     
     $.fn.hummingbird = function(options){
-
+	//console.log("init !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
 
 	var methodName = options;
 	var args = arguments;
 	var options = $.extend( {}, $.fn.hummingbird.defaults, options);
+	var this_tree = $(this);
 	//initialisation
 	if (typeof(methodName) == "undefined" ) {
 	    return this.each(function(){
@@ -340,8 +348,17 @@
 		}
 		
 		//three state logic
-		//$.fn.hummingbird.ThreeStateLogic($(this),doubleMode,allVariables,options.checkDoubles,options.checkDisabled);		
-		$.fn.hummingbird.ThreeStateLogic($(this),doubleMode,allVariables,options.checkDoubles,checkDisabled);
+		//$.fn.hummingbird.checkboxClicked($(this),doubleMode,allVariables,options.checkDoubles,options.checkDisabled);		
+		//$.fn.hummingbird.checkboxClicked($(this),doubleMode,allVariables,options.checkDoubles,checkDisabled);
+		//check box clicked
+		$(this).find('input:checkbox').on('click', function(e) {
+		    //console.log($(this))
+		    var restrict = $.fn.hummingbird.checkboxClicked($(this));
+		    $.fn.hummingbird.triState(this_tree,restrict);
+		})
+
+
+
 		
 		//expandSingle and check if options.singleGroupOpen is set
 		var tmp_tree=$(this);
@@ -398,87 +415,76 @@
 	//disableNode
 	if (methodName == "disableNode") {
 	    return this.each(function(){
-		var name = args[1].name;
-		var attr = args[1].attr;
+		var sel = args[1].sel;
+		var vals = args[1].vals;
 		var state = args[1].state;
 		if (typeof args[1].disableChildren !== 'undefined') {
 		    var disableChildren = args[1].disableChildren;
 		} else {
 		    var disableChildren = true;
 		}
-		$.fn.hummingbird.disableNode($(this),attr,name,state,disableChildren);
+		$.fn.hummingbird.disableNode($(this),sel,vals,state,disableChildren);
 	    });
 	}
 	
 	//enableNode
 	if (methodName == "enableNode") {
 	    return this.each(function(){
-		var name = args[1].name;
-		var attr = args[1].attr;
+		var sel = args[1].sel;
+		var vals = args[1].vals;
 		var state = args[1].state;
 		if (typeof args[1].enableChildren !== 'undefined') {
 		    var enableChildren = args[1].enableChildren;
 		} else {
 		    var enableChildren = true;
 		}
-		$.fn.hummingbird.enableNode($(this),attr,name,state,enableChildren);
+		$.fn.hummingbird.enableNode($(this),sel,vals,state,enableChildren);
 	    });
 	}
 
 	//hideNode
 	if (methodName == "hideNode") {
 	    return this.each(function(){
-		var name = args[1].name;
-		var attr = args[1].attr;
-		$.fn.hummingbird.hideNode($(this),attr,name);
+		var sel = args[1].sel;
+		var vals = args[1].vals;
+		$.fn.hummingbird.hideNode($(this),sel,vals);
 	    });
 	}
 
 	//showNode
 	if (methodName == "showNode") {
 	    return this.each(function(){
-		var name = args[1].name;
-		var attr = args[1].attr;
-		$.fn.hummingbird.showNode($(this),attr,name);
+		var sel = args[1].sel;
+		var vals = args[1].vals;
+		$.fn.hummingbird.showNode($(this),sel,vals);
 	    });
 	}
 	
-
-	
-
 	
 	//checkNode
 	if (methodName == "checkNode") {
 	    return this.each(function(){		
-		var name = args[1].name;
-		var attr = args[1].attr;
-		var expandParents = args[1].expandParents;
-		$.fn.hummingbird.checkNode($(this),attr,name);
-		if (expandParents == true) {
-		    $.fn.hummingbird.expandNode($(this),attr,name,expandParents,options.collapsedSymbol,options.expandedSymbol);
-		}
+		var sel = args[1].sel;
+		var vals = args[1].vals;
+		$.fn.hummingbird.checkNode($(this),sel,vals);
 	    });
 	}
 
 	//uncheckNode
 	if (methodName == "uncheckNode") {
-	    return this.each(function(){
-		var name = args[1].name;
-		var attr = args[1].attr;
-		var collapseChildren = args[1].collapseChildren;	
-		$.fn.hummingbird.uncheckNode($(this),attr,name);
-		if (collapseChildren == true) {
-		    $.fn.hummingbird.collapseNode($(this),attr,name,collapseChildren,options.collapsedSymbol,options.expandedSymbol);
-		}
+	    return this.each(function(){		
+		var sel = args[1].sel;
+		var vals = args[1].vals;
+		$.fn.hummingbird.uncheckNode($(this),sel,vals);
 	    });
 	}
 
 	//disableToggle
 	if (methodName == "disableToggle") {
 	    return this.each(function(){		
-		var name = args[1].name;
-		var attr = args[1].attr;
-		$.fn.hummingbird.disableToggle($(this),attr,name);
+		var sel = args[1].sel;
+		var vals = args[1].vals;
+		$.fn.hummingbird.disableToggle($(this),sel,vals);
 	    });
 	}
 	
@@ -511,20 +517,28 @@
 	//expandNode
 	if (methodName == "expandNode") {
 	    return this.each(function(){
-		var name = args[1].name;
-		var attr = args[1].attr;
-		var expandParents = args[1].expandParents;
-		$.fn.hummingbird.expandNode($(this),attr,name,expandParents,options.collapsedSymbol,options.expandedSymbol);
+		var sel = args[1].sel;
+		var vals = args[1].vals;
+		if (typeof args[1].expandParents !== 'undefined') {
+		    var expandParents = args[1].expandParents;
+		} else {
+		    var expandParents = true;
+		}				
+		$.fn.hummingbird.expandNode($(this),sel,vals,expandParents,options.collapsedSymbol,options.expandedSymbol);
 	    });
 	}
 
 	//collapseNode
 	if (methodName == "collapseNode") {
 	    return this.each(function(){
-		var name = args[1].name;
-		var attr = args[1].attr;
-		var collapseChildren = args[1].collapseChildren;
-		$.fn.hummingbird.collapseNode($(this),attr,name,collapseChildren,options.collapsedSymbol,options.expandedSymbol);
+		var sel = args[1].sel;
+		var vals = args[1].vals;
+		if (typeof args[1].collapseChildren !== 'undefined') {
+		    var collapseChildren = args[1].collapseChildren;
+		} else {
+		    var collapseChildren = true;
+		}				
+		$.fn.hummingbird.collapseNode($(this),sel,vals,collapseChildren,options.collapsedSymbol,options.expandedSymbol);
 	    });
 	}
 
@@ -604,14 +618,30 @@
 		$.fn.hummingbird.skipCheckUncheckDone();
 	    });
 	}
+
+	//triState
+	if (methodName == "triState") {
+	    return this.each(function(){
+		if (typeof args[1] !== 'undefined') {
+		    if (typeof args[1].restrict !== 'undefined') {
+			var restrict = args[1].restrict;
+		    } else {
+			var restrict = false;
+		    }
+		} else {
+		    var restrict = false;
+		}
+		$.fn.hummingbird.triState($(this),restrict);
+	    });
+	}
 	
 
 	//addNode
 	if (methodName == "addNode") {
 	    return this.each(function(){
 		var pos = args[1].pos;   //before or after
-		var anchor_attr = args[1].anchor_attr; //the anchor node
-		var anchor_name = args[1].anchor_name; //the anchor node
+		var anchor_sel = args[1].anchor_sel; //the anchor node
+		var anchor_vals = args[1].anchor_vals; //the anchor node
 		var text = args[1].text;
 		var the_id = args[1].the_id; 
 		var data_id = args[1].data_id;
@@ -625,7 +655,7 @@
 		} else {
 		    var children = false;
 		}
-		$.fn.hummingbird.addNode($(this),pos,anchor_attr,anchor_name,text,the_id,data_id,end_node,children,options.collapsedSymbol);
+		$.fn.hummingbird.addNode($(this),pos,anchor_sel,anchor_vals,text,the_id,data_id,end_node,children,options.collapsedSymbol);
 	    });
 	}
 
@@ -633,9 +663,9 @@
 	//removeNode
 	if (methodName == "removeNode") {
 	    return this.each(function(){
-		var name = args[1].name;
-		var attr = args[1].attr;
-		$.fn.hummingbird.removeNode($(this),attr,name);
+		var sel = args[1].sel;
+		var vals = args[1].vals;
+		$.fn.hummingbird.removeNode($(this),sel,vals);
 	    });
 	}
 
@@ -743,24 +773,22 @@
     
     //-------------------checkAll---------------//
     $.fn.hummingbird.checkAll = function(tree){
-	tree.children("li").children("label").children("input:checkbox").prop('indeterminate', false).prop('checked', false).trigger("click");
+	//get enabled unchecked endnodes
+	var unchecked_end_nodes = tree.find('input:checkbox.hummingbird-end-node:not(:disabled)');
+	//check those
+	unchecked_end_nodes.prop('checked', true);
+	//apply triState
+	$.fn.hummingbird.triState(tree,false);
     };
 
     //-------------------uncheckAll---------------//
     $.fn.hummingbird.uncheckAll = function(tree){
-	//console.log(tree.children("li").children("label").children("input:checkbox"))
-	//find disabled groups
-	var disabled_groups = tree.find('input:checkbox:disabled:not(.hummingbird-end-node)');
-	//console.log(disabled_groups)
-	//enable these
-	disabled_groups.prop('disabled', false)	
-	//disable checking for doubles temporarily
-	uncheckAll_doubles = true;
-	tree.children("li").children("label").children("input:checkbox").prop('indeterminate', false).prop('checked', true).trigger("click");
-	uncheckAll_doubles = false;
-	//disable disabled groups again
-	disabled_groups.prop('disabled', true)
-	//console.log(tree.children("li").children("label").children("input:checkbox"));
+	//get enabled checked endnodes
+	var checked_end_nodes = tree.find('input:checkbox:checked.hummingbird-end-node:not(:disabled)');
+	//uncheck those
+	checked_end_nodes.prop('checked', false);
+	//apply triState
+	$.fn.hummingbird.triState(tree,false);
     };
 
     //-------------------collapseAll---------------//
@@ -794,120 +822,148 @@
     };
 
     //-------------------expandNode---------------//
-    $.fn.hummingbird.expandNode = function(tree,attr,name,expandParents,collapsedSymbol,expandedSymbol){
-	var that_node = tree.find('input[' + attr + '=' + name + ']');
-	var that_label = that_node.parent("label");
-	if (!that_label.hasClass('disableToggle')){
-	    var that_ul = that_label.siblings("ul");
-	    that_ul.show().siblings("i").removeClass(collapsedSymbol).addClass(expandedSymbol);
-	    //expand all parents and change symbol
-	    if (expandParents === true) {
-		that_node.parents("ul").show().siblings("i").removeClass(collapsedSymbol).addClass(expandedSymbol);
+    $.fn.hummingbird.expandNode = function(tree,sel,vals,expandParents,collapsedSymbol,expandedSymbol){
+	$.each(vals, function(i,e){
+	    var that_node = tree.find('input[' + sel + '=' + e + ']');
+	    var that_label = that_node.parent("label");
+	    if (!that_label.hasClass('disableToggle')){
+		var that_ul = that_label.siblings("ul");
+		that_ul.show().siblings("i").removeClass(collapsedSymbol).addClass(expandedSymbol);
+		//expand all parents and change symbol
+		if (expandParents === true) {
+		    that_node.parents("ul").show().siblings("i").removeClass(collapsedSymbol).addClass(expandedSymbol);
+		}
 	    }
-	}
+	});
     };
 
     //-------------------collapseNode---------------//
-    $.fn.hummingbird.collapseNode = function(tree,attr,name,collapseChildren,collapsedSymbol,expandedSymbol){
-	var that_node = tree.find('input[' + attr + '=' + name + ']');
-	var that_label = that_node.parent("label");
-	if (!that_label.hasClass('disableToggle')){
-	    var that_ul = that_label.siblings("ul");
-	    //collapse children and change symbol
-	    if (collapseChildren === true) {
-		that_node.parent("label").parent("li").find("ul").hide().siblings("i").removeClass(expandedSymbol).addClass(collapsedSymbol);
-	    } else {	    
-		that_ul.hide().siblings("i").removeClass(expandedSymbol).addClass(collapsedSymbol);
+    $.fn.hummingbird.collapseNode = function(tree,sel,vals,collapseChildren,collapsedSymbol,expandedSymbol){
+	$.each(vals, function(i,e){
+	    var that_node = tree.find('input[' + sel + '=' + e + ']');
+	    var that_label = that_node.parent("label");
+	    if (!that_label.hasClass('disableToggle')){
+		var that_ul = that_label.siblings("ul");
+		//collapse children and change symbol
+		if (collapseChildren === true) {
+		    that_node.parent("label").parent("li").find("ul").hide().siblings("i").removeClass(expandedSymbol).addClass(collapsedSymbol);
+		} else {	    
+		    that_ul.hide().siblings("i").removeClass(expandedSymbol).addClass(collapsedSymbol);
+		}
 	    }
-	}
+	});
     };
 
     //-------------------checkNode---------------//
-    $.fn.hummingbird.checkNode = function(tree,attr,name){
-	if (attr == "text") {
-	    name = name.trim();
-	    var that_nodes = tree.find('input:checkbox:not(:checked)').prop("indeterminate",false).parent('label:contains(' + name + ')');
-	    //console.log(that_nodes)
-	    that_nodes.children('input:checkbox').trigger("click");
+    $.fn.hummingbird.checkNode = function(tree,sel,vals){	
+	//check this node and all below
+	if (sel == "text") {
+	    $.each(vals, function(i,e){
+		//tree.find('input:checkbox:not(:disabled)').parent('label:contains(' + e + ')').parent('li').find('input:checkbox:not(:disabled)').prop("indeterminate",false).prop("checked",true);
+		var the_node = tree.find('label:contains(' + e + ')').children('input:checkbox:not(:disabled)').prop("indeterminate",false).prop("checked",true);
+		//no return needed
+		$.fn.hummingbird.checkboxClicked(the_node);
+	    });
 	} else {
-	    tree.find('input:checkbox:not(:checked)[' + attr + '=' + name + ']').prop("indeterminate",false).trigger("click");
+	    $.each(vals, function(i,e){
+		//tree.find('input:checkbox:not(:disabled)[' + sel + '=' + e + ']').parent('label').parent('li').find('input:checkbox:not(:disabled)').prop("indeterminate",false).prop("checked",true);
+		var the_node = tree.find('input:checkbox:not(:disabled)[' + sel + '=' + e + ']').prop("indeterminate",false).prop("checked",true);
+		//no return needed
+		$.fn.hummingbird.checkboxClicked(the_node);		
+	    });
 	}
+	//apply triState
+	$.fn.hummingbird.triState(tree,false);
     };
 
     //-------------------uncheckNode---------------//
-    $.fn.hummingbird.uncheckNode = function(tree,attr,name){
-	if (attr == "text") {
-	    name = name.trim();
-	    var that_nodes = tree.find('input:checkbox:checked').prop("indeterminate",false).parent('label:contains(' + name + ')');
-	    //console.log(that_nodes)
-	    that_nodes.children('input:checkbox').trigger("click");
+    $.fn.hummingbird.uncheckNode = function(tree,sel,vals){
+	if (sel == "text") {
+	    $.each(vals, function(i,e){
+		var the_node = tree.find('label:contains(' + e + ')').children('input:checkbox:not(:disabled)').prop("indeterminate",false).prop("checked",false);
+		$.fn.hummingbird.checkboxClicked(the_node);
+	    });
 	} else {
-	    tree.find('input:checkbox:checked[' + attr + '=' + name + ']').prop("indeterminate",false).trigger("click");
+	    $.each(vals, function(i,e){
+		var the_node = tree.find('input:checkbox:not(:disabled)[' + sel + '=' + e + ']').prop("indeterminate",false).prop("checked",false);
+		$.fn.hummingbird.checkboxClicked(the_node);		
+	    });
 	}
+	$.fn.hummingbird.triState(tree,false);	
     };
 
     //-------------------disableToggle---------------//
-    $.fn.hummingbird.disableToggle = function(tree,attr,name){
-	if (attr == "text") {
-	    name = name.trim();
-	    var that_nodes = tree.find('label:contains(' + name + ')');
-	    //console.log("name")
-	    //console.log(that_nodes)
-	} else {
-	    var that_nodes = tree.find('input:checkbox:not(:checked)[' + attr + '=' + name + ']').parent('label');
-	    //console.log("else")
-	    //console.log(that_nodes)
-	}
-	that_nodes.addClass('disableToggle');
+    $.fn.hummingbird.disableToggle = function(tree,sel,vals){
+	$.each(vals, function(i,e){
+	    if (sel == "text") {
+		name = e.trim();
+		var that_nodes = tree.find('label:contains(' + name + ')');
+		//console.log("name")
+		//console.log(that_nodes)
+	    } else {
+		var that_nodes = tree.find('input:checkbox:not(:checked)[' + sel + '=' + e + ']').parent('label');
+		//console.log("else")
+		//console.log(that_nodes)
+	    }
+	    that_nodes.addClass('disableToggle');
+	});
     };
 
     
     //-------------------removeNode---------------//
-    $.fn.hummingbird.removeNode = function(tree,attr,name){
-	if (attr == "text") {
-	    name = name.trim();
-	    tree.find('input:checkbox').parent('label:contains(' + name + ')').parent('li').remove();
-	} else {
-	    tree.find('input:checkbox[' + attr + '=' + name + ']').parent("label").parent('li').remove();
-	}
+    $.fn.hummingbird.removeNode = function(tree,sel,vals){
+	$.each(vals, function(i,e){
+	    if (sel == "text") {
+		name = e.trim();
+		tree.find('input:checkbox').parent('label:contains(' + name + ')').parent('li').remove();
+	    } else {
+		tree.find('input:checkbox[' + sel + '=' + e + ']').parent("label").parent('li').remove();
+	    }
+	});
+	$.fn.hummingbird.triState(tree,false);
     };
 
     //-------------------addNode---------------//
-    $.fn.hummingbird.addNode = function(tree,pos,anchor_attr,anchor_name,text,the_id,data_id,end_node,children,collapsedSymbol){
-	//find the node
-	if (anchor_attr == "text") {
-	    anchor_name = anchor_name.trim();
-	    var that_node = tree.find('input:checkbox').parent('label:contains(' + anchor_name + ')').parent("li");
-	} else {
-	    var that_node = tree.find('input:checkbox[' + anchor_attr + '=' + anchor_name + ']').parent("label").parent("li");
-	}
+    $.fn.hummingbird.addNode = function(tree,pos,anchor_sel,anchor_vals,text,the_id,data_id,end_node,children,collapsedSymbol){
+	$.each(anchor_vals, function(i,e){
+	    //find the node
+	    if (anchor_sel[i] == "text") {
+		anchor_name = e.trim();
+		var that_node = tree.find('input:checkbox').parent('label:contains(' + anchor_name + ')').parent("li");
+	    } else {
+		var that_node = tree.find('input:checkbox[' + anchor_sel[i] + '=' + e + ']').parent("label").parent("li");
+	    }
+	    //
+	    //console.log(that_node)
+	    //
+	    if (end_node) {
+		var Xclass = "hummingbird-end-node";
+		if (pos[i] == "before") {
+		    that_node.before('<li><label><input class="'+ Xclass  +'" id="'+ the_id[i]  +'" data-id="'+ data_id[i]  +'" type="checkbox"> '+ text[i]  +'</label></li>')
+		}
+		if (pos[i] == "after") {
+		    that_node.after('<li><label><input class="'+ Xclass  +'" id="'+ the_id[i]  +'" data-id="'+ data_id[i]  +'" type="checkbox"> '+ text[i]  +'</label></li>')
+		}
+	    } else {
+		var Xclass = "";
+		//create subtree
+		var subtree = "";
+		// console.log($(this))
+		//console.log(f)
+		//console.log(g)
+		$.each(children[i], function(f,g){
+		    subtree = subtree + '<li><label><input class="'+ 'hummingbird-end-node'  +'" id="'+ g.id  +'" data-id="'+ g.data_id  +'" type="checkbox"> '+ g.text  +'</label></li>';
+		});
+		if (pos[i] == "before") {
+		    that_node.before('<li>'+"\n"+'<i class="fa '+ collapsedSymbol  +'"></i>'+ "\n" +'<label>'+"\n"+'<input class="'+ Xclass  +'" id="'+ the_id[i]  +'" data-id="'+ data_id[i]  +'" type="checkbox"> '+ boldParents_str1 + text[i] + boldParents_str2  +'</label>'+ "\n" +'<ul>'+ "\n" + subtree  +'</ul>'+"\n"+'</li>');
+		}
+		if (pos[i] == "after") {
+		    that_node.after('<li>'+"\n"+'<i class="fa '+ collapsedSymbol  +'"></i>'+ "\n" +'<label>'+"\n"+'<input class="'+ Xclass  +'" id="'+ the_id[i]  +'" data-id="'+ data_id[i]  +'" type="checkbox"> '+ boldParents_str1 + text[i] + boldParents_str2  +'</label>'+ "\n" +'<ul>'+ "\n" + subtree  +'</ul>'+"\n"+'</li>');
+		}
+	    }
+	});
 	//
-	//console.log(that_node)
-	//
-	if (end_node) {
-	    var Xclass = "hummingbird-end-node";
-	    if (pos == "before") {
-		that_node.before('<li><label><input class="'+ Xclass  +'" id="'+ the_id  +'" data-id="'+ data_id  +'" type="checkbox"> '+ text  +'</label></li>')
-	    }
-	    if (pos == "after") {
-		that_node.after('<li><label><input class="'+ Xclass  +'" id="'+ the_id  +'" data-id="'+ data_id  +'" type="checkbox"> '+ text  +'</label></li>')
-	    }
-	} else {
-	    var Xclass = "";
-	    //create subtree
-	    var subtree = "";
-	    $.each(children, function(i,e){
-		//console.log(e)
-		subtree = subtree + '<li><label><input class="'+ 'hummingbird-end-node'  +'" id="'+ e.id  +'" data-id="'+ e.data_id  +'" type="checkbox"> '+ e.text  +'</label></li>'
-	    });
-	    if (pos == "before") {
-		that_node.before('<li>'+"\n"+'<i class="fa '+ collapsedSymbol  +'"></i>'+ "\n" +'<label>'+"\n"+'<input class="'+ Xclass  +'" id="'+ the_id  +'" data-id="'+ data_id  +'" type="checkbox"> '+ text  +'</label>'+ "\n" +'<ul>'+ "\n" + subtree  +'</ul>'+"\n"+'</li>')
-	    }
-	    if (pos == "after") {
-		that_node.after('<li>'+"\n"+'<i class="fa '+ collapsedSymbol  +'"></i>'+ "\n" +'<label>'+"\n"+'<input class="'+ Xclass  +'" id="'+ the_id  +'" data-id="'+ data_id  +'" type="checkbox"> '+ text  +'</label>'+ "\n" +'<ul>'+ "\n" + subtree  +'</ul>'+"\n"+'</li>')
-	    }
-	}
-	//
+	$.fn.hummingbird.triState(tree,false);
     };
 
 
@@ -947,115 +1003,90 @@
 
     
     //-------------------disableNode---------------//
-    $.fn.hummingbird.disableNode = function(tree,attr,name,state,disableChildren){
-	if (attr == "text") {
-	    name = name.trim();
-	    var that_nodes = tree.find('input:checkbox:not(:disabled)').parent('label:contains(' + name + ')');
-	    //console.log(that_nodes)
-	    var this_checkbox = that_nodes.children('input:checkbox');
-	} else {
-	    //find all nodes that are not disabled
-	    var this_checkbox = tree.find('input:checkbox:not(:disabled)[' + attr + '=' + name + ']');
-	}
-	//set state
-	//for a disabled unchecked node, set node checked and then trigger a click to uncheck
-	//for a disabled checked node, set node unchecked and then trigger a click to check
-	//this_checkbox.prop("checked",state === false);
-	this_checkbox.prop("checked",state === false);
-	nodeDisabled = true;
-	this_checkbox.trigger("click");
-	//three state logic will be triggered on disabling
-
-	//disable this node and all children
-	if (disableChildren === true) {
-	    //console.log("disable children")
-	    //this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",true).parent("label").parent("li").css({'color':'#c8c8c8',"cursor":"not-allowed"});
-	    //console.log(this_checkbox.parent("label").parent("li"))
-	    //set this checkbox disabled
-	    //in case hover is active, remove
-	    this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",true).parent("label").css({'color':'#c8c8c8',"cursor":"not-allowed","background-color":""});
-	    //set this label disabled
-	    //this_checkbox.parent("label").css({'color':'#c8c8c8',"cursor":"not-allowed"});
-	} else {
-	    //console.log(this_checkbox.prop("disabled",true).parent("label").parent("li"))
-	    //this_checkbox.prop("disabled",true).parent("label").parent("li").css({'color':'#c8c8c8',"cursor":"not-allowed"});
-	    this_checkbox.prop("disabled",true).parent("label").css({'color':'#c8c8c8',"cursor":"not-allowed"});
-	}
+    $.fn.hummingbird.disableNode = function(tree,sel,vals,state,disableChildren){
+	$.each(vals, function(i,e){
+	    if (sel == "text") {
+		name = e.trim();
+		var that_nodes = tree.find('input:checkbox:not(:disabled)').parent('label:contains(' + name + ')');
+		//console.log(that_nodes)
+		var this_checkbox = that_nodes.children('input:checkbox');
+	    } else {
+		//find all nodes that are not disabled
+		var this_checkbox = tree.find('input:checkbox:not(:disabled)[' + sel + '=' + e + ']');
+	    }
+	    //this_checkbox.prop("checked",state);
+	    if (disableChildren === true) {
+		this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",true).prop("checked",state).parent("label").css({'color':'#c8c8c8',"cursor":"not-allowed","background-color":""});
+	    } else {
+		this_checkbox.prop("checked",state).prop("disabled",true).parent("label").css({'color':'#c8c8c8',"cursor":"not-allowed","background-color":""});
+	    }
+	});
+	$.fn.hummingbird.triState(tree,false);	
     };
 
     //-------------------enableNode---------------//
-    $.fn.hummingbird.enableNode = function(tree,attr,name,state,enableChildren){
-	//console.log("humming_enable")
-	var this_checkbox = {};
-	if (attr == "text") {
-	    name = name.trim();
-	    var that_nodes = tree.find('input:checkbox:disabled').parent('label:contains(' + name + ')');
-	    //console.log(that_nodes)
-	    var this_checkbox = that_nodes.children('input:checkbox');
-	} else {
-	    this_checkbox = tree.find('input:checkbox:disabled[' + attr + '=' + name + ']');
-	}
-	//console.log(this_checkbox)
-	//a checkbox cannot be enabled if all children are disabled AND enableChildren is false
-	//get children checkboxes which are not disabled
-	var children_not_disabled_sum= this_checkbox.parent("label").next("ul").children("li").children("label").children("input:checkbox:not(:disabled)").length;
-	if (children_not_disabled_sum == 0 && enableChildren == false) {
-	    //console.log("NOW!!!!!!!!!!!!!!!!!!!!!")
-	    return;
-	}
-	//the state where a parent is enabled and all children are disabled must be forbidden
-
-	//for a disabled unchecked node, set node checked and then trigger a click to uncheck
-	//for a disabled checked node, set node unchecked and then trigger a click to check
-	//this_checkbox.prop("disabled",false).parent("label").parent("li").css({'color':'#636b6f',"cursor":"default"});
-	//this_checkbox.prop("disabled",false).parent("label").parent("li").css({'color':'black',"cursor":"default"});
-	this_checkbox.prop("disabled",false).parent("label").css({'color':textcolor,"cursor":"pointer"});
-	//all parents enabled
-	//no action on parents if checkboxesGroups == disabled
-	if (checkboxesGroups == false){
-	    this_checkbox.parent("label").parent("li").parents("li").children("label").children("input[type='checkbox']").prop("disabled",false).parents("label").css({'color':textcolor,"cursor":"pointer"});
-	}
-	//all children enabled
-	if (enableChildren === true) {
-	    //this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",false).parent("label").parent("li").css({'color':'black',"cursor":"pointer"});
-	    this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",false).parent("label").css({'color':textcolor,"cursor":"pointer"});
-	}
-	this_checkbox.prop("checked",state === false);
-	nodeEnabled = true;
-	this_checkbox.trigger("click");	
+    $.fn.hummingbird.enableNode = function(tree,sel,vals,state,enableChildren){
+	$.each(vals, function(i,e){
+	    if (sel == "text") {
+		name = e.trim();
+		var that_nodes = tree.find('input:checkbox:disabled').parent('label:contains(' + name + ')');
+		//console.log(that_nodes)
+		var this_checkbox = that_nodes.children('input:checkbox');
+	    } else {
+		this_checkbox = tree.find('input:checkbox:disabled[' + sel + '=' + e + ']');
+	    }
+	    //no action on parents if checkboxesGroups == disabled
+	    // if (checkboxesGroups == false){
+	    // 	this_checkbox.parent("label").parent("li").parents("li").children("label").children("input[type='checkbox']").prop("disabled",false).parents("label").css({'color':textcolor,"cursor":"pointer"});
+	    // }
+	    //this_checkbox.prop("checked",state);
+	    if (enableChildren === true) {
+		//this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",false).parent("label").parent("li").css({'color':'black',"cursor":"pointer"});
+		this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",false).prop("checked",state).parent("label").css({'color':textcolor,"cursor":"pointer"});
+	    } else {
+		this_checkbox.prop("checked",state).prop("disabled",false).parent("label").css({'color':textcolor,"cursor":"pointer"});
+	    }
+	});
+	$.fn.hummingbird.triState(tree,false);	
     };
 
 
     //-------------------hideNode---------------//
-    $.fn.hummingbird.hideNode = function(tree,attr,name){
-	if (attr == "text") {
-	    name = name.trim();
-	    var that_nodes = tree.find('input:checkbox').parent('label:contains(' + name + ')');
-	    var this_checkbox = that_nodes.children('input:checkbox');
-	} else {
-	    var this_checkbox = tree.find('input:checkbox[' + attr + '=' + name + ']');
-	}
-	//this_checkbox.hide();
-	this_checkbox.attr("type","hidden");
-	this_checkbox.parent("label").parent("li").hide();
+    $.fn.hummingbird.hideNode = function(tree,sel,vals){
+	$.each(vals, function(i,e){
+	    if (sel == "text") {
+		name = e.trim();
+		var that_nodes = tree.find('input:checkbox').parent('label:contains(' + name + ')');
+		var this_checkbox = that_nodes.children('input:checkbox');
+	    } else {
+		var this_checkbox = tree.find('input:checkbox[' + sel + '=' + e + ']');
+	    }
+	    //this_checkbox.hide();
+	    this_checkbox.attr("type","hidden");
+	    this_checkbox.parent("label").parent("li").hide();
+	});
+	$.fn.hummingbird.triState(tree,false);	
     };
 
     //-------------------showNode---------------//
-    $.fn.hummingbird.showNode = function(tree,attr,name){
+    $.fn.hummingbird.showNode = function(tree,sel,vals){
 	// console.log("showNode")
 	// console.log(attr)
 	// console.log(name)
-	if (attr == "text") {
-	    name = name.trim();
-	    var that_nodes = tree.find('input').parent('label:contains(' + name + ')');
-	    var this_checkbox = that_nodes.children('input');
-	} else {
-	    var this_checkbox = tree.find('input[' + attr + '=' + name + ']');
-	}
-	//this_checkbox.hide();
-	//console.log(this)
-	this_checkbox.attr("type","checkbox");
-	this_checkbox.parent("label").parent("li").show();
+	$.each(vals, function(i,e){
+	    if (sel == "text") {
+		name = e.trim();
+		var that_nodes = tree.find('input').parent('label:contains(' + name + ')');
+		var this_checkbox = that_nodes.children('input');
+	    } else {
+		var this_checkbox = tree.find('input[' + sel + '=' + e + ']');
+	    }
+	    //this_checkbox.hide();
+	    //console.log(this)
+	    this_checkbox.attr("type","checkbox");
+	    this_checkbox.parent("label").parent("li").show();
+	});
+	$.fn.hummingbird.triState(tree,false);	
     };
 
 
@@ -1183,6 +1214,7 @@
 		});
 	    }
 	}
+	$.fn.hummingbird.triState(tree,false);
     };
     //--------------restoreState------------------//
     
@@ -1192,268 +1224,138 @@
     $.fn.hummingbird.setNodeColor = function(tree,attr,ID,color){
 	tree.find('input:checkbox[' + attr + '=' + ID + ']').parent("li").css({'color':color});
     };
+
+
+    //--------------triState------------------//
+    $.fn.hummingbird.triState = function(tree,restrict){
+	//console.log("triState")
+	//get the ul's from deep to shallow
+	//full tree
+	if (restrict == false){
+	    var the_uls = tree.find('input.hummingbird-end-node').parents("ul");
+	} else {
+	    //from a certain position
+	    var the_uls = tree.find(restrict).parents("ul");
+	}
+	//console.log(the_uls)
+	//go through all uls and check
+	$.each(the_uls, function(i,e){
+	    //console.log($(this))
+	    //the checkboxes
+	    //count all
+	    var num_the_checkboxes = $(this).children('li').children('label').children('input').length;
+	    // console.log("num_the_checkboxes")
+	    // console.log(num_the_checkboxes)
+
+	    //count checked
+	    var checked_num_the_checkboxes = $(this).children('li').children('label').children('input:checkbox:checked').length;
+	    // console.log("checked_num_the_checkboxes")
+	    // console.log(checked_num_the_checkboxes)
+	    //count disabled
+	    var disabled_num_the_checkboxes = $(this).children('li').children('label').children('input:checkbox:disabled').length;
+	    //
+	    //count indeterminate, 
+	    var indeterminate_num_the_checkboxes = 0;
+	    $(this).children('li').children('label').children('input:checkbox').map(function() {
+		indeterminate_num_the_checkboxes = indeterminate_num_the_checkboxes + $(this).prop("indeterminate");
+	    })
+	    //
+	    // console.log("indeterminate_num_the_checkboxes")
+	    // console.log(indeterminate_num_the_checkboxes)
+	    if (checked_num_the_checkboxes == num_the_checkboxes){
+		//console.log("case 1")
+		$(this).parent('li').children('label').children('input:checkbox').prop('checked',true).prop('indeterminate',false);
+	    }
+	    if (checked_num_the_checkboxes < num_the_checkboxes && checked_num_the_checkboxes>0){
+		//console.log("case 2")
+		var this_state = $(this).parent('li').children('label').children('input:checkbox').prop("checked");
+		//debugger;
+		$(this).parent('li').children('label').children('input:checkbox').prop('checked',this_state).prop('indeterminate',true);
+	    }
+	    if (checked_num_the_checkboxes == 0){
+		//console.log("case 3")
+		$(this).parent('li').children('label').children('input:checkbox').prop('checked',false).prop('indeterminate',false);
+	    }
+	    if (indeterminate_num_the_checkboxes > 0){
+		//console.log("case 4")
+		var this_state = $(this).parent('li').children('label').children('input:checkbox').prop("checked");
+	    	$(this).parent('li').children('label').children('input:checkbox').prop('checked',this_state).prop('indeterminate',true);
+	    }
+	    if (disabled_num_the_checkboxes == num_the_checkboxes){
+		//console.log("case 5")
+		//disable parent
+		//do not change color if select single node is active
+		if (checkboxesGroups == false){
+		    $(this).parent('li').children('label').children('input:checkbox').prop("disabled",true).css({"cursor":"not-allowed"}).parent("label").css({'color':'#c8c8c8',"cursor":"not-allowed","background-color":""});
+		}
+	    } else {
+		//enable parent
+		//this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",false).prop("checked",state).parent("label").css({'color':textcolor,"cursor":"pointer"});
+		if (checkboxesGroups == false){
+		    $(this).parent('li').children('label').children('input:checkbox').prop("disabled",false).css({"cursor":"pointer"}).parent("label").css({'color':textcolor,"cursor":"pointer","background-color":""});
+		}		
+	    }
+	    
+	});
+
+
+	//if skip_next_check_uncheck == true skip it and set back to false
+	//fire event
+	if (skip_next_check_uncheck == false){
+	    tree.trigger("CheckUncheckDone");
+	} else {
+	    skip_next_check_uncheck = false;
+	}
+	
+	
+    };
+    //--------------triState------------------//
+
+
     
     //--------------three-state-logic----------------------//
-    $.fn.hummingbird.ThreeStateLogic = function(tree,doubleMode,allVariables,checkDoubles,checkDisabled) {
-	tree.find('input:checkbox').on('click', function(e) {
-	    //console.log($(this))
-	    clickedNode = $(this);
-	    //check / uncheck all checkboxes below that node, if they have children weather they are disabled or not
-	    //do nothing with end-node-checkboxes which are disabled
-	    //thus three state logic is applyed to groups although they are disabled and if they have children
-
+    $.fn.hummingbird.checkboxClicked = function(clickedNode) {
+	//console.log("checkboxClicked")
+	if (true){
+	    //try with triState
+	    //first check all boxes below
 	    //all not disabled
-	    var nodes_below_not_disabled = $(this).parent("label").parent("li").find("input:checkbox:not(:disabled)");
-	    
-	    //all disabled without hummingbird-end-node
-	    var nodes_below_disabled_groups = $(this).parent("label").parent("li").find('input:checkbox:disabled:not(.hummingbird-end-node)');
-
-	    //add them together
-	    var nodes_below = nodes_below_not_disabled.add(nodes_below_disabled_groups);
-	    
-	    //merge
-	    //var nodes_below = ;
-
-	    
-	    var ids = [];
-	    nodes_below.each(function(){
-		ids.push($(this).attr("id"));
-	    });
-	    //console.log("this");
-	    //console.log($(this));
-	    if ($(this).prop("checked")) {
-	    	var state = true;
-	    	var checkSiblings = "input:checkbox:not(:checked)";
-		//fire event
-		tree.trigger("nodeChecked",ids.join());
-	    } else {
-	    	var state = false;
-	    	var checkSiblings = "input:checkbox:checked";
-		//fire event
-		tree.trigger("nodeUnchecked",ids.join());
-	    }		 		 
-	    //check / uncheck all checkboxes below that node
-	    nodes_below.prop("indeterminate",false).prop("checked",state);
-	    //set all parents indeterminate and unchecked
-	    //if checkDisabled===false treat all disabled as if they were not there
-	    //do it for all if checkDisabled===true
-	    //if checkDisabled===false do it if it was not a disabled node, i.e. nodeDisabled===false
-	    //if (checkDisabled || nodeDisabled === false) {
-	    $(this).parent("label").parent().parents("li").children("label").children("input:checkbox").prop("indeterminate",true);
-	    $(this).parent("label").parent().parents("li").children("label").children("input:checkbox").prop("checked",false);	
-
-
-	    //if a node directly below that is disabled
-	    //do nothing, i.e. reverse the check
-	    //console.log($(this).parent("label").siblings("ul"))
-	    // $(this).parent("label").siblings("ul").children("li").children("label").children("input").map(function(){
-	    // 	console.log($(this))
-	    // 	if ($(this).prop("disabled")){
-	    // 	    var direct_child_state = $(this).prop("checked");
-	    // 	    console.log($(this).prop("checked"))
-	    // 	    $(this).prop("checked", direct_child_state === false);
-	    // 	    console.log($(this).prop("checked"))
-	    // 	}
-	    // });
-	    
-	    //travel down the dom through all ul's, but not the ul directly under that, because that will be changed
-	    //console.log($(this).parent("label").parent("li").find("ul"))
-	    //$(this).parent("label").parent("li").find("ul").map(function(){
-	    $(this).parent("label").siblings("ul").find("ul").map(function(){
-	     	//console.log($(this))
-		// return true;
-		// console.log("xx")
-		
-		//check if children are disabled
-		//console.log($(this).parent("label").next("ul").children("li").children("label").children("input:checkbox"))
-		//var not_disabled_sum_children = $(this).parent("label").next("ul").children("li").children("label").children("input:checkbox:not(:disabled)").length;
-
-		//I think I have to take into account only end-nodes???
-		var disabled_sum_children = $(this).children("li").children("label").children("input:checkbox:disabled").length;
-		//console.log("disabled_sum_children= " + disabled_sum_children)
-		//if a check has happened count how many are checked
-		//if an uncheck has happened count how many are unchecked
-		//var checked_unchecked_sum_children = $(this).parent("label").next("ul").children("li").children("label").children(checkSiblings).length;
-		//a check has happened
-
-
-		var checked_sum_children = $(this).children("li").children("label").children("input:checkbox:checked").length;
-		var unchecked_sum_children = $(this).children("li").children("label").children("input:checkbox:not(:checked)").length;
-		var num_children_endnode = $(this).children("li").children("label").children("input:checkbox.hummingbird-end-node").length;
-
-		
-
-		// console.log("disabled_sum_children= " + disabled_sum_children)
-		// console.log("checked_sum_children= " + checked_sum_children)
-		// console.log("unchecked_sum_children= " + unchecked_sum_children)
-		// console.log("num_children_endnode= " + num_children_endnode)
-
-
-		//if all children disabled set appropriate state of this checkbox
-		//This happens e.g. if all children of this box are disabled and checked, so this box is actually also checked and disabled, but because it is
-		//not an end-node it can be checked, unchecked. Now a parent of this has been unchecked, thus this box is also unchecked, although all children are checked
-		//thus the appropriate state has to be set again
-
-		//there are children disabled:
-		//if a check happened, all children are checked
-		//if an uncheck happened all children are unchecked
-		//console.log($(this).siblings("label").children("input:checkbox"))
-
-		//there are disabled nodes below that
-		if (disabled_sum_children > 0) {
-		    if (checked_sum_children == 0) {
-			$(this).siblings("label").children("input:checkbox").prop("checked",false);
-		    }
-		    //if there are no unchecked below, it means that this must be checked,
-		    //but this is only true if this group has end-node children
-		    //otherwise it can have unchecked group nodes
-		    if (unchecked_sum_children == 0){
-			if (num_children_endnode > 0){
-			    //if (unchecked_sum_children == 0) {
-			    $(this).siblings("label").children("input:checkbox").prop("checked",true);
-			} else {
-			    $(this).siblings("label").children("input:checkbox").prop("checked",false);
-			}
-		    }
-		    if (checked_sum_children > 0 && unchecked_sum_children > 0) {
-			//console.log("hallo")
-			$(this).siblings("label").children("input:checkbox").prop("checked",false); //.prop("indeterminate",true);
-		    }
-		}
-		
-	    });
-
-
-	    
+	    //console.log($(this))
+	    var this_state = clickedNode.prop("checked");
+	    //var this_indeterminate = $(this).prop("indeterminate");
+	    //console.log(this_state)
+	    //console.log(this_indeterminate)
+	    //if (this_indeterminate){
+	    //this_state = false;
+	    //change this state
+	    //$(this).prop("checked",this_state==false);
 	    //}
-	    //travel up the DOM
-	    //test if siblings are all checked / unchecked / indeterminate       
-	    //check / uncheck parents if all siblings are checked /unchecked
-	    //thus, set parents checked / unchecked, if children are all checked or all unchecked with no indeterminates
-	    //do this for all
-	    //if (checkDisabled) {
-	    $(this).parent("label").parents("li").map(function() {
-		//console.log($(this))
-		var indeterminate_sum = 0;
-		    //number of checked if an uncheck happened or number of unchecked if a check happened
-		    var checked_unchecked_sum = $(this).siblings().addBack().children("label").children(checkSiblings).length;
-		    //check how many not disabled are here (below that parent)
-		    if (checkDisabled) {
-			var not_disabled_sum = $(this).siblings().addBack().children("label").children("input:checkbox:not(:disabled)").length;
-			//console.log("not_disabled_sum= " + not_disabled_sum)
-		    }
+	    //if this is an end-node
+	    var restrict = clickedNode.parent('label');
+	    if (clickedNode.hasClass("hummingbird-end-node") == false){
+		//console.log("parent")
+		//console.log(this_state)
+		clickedNode.parent("label").siblings("ul").find("input:checkbox:not(:disabled)").prop("checked",this_state).prop("indeterminate",false);
 
-		    //console.log("checkDisabled= " + checkDisabled)
-		    //checkDisabled means that disabled boxes are considered by the tri-state logic
-		    //these are the not disabled siblings together with node itself
-		    //var not_disabled_sum = $(this).siblings().addBack().children("label").children("input:checkbox:not(:disabled)").length;
-		    //console.log("not_disabled_sum= " + not_disabled_sum);
-	    	    $(this).siblings().addBack().children("label").children("input:checkbox").map(function() {
-			//console.log($(this))
-			indeterminate_sum = indeterminate_sum + $(this).prop("indeterminate");
-	    	    });
-		    //this is 0 if there are no checked, thus an uncheck has happened
-	    	    if ((indeterminate_sum + checked_unchecked_sum) == 0) {
-	    		$(this).parent().parent().children("label").children("input:checkbox").prop("indeterminate",false);
-	    		$(this).parent().parent().children("label").children("input:checkbox").prop("checked",state);
-	    	    }
-	
-		    //if this click was together width a disableNode then, there is one more disabled child, thus not_disabled_sum--
-		    if (checkDisabled) {
-			//console.log("checkDisabled")
-			//console.log($(this))
-			//console.log("nodeDisabled="+nodeDisabled)
-		    	if (nodeDisabled == true) {
-		    	    not_disabled_sum--;
-			    //do it only for this node
-			    nodeDisabled = false;
-		    	}
-		    	//if all children are disabled, disable also parent
-		    	if (not_disabled_sum == 0) {
-			    //console.log("here")
-		    	    //console.log($(this).parent().parent().children("label").children("input[type='checkbox']"))
-			    //only disable parents if they are not already disabled by the checkboxesGroups options
-			    if (checkboxesGroups_grayed == false && checkboxesGroups == false) {
-				$(this).parent().parent().children("label").children("input[type='checkbox']").prop("disabled",true).parent("label").css({'color':'#c8c8c8','cursor':'not-allowed'});
-			    }
-		    	}
-		    }		    
-	    });
-	    //}
-	    
-	    //------------------check if this variable has doubles-----------------------//
-	    //------------------and click doubles if needed------------------------------//
-	    //------------------only if this is not a double check-----------------------//
-	    if (checkDoubles == true && uncheckAll_doubles == false) {
-		if (doubleMode == false) {
-	    	    //do this for all checked / unchecked checkboxes below that node
-	    	    $(this).parent("label").parent("li").find("input.hummingbird-end-node[type='checkbox']").each(function() {
-	    		//check if this node has doubles
-	    		var L = allVariables[$(this).attr("data-id")].length;
-	    		if ( L > 1) {
-	    		    doubleMode = true;
-	    		    //if state of these checkboxes is not similar to state
-	    		    //-> trigger click
-	    		    var Zvar = allVariables[$(this).attr("data-id")];
-	    		    for (var i=0;i<L;i++) {
-	    			if ($("#" + Zvar[i] ).prop("checked") != state) {
-	    			    $("#" + Zvar[i] ).trigger("click");
-	    			}
-	    		    }
-	    		}
-	    	    });
-	    	    doubleMode = false;
-		}
+		//if this is a parent check also all the ul's below in triState
+		var restrict = clickedNode.parent('label').siblings('ul').find('li');
 	    }
-	    //------------------check if this variable has doubles------------------------//
 
+	    //debugger;
+	    //tri state
+	    //$.fn.hummingbird.triState(tree,restrict);
 
-
-	    //--------------------------disabled-----------------------------------------//
-	    //check if this box has hummingbird-end-node children
-	    if (checkDisabled) {
-		//console.log($(this))
-		if ($(this).hasClass("hummingbird-end-node") === false) {
-		    //if this box has been checked, check if "not checked disabled" exist
-		    if (state === true) {
-			var disabledCheckboxes = $(this).parent("label").parent("li").find("input:checkbox:not(:checked):disabled");
-			var num_state_inverse_Checkboxes = $(this).parent("label").parent("li").find("input:checkbox:checked");
-		    }
-		    //if this box has been unchecked, check if "checked disabled" exist
-		    if (state === false) {
-			var disabledCheckboxes = $(this).parent("label").parent("li").find("input:checkbox:checked:disabled");
-			var num_state_inverse_Checkboxes = $(this).parent("label").parent("li").find("input:checkbox:not(:checked)");
-		    }
-		    //if this box has been checked and unchecked disabled exist
-		    //set this and all parents indeterminate and checked false. Setting checked false is important to make this box ready for a check
-		    //not if all checked or unchecked
-		    if (disabledCheckboxes.length > 0 && num_state_inverse_Checkboxes.length > 0) {
-			//only if the boxes are enabled
-			disabledCheckboxes.parent("label").parent("li").parents("li").children("label").children("input:checkbox:not(:disabled)").prop("indeterminate",true).prop("checked",state);
-		    }
-		}
-	    }
-	    //--------------------------disabled-----------------------------------------//
-
-	    
-	    //set nodeDisabled and nodeEnabled back to false
-	    //so that the next clicked node can be a normal node or again a disbaled node
-	    nodeDisabled = false;
-	    nodeEnabled = false;
-
-
-	    //if skip_next_check_uncheck == true skip it and set back to false
-	    //fire event
-	    if (skip_next_check_uncheck == false){
-		tree.trigger("CheckUncheckDone");
-	    } else {
-		skip_next_check_uncheck = false;
-	    }
-	});
+	    return restrict;
+	}
     }
     //--------------three-state-logic----------------------//
 
 
+
+
+
+
+    
     //----------------------------search--------------------------------------//
     $.fn.hummingbird.search = function(tree,treeview_container,search_input,search_output,search_button,dialog,enter_key_1,enter_key_2,collapsedSymbol,expandedSymbol,scrollOffset,onlyEndNodes,EnterKey) {
 
@@ -1512,9 +1414,9 @@
 	    	//reset color of last selection
 	    	if (first_search == false) {
 		    if (this_var_checkbox.prop("disabled")) {
-			this_var_checkbox.parent("label").parent("li").css({'color':'#c8c8c8',"cursor":"not-allowed"});
+			this_var_checkbox.parent("label").css({'color':'#c8c8c8',"cursor":"not-allowed"});
 		    } else {
-			this_var_checkbox.parent("label").parent("li").css({'color':'black',"cursor":"pointer"});
+			this_var_checkbox.parent("label").css({'color':'black',"cursor":"pointer"});
 		    }
 	    	}
 	    	//before jumping to the hummingbird-end-node a collapse all is needed
@@ -1526,7 +1428,7 @@
 		//change plus to minus
 	    	prev_uls.closest("li").children("i").removeClass(collapsedSymbol).addClass(expandedSymbol);
 		//highlight hummingbird-end-node
-	    	this_var_checkbox.parent("label").parent("li").css({'color':'#f0ad4e'});
+	    	this_var_checkbox.parent("label").css({'color':'#f0ad4e'});
 	    	first_search = false;
 	    	//expand parent uls
 		prev_uls.show();
