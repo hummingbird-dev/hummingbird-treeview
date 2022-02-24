@@ -1,5 +1,12 @@
 # CHANGES
 
+## 2022/02/24
+
+- Support special characters in "vals" for the methods. For instance a "|" or a "," in 
+  ```javascript
+  $("#treeview").hummingbird('checkNode',{sel:"data-id",vals:["test1|test2","a,b"]});
+  ```
+
 ## 2021/06/01
 
 - Big upgrade to mass assignments. If you have used the treeview only

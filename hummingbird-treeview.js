@@ -824,7 +824,7 @@
     //-------------------expandNode---------------//
     $.fn.hummingbird.expandNode = function(tree,sel,vals,expandParents,collapsedSymbol,expandedSymbol){
 	$.each(vals, function(i,e){
-	    var that_node = tree.find('input[' + sel + '=' + e + ']');
+	    var that_node = tree.find('input[' + sel + '="' + e + '"]');
 	    var that_label = that_node.parent("label");
 	    if (!that_label.hasClass('disableToggle')){
 		var that_ul = that_label.siblings("ul");
@@ -840,7 +840,7 @@
     //-------------------collapseNode---------------//
     $.fn.hummingbird.collapseNode = function(tree,sel,vals,collapseChildren,collapsedSymbol,expandedSymbol){
 	$.each(vals, function(i,e){
-	    var that_node = tree.find('input[' + sel + '=' + e + ']');
+	    var that_node = tree.find('input[' + sel + '="' + e + '"]');
 	    var that_label = that_node.parent("label");
 	    if (!that_label.hasClass('disableToggle')){
 		var that_ul = that_label.siblings("ul");
@@ -866,8 +866,9 @@
 	    });
 	} else {
 	    $.each(vals, function(i,e){
+		//console.log(e)
 		//tree.find('input:checkbox:not(:disabled)[' + sel + '=' + e + ']').parent('label').parent('li').find('input:checkbox:not(:disabled)').prop("indeterminate",false).prop("checked",true);
-		var the_node = tree.find('input:checkbox:not(:disabled)[' + sel + '=' + e + ']').prop("indeterminate",false).prop("checked",true);
+		var the_node = tree.find('input:checkbox:not(:disabled)[' + sel + '="' + e + '"]').prop("indeterminate",false).prop("checked",true);
 		//no return needed
 		$.fn.hummingbird.checkboxClicked(the_node);		
 	    });
@@ -885,7 +886,7 @@
 	    });
 	} else {
 	    $.each(vals, function(i,e){
-		var the_node = tree.find('input:checkbox:not(:disabled)[' + sel + '=' + e + ']').prop("indeterminate",false).prop("checked",false);
+		var the_node = tree.find('input:checkbox:not(:disabled)[' + sel + '="' + e + '"]').prop("indeterminate",false).prop("checked",false);
 		$.fn.hummingbird.checkboxClicked(the_node);		
 	    });
 	}
@@ -901,7 +902,7 @@
 		//console.log("name")
 		//console.log(that_nodes)
 	    } else {
-		var that_nodes = tree.find('input:checkbox:not(:checked)[' + sel + '=' + e + ']').parent('label');
+		var that_nodes = tree.find('input:checkbox:not(:checked)[' + sel + '="' + e + '"]').parent('label');
 		//console.log("else")
 		//console.log(that_nodes)
 	    }
@@ -917,7 +918,7 @@
 		name = e.trim();
 		tree.find('input:checkbox').parent('label:contains(' + name + ')').parent('li').remove();
 	    } else {
-		tree.find('input:checkbox[' + sel + '=' + e + ']').parent("label").parent('li').remove();
+		tree.find('input:checkbox[' + sel + '="' + e + '"]').parent("label").parent('li').remove();
 	    }
 	});
 	$.fn.hummingbird.triState(tree,false);
@@ -931,7 +932,7 @@
 		anchor_name = e.trim();
 		var that_node = tree.find('input:checkbox').parent('label:contains(' + anchor_name + ')').parent("li");
 	    } else {
-		var that_node = tree.find('input:checkbox[' + anchor_sel[i] + '=' + e + ']').parent("label").parent("li");
+		var that_node = tree.find('input:checkbox[' + anchor_sel[i] + '="' + e + '"]').parent("label").parent("li");
 	    }
 	    //
 	    //console.log(that_node)
@@ -1012,7 +1013,7 @@
 		var this_checkbox = that_nodes.children('input:checkbox');
 	    } else {
 		//find all nodes that are not disabled
-		var this_checkbox = tree.find('input:checkbox:not(:disabled)[' + sel + '=' + e + ']');
+		var this_checkbox = tree.find('input:checkbox:not(:disabled)[' + sel + '="' + e + '"]');
 	    }
 	    //this_checkbox.prop("checked",state);
 	    if (disableChildren === true) {
@@ -1033,7 +1034,7 @@
 		//console.log(that_nodes)
 		var this_checkbox = that_nodes.children('input:checkbox');
 	    } else {
-		this_checkbox = tree.find('input:checkbox:disabled[' + sel + '=' + e + ']');
+		this_checkbox = tree.find('input:checkbox:disabled[' + sel + '="' + e + '"]');
 	    }
 	    //no action on parents if checkboxesGroups == disabled
 	    // if (checkboxesGroups == false){
@@ -1059,7 +1060,7 @@
 		var that_nodes = tree.find('input:checkbox').parent('label:contains(' + name + ')');
 		var this_checkbox = that_nodes.children('input:checkbox');
 	    } else {
-		var this_checkbox = tree.find('input:checkbox[' + sel + '=' + e + ']');
+		var this_checkbox = tree.find('input:checkbox[' + sel + '="' + e + '"]');
 	    }
 	    //this_checkbox.hide();
 	    this_checkbox.attr("type","hidden");
@@ -1079,7 +1080,7 @@
 		var that_nodes = tree.find('input').parent('label:contains(' + name + ')');
 		var this_checkbox = that_nodes.children('input');
 	    } else {
-		var this_checkbox = tree.find('input[' + sel + '=' + e + ']');
+		var this_checkbox = tree.find('input[' + sel + '="' + e + '"]');
 	    }
 	    //this_checkbox.hide();
 	    //console.log(this)
