@@ -45,6 +45,7 @@
 
 	    var converter_height = converter.attr("data-height");
 	    var converter_scroll = converter.attr("data-scroll");
+	    var converter_css = converter.attr("data-css");
 	    var converter_id = converter.attr("data-id");
 	    var boldParents = converter.attr("data-boldParents");
 
@@ -71,10 +72,13 @@
 		boldParents_str1 = '<b>';
 		boldParents_str2 = '</b>';
 	    }
+	    if (typeof(converter_css) == "undefined"){
+		converter_css = "";
+	    }
 
 	    
 	    //create new treeview container
-	    var tree_html = '<div id="treeview_container' + converter_str + '" class="hummingbird-treeview" style="' + converter_height  + ' ' + converter_scroll + '">' +
+	    var tree_html = '<div id="treeview_container' + converter_str + '" class="hummingbird-treeview" style="' + converter_height  + ' ' + converter_scroll + ' ' + converter_css + '">' +
 		'<ul id="treeview' + converter_str + converter_id + '" class="hummingbird-base">';
 
 
