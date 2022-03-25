@@ -574,28 +574,6 @@ $(document).on("reCheckGroup", function(){
 
 ```
 
-- **parent-selection-only-if-expanded**<br>  
-This snippet holds a parent node always disabled, except if it is
-expanded. Therefore we first disable the node (here that with
-id="hum_3").  Then we react on a click on the collapse / expand
-symbol, enclosed in the "i" tag.  Following we check the "visible"
-property. According to that we either enable or disable the node.
-
-``` javascript
-$("#treeview").hummingbird('disableNode',{sel:"id",vals:["hum_3"]});
-
-$('#hum_3').parent('label').prev('i').on('click', function(){
-    if (!$(this).next('label').next('ul').is(':visible')){
-        console.log("visible")
-        $("#treeview").hummingbird('enableNode',{sel:"id",vals:["hum_3"]});
-    } else {
-        console.log(" not visible")
-        $("#treeview").hummingbird('disableNode',{sel:"id",vals:["hum_3"]});
-	}
-});
-
-
-```
 
 
 ## Methods
