@@ -1,8 +1,13 @@
 # CHANGES
 
+## 2022/03/25
+
+- New method: disableParentNodeOnCollapse
+- New events: nodeCollapsed and nodeExpanded 
+
 ## 2022/03/11
 
-- The "2. Simple pseudo HTML plus" input format has now an additional parameter *data-css*
+- The "2. Simple pseudo HTML plus ..." input format has now an additional parameter *data-css*
   to inject arbitrary CSS.
 
 ## 2022/02/24

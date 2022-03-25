@@ -9,7 +9,7 @@
     var checkDisabled = true;
 
     var skip_next_check_uncheck = false;
-
+    var skip_treeState = false;
 
     //
     var checkboxesGroups_grayed = false;
@@ -84,6 +84,7 @@
 
 	    //get treeview elements
 	    var tree = converter.children("li");
+
 
 	    
 	    //loop through the elements and create tree
@@ -207,6 +208,27 @@
 	    //end converter
 	});
     });
+
+
+
+
+    $(this).on('nodeExpanded nodeCollapsed', function(){
+	var this_ul = $('.hummingbird-base').find('ul.disableParentNodeOnCollapse');
+	//console.log(this_ul)
+	$.each(this_ul,function(e){
+	    //console.log($(this))
+	    var parent_node_id = $(this).prev('label').children('input').attr('id');
+	    //
+	    if ($(this).is(':visible')){
+	    	//console.log("visible")
+	    	$('.hummingbird-base').hummingbird('enableNode',{sel:"id",vals:[parent_node_id]});
+	    } else {
+	    	//console.log(" not visible")
+	    	$('.hummingbird-base').hummingbird('disableNode',{sel:"id",vals:[parent_node_id]});
+	    }		
+	});
+    });
+
 
     
     $.fn.hummingbird = function(options){
@@ -361,11 +383,12 @@
 		    $.fn.hummingbird.triState(this_tree,restrict);
 		})
 
-
+		
 
 		
 		//expandSingle and check if options.singleGroupOpen is set
 		var tmp_tree=$(this);
+		//console.log(tmp_tree)
 		$(this).on("click", 'li i.' + options.collapsedSymbol, function() {
 		    //console.log("options.singleGroupOpen="+options.singleGroupOpen)
 		    if (options.singleGroupOpen >= 0){
@@ -386,12 +409,12 @@
 			    });
 			}
 		    }
-		    $.fn.hummingbird.expandSingle($(this),options.collapsedSymbol,options.expandedSymbol);
+		    $.fn.hummingbird.expandSingle(tmp_tree,$(this),options.collapsedSymbol,options.expandedSymbol);
 		});
 		//collapseSingle
 		$(this).on("click", 'li i.' + options.expandedSymbol, function() {
 		    //console.log("collapse")
-		    $.fn.hummingbird.collapseSingle($(this),options.collapsedSymbol,options.expandedSymbol);
+		    $.fn.hummingbird.collapseSingle(tmp_tree,$(this),options.collapsedSymbol,options.expandedSymbol);
 		});
 		//prevent doubleclick on label
 		// $(this).on("dblclick", 'label', function(e) {
@@ -399,9 +422,17 @@
 		//     e.preventDefault();
 		// });
 
+
+		
+		
+
+		
 	    });
 	}
 
+
+	
+	
 	//checkAll
 	if (methodName == "checkAll") {
 	    return this.each(function(){
@@ -461,6 +492,20 @@
 		var sel = args[1].sel;
 		var vals = args[1].vals;
 		$.fn.hummingbird.showNode($(this),sel,vals);
+	    });
+	}
+
+	//disableParentNodeOnCollapse
+	if (methodName == "disableParentNodeOnCollapse") {
+	    return this.each(function(){
+		var sel = args[1].sel;
+		var vals = args[1].vals;
+		if (typeof args[1].state !== 'undefined') {
+		    var state = args[1].state;
+		} else {
+		    var state = true;
+		}
+		$.fn.hummingbird.disableParentNodeOnCollapse($(this),sel,vals,state);
 	    });
 	}
 	
@@ -800,6 +845,9 @@
 	var that_nodes = tree.find('label:not(.disableToggle)');
 	that_nodes.siblings("ul").hide();
 	that_nodes.siblings('.' + expandedSymbol).removeClass(expandedSymbol).addClass(collapsedSymbol);
+	//console.log(" a node has been collapsed")
+	//console.log("collapseAll")
+	tree.trigger("nodeCollapsed");
     };
 
     //------------------expandAll------------------//
@@ -807,22 +855,27 @@
 	var that_nodes = tree.find('label:not(.disableToggle)');
 	that_nodes.siblings("ul").show();
 	that_nodes.siblings('.' + collapsedSymbol).removeClass(collapsedSymbol).addClass(expandedSymbol);
+	tree.trigger("nodeExpanded");
     };
 
     //-------------------collapseSingle---------------//
-    $.fn.hummingbird.collapseSingle = function(node,collapsedSymbol,expandedSymbol){
+    $.fn.hummingbird.collapseSingle = function(tree,node,collapsedSymbol,expandedSymbol){
 	if (!node.next('label').hasClass('disableToggle')){
 	    node.parent("li").children("ul").hide();
-	    node.removeClass(expandedSymbol).addClass(collapsedSymbol);
+	    node.removeClass(expandedSymbol).addClass(collapsedSymbol);	    
+	    // console.log("collapseSingle")
+	    // console.log(node)
+	    tree.trigger("nodeCollapsed");
 	}
     };
 
     //-------------------expandSingle---------------//
-    $.fn.hummingbird.expandSingle = function(node,collapsedSymbol,expandedSymbol){
+    $.fn.hummingbird.expandSingle = function(tree,node,collapsedSymbol,expandedSymbol){
 	if (!node.next('label').hasClass('disableToggle')){
 	    node.parent("li").children("ul").show();
 	    node.removeClass(collapsedSymbol).addClass(expandedSymbol);
-	}
+	    tree.trigger("nodeExpanded");
+	}	
     };
 
     //-------------------expandNode---------------//
@@ -839,6 +892,7 @@
 		}
 	    }
 	});
+	tree.trigger("nodeExpanded");
     };
 
     //-------------------collapseNode---------------//
@@ -851,11 +905,15 @@
 		//collapse children and change symbol
 		if (collapseChildren === true) {
 		    that_node.parent("label").parent("li").find("ul").hide().siblings("i").removeClass(expandedSymbol).addClass(collapsedSymbol);
+		    //console.log("a node has been collapsed")
 		} else {	    
-		    that_ul.hide().siblings("i").removeClass(expandedSymbol).addClass(collapsedSymbol);
+		    that_ul.hide().siblings("i").removeClass(expandedSymbol).addClass(collapsedSymbol);		    
+		    //console.log("a node has been collapsed")
 		}
 	    }
 	});
+	console.log("collapseNode")
+	tree.trigger("nodeCollapsed");
     };
 
     //-------------------checkNode---------------//
@@ -1026,7 +1084,7 @@
 		this_checkbox.prop("checked",state).prop("disabled",true).parent("label").css({'color':'#c8c8c8',"cursor":"not-allowed","background-color":""});
 	    }
 	});
-	$.fn.hummingbird.triState(tree,false);	
+	$.fn.hummingbird.triState(tree,false);
     };
 
     //-------------------enableNode---------------//
@@ -1052,7 +1110,7 @@
 		this_checkbox.prop("checked",state).prop("disabled",false).parent("label").css({'color':textcolor,"cursor":"pointer"});
 	    }
 	});
-	$.fn.hummingbird.triState(tree,false);	
+	$.fn.hummingbird.triState(tree,false);
     };
 
 
@@ -1094,6 +1152,55 @@
 	$.fn.hummingbird.triState(tree,false);	
     };
 
+    //-------------------disableParentNodeOnCollapse---------------//
+    $.fn.hummingbird.disableParentNodeOnCollapse = function(tree,sel,vals,state){
+	// console.log("showNode")
+	// console.log(attr)
+	// console.log(name)
+	$.each(vals, function(i,e){
+	    if (sel == "text") {
+		name = e.trim();
+		var that_nodes = tree.find('input').parent('label:contains(' + name + ')');
+		var this_checkbox = that_nodes.children('input');
+	    } else {
+		var this_checkbox = tree.find('input[' + sel + '="' + e + '"]');
+	    }
+	    //this_checkbox.hide();
+	    //console.log(this)
+
+	    //add class to ul
+	    if (state){
+		this_checkbox.parent('label').next('ul').addClass("disableParentNodeOnCollapse");
+	    } else {
+		this_checkbox.parent('label').next('ul').removeClass("disableParentNodeOnCollapse");
+	    }
+	    
+	    // var this_checkbox_id = this_checkbox.attr('id');
+
+	    // var this_i = this_checkbox.parent('label').prev('i');
+	    
+	    // function disableParentNodeOnCollapse_func(this_i){
+	    // 	if (!this_i.next('label').next('ul').is(':visible')){
+	    // 	    //console.log("visible")
+	    // 	    tree.hummingbird('enableNode',{sel:"id",vals:[this_checkbox_id]});
+	    // 	} else {
+	    // 	    //console.log(" not visible")
+	    // 	    tree.hummingbird('disableNode',{sel:"id",vals:[this_checkbox_id]});
+	    // 	}
+	    // }
+	    
+	    // this_i.on('click', function(){
+	    // 	disableParentNodeOnCollapse_func(this_i);
+	    // });
+	    // tree.on('nodeCollapsed', function(){
+	    // 	disableParentNodeOnCollapse_func(this_i);
+	    // });
+
+
+	});
+	$.fn.hummingbird.triState(tree,false);	
+    };
+    
 
 
     
@@ -1300,6 +1407,8 @@
 		    $(this).parent('li').children('label').children('input:checkbox').prop("disabled",false).css({"cursor":"pointer"}).parent("label").css({'color':textcolor,"cursor":"pointer","background-color":""});
 		}		
 	    }
+
+
 	    
 	});
 
@@ -1469,6 +1578,32 @@
 	    
 	});
     }
+
+
+    //$(this).on('nodeCollapsed,nodeExpanded', function(){
+    	//check for disableParentNodeOnCollapse
+//	console.log("nodeCollapsed")
+	// if ($(this).hasClass('disableParentNodeOnCollapse')){
+	// 	console.log($(this))
+	// 	console.log("hasClass")
+	// 	//check for visible
+
+	// 	var this_checkbox_id = $(this).prev('label').children('input').attr('id');
+	// 	console.log(this_checkbox_id)
+	
+	// 	if ($(this).is(':visible')){
+	//     	    console.log("visible")
+	// 	    skip_treeState = true;
+	//     	    tree.hummingbird('enableNode',{sel:"id",vals:[this_checkbox_id]});		    
+	//     	} else {
+	//     	    console.log(" not visible")
+	// 	    skip_treeState = true;
+	//     	    tree.hummingbird('disableNode',{sel:"id",vals:[this_checkbox_id]});
+	//     	}
+	//     }
+  //  });
+
+
     //----------------------------search--------------------------------------//
 })(jQuery);
 

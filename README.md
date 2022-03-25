@@ -574,6 +574,30 @@ $(document).on("reCheckGroup", function(){
 
 ```
 
+- **parent-selection-only-if-expanded**<br>  
+This snippet holds a parent node always disabled, except if it is
+expanded. Therefore we first disable the node (here that with
+id="hum_3").  Then we react on a click on the collapse / expand
+symbol, enclosed in the "i" tag.  Following we check the "visible"
+property. According to that we either enable or disable the node.
+
+``` javascript
+$("#treeview").hummingbird('disableNode',{sel:"id",vals:["hum_3"]});
+
+$('#hum_3').parent('label').prev('i').on('click', function(){
+    if (!$(this).next('label').next('ul').is(':visible')){
+        console.log("visible")
+        $("#treeview").hummingbird('enableNode',{sel:"id",vals:["hum_3"]});
+    } else {
+        console.log(" not visible")
+        $("#treeview").hummingbird('disableNode',{sel:"id",vals:["hum_3"]});
+	}
+});
+
+
+```
+
+
 ## Methods
 Methods are used to interact with the treeview programmatically. Following methods are available:
 
@@ -712,7 +736,7 @@ $("#treeview").hummingbird("enableNode",{sel:"id",vals: ["hum_5", "hum_13", "hum
 
 ```
 
-- **hideNode(sel,vals})**<br> Hide nodes, which are identified by their id's, data-id's or text,
+- **hideNode(sel,vals)**<br> Hide nodes, which are identified by their id's, data-id's or text,
   which has to be defined in the *sel* parameter. The *vals* array
   holds the names of the id's, data-id's, or text. 
 
@@ -722,7 +746,7 @@ $("#treeview").hummingbird("hideNode",{sel:"id",vals: ["hum_5","hum_6"]});
 
 ```
 
-- **showNode(sel,vals})**<br> Show previously hidden nodes, which are
+- **showNode(sel,vals)**<br> Show previously hidden nodes, which are
   identified by their id's, data-id's or text, which has to be defined in
   the *sel* parameter. The *vals* array holds the names of the id's,
   data-id's, or text. 
@@ -730,6 +754,17 @@ $("#treeview").hummingbird("hideNode",{sel:"id",vals: ["hum_5","hum_6"]});
 ```javascript
 
 $("#treeview").hummingbird("showNode",{sel:"id",vals: ["hum_5","hum_6"]});
+
+```
+
+- **disableParentNodeOnCollapse(sel,vals,{state})**<br> As long as the
+  node is collapsed, it is disabled, and as soon as the node is
+  expanded, the node will be enabled. If state=false this function
+  will be disabled on that node. Default is state=true.
+
+```javascript
+
+$("#treeview").hummingbird("disableParentNodeOnCollapse",{sel:"id",vals: ["hum_5","hum_6"],state:true});
 
 ```
 
@@ -1090,6 +1125,7 @@ $("#treeview").on("nodeUnchecked", function(){
 
 ```
 
+
 - **CheckUncheckDone**<br>
   This event is fired if a node has been
   checked or unchecked and all treeview
@@ -1105,3 +1141,26 @@ $("#treeview").on("CheckUncheckDone", function(){
 
 ```
 
+
+- **nodeCollapsed**<br>
+  This event is fired if a parent node has been collapsed and can be catched like this:
+
+```javascript
+
+$("#treeview").on("nodeCollapsed", function(){
+   do something ...
+});
+
+```
+
+
+- **nodeExpanded**<br>
+  This event is fired if a parent node has been expanded and can be catched like this:
+
+```javascript
+
+$("#treeview").on("nodeExpanded", function(){
+   do something ...
+});
+
+```
