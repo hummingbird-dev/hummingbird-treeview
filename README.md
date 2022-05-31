@@ -28,10 +28,12 @@ checkboxes) and restore it at any time.
 
 So then, have fun with the new hummingbird-treeview !
 
-
+<!--
 ## Demo
 
 #### [https://hummingbird-dev.000webhostapp.com](https://hummingbird-dev.000webhostapp.com).
+-->
+
 
 ## Features
 
@@ -108,6 +110,14 @@ Or integrate the resources via CDNs:
     <script src="https://cdn.jsdelivr.net/gh/hummingbird-dev/hummingbird-treeview@v3.0.4/hummingbird-treeview.min.js"></script>
 
 ```
+
+or include font-awesome v5.8.1 instead of font-awesome v4.7.0:
+
+```html
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+```
+
+
 
 The treeview input data can have two different formats, a very simple
 pseudo HTML list or a real HTML list structure. The simple pseudo HTML
