@@ -224,7 +224,7 @@ $("#treeview3").hummingbird();
 
 
 
-### 2. Simple pseudo HTML plus height, scroll, id, data-id, datat-css, data-str
+### 2. Simple pseudo HTML plus height, scroll, id, data-id, data-css, data-str, data-nonHoverColor, data-nonHoverColor_bg, data-HoverColor, data-HoverColor_bg
 
 ``` html
 
@@ -232,7 +232,7 @@ $("#treeview3").hummingbird();
 	 data-scroll="false" data-id="_movies" data-css="overflow-x:scroll; background-color:coral;">
         <li id="item_1" data-id="Studio_1">Warner Bros.</li>
         <li id="item_2" data-id="Movie_1">-Goodfellas</li>
-        <li id="item_3" data-id="Actor_1">--Robert De Niro</li>
+		<li id="item_3" data-id="Actor_1" data-nonHoverColor="#25610b" data-nonHoverColor_bg="yellow" data-HoverColor="red" data-HoverColor_bg="blue">--Robert De Niro</li>
         <li id="item_4" data-id="Actor_2">--Joe Pesci</li>
         <li id="item_5" data-id="Movie_2">-The Shawshank Redemption</li>
         <li id="item_6" data-id="Actor_3">--Tim Robbins</li>
@@ -248,14 +248,25 @@ $("#treeview3").hummingbird();
 	
 ```
 
-Set the height of the treeview element "relative" with *data-height="100%"* or "absolute" with *data-height="350px"* and make it
-fully scrollable with *data-scroll="true"*. Additionally it is possible to set custom ids and
-data-ids. Set a data-id (e.g. to "_movies") to the div class="hummingbird-treeview-converter"
-to address the treeview via the id "treeview_movies". Leave it empty to use the standard id "treeview".
-Use *data-css* to inject arbitrary CSS. The example above uses a dynamical (relative) height and only scolling in x direction.
-Add more custom functionality to the nodes by injecting the "data-str", see node "The Untouchables" above.
-The "data-str" has custom commands enclosed in single quotes, which can be used e.g. by other JavaScript methods.
-In this example we use Bootstraps tool-tips to show the production year of the movie in a tool-tip.
+Set the height of the treeview element "relative" with
+*data-height="100%"* or "absolute" with *data-height="350px"* and make
+it fully scrollable with *data-scroll="true"*. Additionally it is
+possible to set custom ids and data-ids. Set a data-id (e.g. to
+"_movies") to the div class="hummingbird-treeview-converter" to
+address the treeview via the id "treeview_movies". Leave it empty to
+use the standard id "treeview".  The example above uses a dynamical
+(relative) height and only scolling in x direction.  Add more custom
+functionality to the nodes by injecting the "data-str", see node "The
+Untouchables" above.  The "data-str" has custom commands enclosed in
+single quotes, which can be used e.g. by other JavaScript methods.  In
+this example we use Bootstraps tool-tips to show the production year
+of the movie in a tool-tip.  Use *data-css* to inject arbitrary CSS,
+**except** text colors and background colors. Because those change
+dynamically on hover. Therefore use *data-nonHoverColor,
+data-nonHoverColor_bg, data-HoverColor, data-HoverColor_bg* as in the
+example above with "Robert De Niro". Note that these options don't
+work with *hoverMode="bootstrap"*, only with the default hoverMode,
+i.e. *hoverMode="html"*
 
 
 Set options, e.g.: (detailed description of all options below)

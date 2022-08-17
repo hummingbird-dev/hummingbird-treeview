@@ -1,5 +1,10 @@
 # CHANGES
 
+## 2022/08/17
+
+- New data-* attributes to set text colors and background colors for individual nodes: *data-nonHoverColor,
+  data-nonHoverColor_bg, data-HoverColor, data-HoverColor_bg*.
+
 ## 2022/03/25
 
 - New method: disableParentNodeOnCollapse

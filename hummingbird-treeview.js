@@ -128,6 +128,26 @@
 		} else {
 		    data_str = "";
 		}
+		if ($(this).attr("data-nonHoverColor")) {
+		    data_nonHoverColor = $(this).attr("data-nonHoverColor");
+		} else {
+		    data_nonHoverColor = "";
+		}
+		if ($(this).attr("data-HoverColor")) {
+		    data_HoverColor = $(this).attr("data-HoverColor");
+		} else {
+		    data_HoverColor = "";
+		}
+		if ($(this).attr("data-nonHoverColor_bg")) {
+		    data_nonHoverColor_bg = $(this).attr("data-nonHoverColor_bg");
+		} else {
+		    data_nonHoverColor_bg = "";
+		}
+		if ($(this).attr("data-HoverColor_bg")) {
+		    data_HoverColor_bg = $(this).attr("data-HoverColor_bg");
+		} else {
+		    data_HoverColor_bg = "";
+		}
 
 		
 		
@@ -147,7 +167,7 @@
 		    //
 		    item = item + '<li data-id="' + numHyphen + '">' +"\n";
 		    item = item + '<i class="fa fa-plus"></i>' + "\n";
-		    item = item + '<label ' + data_str  + '>' + "\n";
+		    item = item + '<label ' + data_str  + 'data-nonhovercolor="' + data_nonHoverColor + '" ' +  'data-hovercolor="' + data_HoverColor + '" ' + 'data-nonhovercolor_bg="' + data_nonHoverColor_bg + '" ' +  'data-hovercolor_bg="' + data_HoverColor_bg + '">' + "\n";
 		    if (boldParents){
 			item = item + '<input id="' + id_str  + '" data-id="' + data_id + '" type="checkbox" /> <b>' + treeText + '</b>';
 		    } else {
@@ -160,7 +180,7 @@
 		//hummingbird-end-node
 		if (numHyphen == numHyphen_next) {
 		    item = item + '<li>' +"\n";
-		    item = item + '<label ' + data_str  + '>' + "\n";
+		    item = item + '<label ' + data_str  + 'data-nonhovercolor="' + data_nonHoverColor + '" ' +  'data-hovercolor="' + data_HoverColor + '" ' + 'data-nonhovercolor_bg="' + data_nonHoverColor_bg + '" ' +  'data-hovercolor_bg="' + data_HoverColor_bg + '">' + "\n";
 		    item = item + '<input class="hummingbird-end-node" id="' + id_str + '" data-id="' + data_id + '" type="checkbox" /> ' + treeText;
 		    item = item + '</label>' + "\n";
 		    item = item + '</li>' + "\n";
@@ -171,7 +191,7 @@
 		//thus close this ul
 		if (numHyphen > numHyphen_next) {
 		    item = item + '<li>' +"\n";
-		    item = item + '<label ' + data_str  + '>' + "\n";
+		    item = item + '<label ' + data_str  + 'data-nonhovercolor="' + data_nonHoverColor + '" ' +  'data-hovercolor="' + data_HoverColor + '" ' + 'data-nonhovercolor_bg="' + data_nonHoverColor_bg + '" ' +  'data-hovercolor_bg="' + data_HoverColor_bg + '">' + "\n";
 		    item = item + '<input class="hummingbird-end-node" id="' + id_str + '" data-id="' + data_id + '" type="checkbox" /> ' + treeText;
 		    item = item + '</label>' + "\n";
 		    item = item + '</li>' + "\n";
@@ -258,8 +278,27 @@
 
 		//set text color
 		textcolor = options.hoverColorText2;
-		$(this).find("label").css({'background-color':options.hoverColorBg2, 'color':options.hoverColorText2});
+		//$(this).find("label").css({'background-color':options.hoverColorBg2, 'color':options.hoverColorText2});
 		//console.log(options.hoverColorText2)
+		//set individual text colors
+
+		var all_labels_to_set_color = $(this).find("label");
+		$.each(all_labels_to_set_color, function(){
+		    if ($(this).attr("data-nonhovercolor") == "" || $(this).attr("data-nonhovercolor") == undefined){
+			var forground_text_color = options.hoverColorText2;
+		    } else {
+			var forground_text_color = $(this).attr("data-nonhovercolor");
+		    }
+		    if ($(this).attr("data-nonhovercolor_bg") == "" || $(this).attr("data-nonhovercolor_bg") == undefined){
+			var background_text_color = options.hoverColorBg2;
+		    } else {
+			var background_text_color = $(this).attr("data-nonhovercolor_bg");
+		    }
+		    $( this ).css({'background-color':background_text_color, 'color':forground_text_color});
+		});
+		
+
+
 		
 		//hoverItem
 		if (options.hoverItems == true) {
@@ -286,14 +325,34 @@
 		    }
 		    //html
 		    if (options.hoverMode == "html"){
-			this_labels.hover(function() {                             
-                          if ($(this).children('input').prop('disabled') == false){            
-		    	    $( this ).css({'background-color':options.hoverColorBg1, 'color':options.hoverColorText1});
-                          }
+			this_labels.hover(function() {
+			    if ($(this).children('input').prop('disabled') == false){            
+				if ($(this).attr("data-hovercolor") == "" || $(this).attr("data-hovercolor") == undefined){
+				    var forground_text_color = options.hoverColorText1;
+				} else {
+				    var forground_text_color = $(this).attr("data-hovercolor");
+				}
+				if ($(this).attr("data-hovercolor_bg") == "" || $(this).attr("data-hovercolor_bg") == undefined){
+				    var background_text_color = options.hoverColorBg1;
+				} else {
+				    var background_text_color = $(this).attr("data-hovercolor_bg");
+				}
+				$( this ).css({'background-color':background_text_color, 'color':forground_text_color});
+			    }
 			}, function() {
-                           if ($(this).children('input').prop('disabled') == false){
-                             $( this ).css({'background-color':options.hoverColorBg2, 'color':options.hoverColorText2});
-                           }
+                            if ($(this).children('input').prop('disabled') == false){
+				if ($(this).attr("data-nonhovercolor") == "" || $(this).attr("data-nonhovercolor") == undefined){
+				    var forground_text_color = options.hoverColorText2;
+				} else {
+				    var forground_text_color = $(this).attr("data-nonhovercolor");
+				}
+				if ($(this).attr("data-nonhovercolor_bg") == "" || $(this).attr("data-nonhovercolor_bg") == undefined){
+				    var background_text_color = options.hoverColorBg2;
+				} else {
+				    var background_text_color = $(this).attr("data-nonhovercolor_bg");
+				}
+				$( this ).css({'background-color':background_text_color, 'color':forground_text_color});
+                            }
 			});
 		    }
                     
