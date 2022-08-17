@@ -232,7 +232,7 @@ $("#treeview3").hummingbird();
 	 data-scroll="false" data-id="_movies" data-css="overflow-x:scroll; background-color:coral;">
         <li id="item_1" data-id="Studio_1">Warner Bros.</li>
         <li id="item_2" data-id="Movie_1">-Goodfellas</li>
-		<li id="item_3" data-id="Actor_1" data-nonHoverColor="#25610b" data-nonHoverColor_bg="yellow" data-HoverColor="red" data-HoverColor_bg="blue">--Robert De Niro</li>
+        <li id="item_3" data-id="Actor_1" data-nonHoverColor="#25610b" data-nonHoverColor_bg="yellow" data-HoverColor="red" data-HoverColor_bg="blue">--Robert De Niro</li>
         <li id="item_4" data-id="Actor_2">--Joe Pesci</li>
         <li id="item_5" data-id="Movie_2">-The Shawshank Redemption</li>
         <li id="item_6" data-id="Actor_3">--Tim Robbins</li>
